@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="Pertenece" directorySegmentName="seg_0" id="CD6FBAC1-8AF2-5AE8-DB21-53112A1ADB78">
+<createdBy>José Ángel</createdBy>
+<createdTime>2019-03-18 08:21:11 UTC</createdTime>
+<ownerDesignName>aplicacionweb</ownerDesignName>
+<engineerTo>
+<item key="30236F03-14AC-BDA5-B6AA-2C2637A2818E" value="true"/>
+</engineerTo>
+<identifying>false</identifying>
+<nameOnSource>usuarios</nameOnSource>
+<nameOnTarget>grupos</nameOnTarget>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>*</sourceCardinality>
+<sourceEntity>47FE6A09-5B60-BF7F-03A6-87D639A9EF1B</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>C3EAF707-926A-2100-9FCC-89DDBDFC8E02</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

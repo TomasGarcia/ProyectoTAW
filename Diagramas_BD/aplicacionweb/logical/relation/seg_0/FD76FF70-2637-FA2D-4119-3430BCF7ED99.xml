@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="Publicaciones" directorySegmentName="seg_0" id="FD76FF70-2637-FA2D-4119-3430BCF7ED99">
+<createdBy>José Ángel</createdBy>
+<createdTime>2019-03-18 08:33:08 UTC</createdTime>
+<ownerDesignName>aplicacionweb</ownerDesignName>
+<engineerTo>
+<item key="30236F03-14AC-BDA5-B6AA-2C2637A2818E" value="true"/>
+</engineerTo>
+<sourcePk>FF283F9B-D07E-508A-C78F-E7C6866594CB</sourcePk>
+<identifying>false</identifying>
+<nameOnSource>posts</nameOnSource>
+<nameOnTarget>grupos</nameOnTarget>
+<optionalSource>true</optionalSource>
+<optionalTarget>true</optionalTarget>
+<sourceCardinality>*</sourceCardinality>
+<sourceEntity>3FF8AE17-82CF-B307-54D6-291F870111A1</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>C3EAF707-926A-2100-9FCC-89DDBDFC8E02</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

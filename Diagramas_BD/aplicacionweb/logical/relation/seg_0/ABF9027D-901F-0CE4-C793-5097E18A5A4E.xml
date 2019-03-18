@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="Enviar" directorySegmentName="seg_0" id="ABF9027D-901F-0CE4-C793-5097E18A5A4E">
+<createdBy>José Ángel</createdBy>
+<createdTime>2019-03-18 08:51:01 UTC</createdTime>
+<ownerDesignName>aplicacionweb</ownerDesignName>
+<engineerTo>
+<item key="30236F03-14AC-BDA5-B6AA-2C2637A2818E" value="true"/>
+</engineerTo>
+<sourcePk>55C9193E-B715-1E9F-A4B0-5C626961A5CC</sourcePk>
+<identifying>true</identifying>
+<nameOnSource>envia</nameOnSource>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>47FE6A09-5B60-BF7F-03A6-87D639A9EF1B</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>05BFB423-53A8-D7EB-7C91-CC2DCED6B9A0</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

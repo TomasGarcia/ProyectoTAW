@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="aplicacionweb" id="21779327-0307-3014-3667-EB8ACBEACBE3" version="3.5">
+<createdBy>José Ángel</createdBy>
+<createdTime>2019-03-18 08:08:20 UTC</createdTime>
+<ownerDesignName>aplicacionweb</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>21779327-0307-3014-3667-EB8ACBEACBE3</designId>
+</OSDM_Design>

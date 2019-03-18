@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="Amistad" directorySegmentName="seg_0" id="D0A340E0-04DD-D5EC-0A36-9557EBD91D50">
+<createdBy>José Ángel</createdBy>
+<createdTime>2019-03-18 08:39:28 UTC</createdTime>
+<ownerDesignName>aplicacionweb</ownerDesignName>
+<engineerTo>
+<item key="30236F03-14AC-BDA5-B6AA-2C2637A2818E" value="true"/>
+</engineerTo>
+<identifying>false</identifying>
+<nameOnSource>amigo1</nameOnSource>
+<nameOnTarget>amigo2</nameOnTarget>
+<optionalSource>true</optionalSource>
+<optionalTarget>true</optionalTarget>
+<sourceCardinality>*</sourceCardinality>
+<sourceEntity>47FE6A09-5B60-BF7F-03A6-87D639A9EF1B</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>47FE6A09-5B60-BF7F-03A6-87D639A9EF1B</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

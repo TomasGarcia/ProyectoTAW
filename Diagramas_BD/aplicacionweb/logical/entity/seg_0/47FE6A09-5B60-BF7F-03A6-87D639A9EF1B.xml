@@ -1,0 +1,162 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="47FE6A09-5B60-BF7F-03A6-87D639A9EF1B" name="Usuario">
+<createdBy>José Ángel</createdBy>
+<createdTime>2019-03-18 08:08:41 UTC</createdTime>
+<ownerDesignName>aplicacionweb</ownerDesignName>
+<engineerTo>
+<item key="30236F03-14AC-BDA5-B6AA-2C2637A2818E" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="ID" id="50B857F9-7F86-4E5A-A5E5-47249FA7E15D">
+<createdBy>José Ángel</createdBy>
+<createdTime>2019-03-18 08:23:53 UTC</createdTime>
+<ownerDesignName>aplicacionweb</ownerDesignName>
+<engineerTo>
+<item key="30236F03-14AC-BDA5-B6AA-2C2637A2818E" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Username" id="542E113D-DDC1-7510-BCBD-81135334757B">
+<createdBy>José Ángel</createdBy>
+<createdTime>2019-03-18 08:24:09 UTC</createdTime>
+<ownerDesignName>aplicacionweb</ownerDesignName>
+<engineerTo>
+<item key="30236F03-14AC-BDA5-B6AA-2C2637A2818E" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10 CHAR</dataTypeSize>
+<ownDataTypeParameters>10 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Email" id="CEA200EE-6D36-7D65-C9C5-47A891D460D1">
+<createdBy>José Ángel</createdBy>
+<createdTime>2019-03-18 08:24:52 UTC</createdTime>
+<ownerDesignName>aplicacionweb</ownerDesignName>
+<engineerTo>
+<item key="30236F03-14AC-BDA5-B6AA-2C2637A2818E" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30 CHAR</dataTypeSize>
+<ownDataTypeParameters>30 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Contraseña" id="0B880671-FDAB-62A1-F3E2-4B4105BA0B5F">
+<createdBy>José Ángel</createdBy>
+<createdTime>2019-03-18 08:25:22 UTC</createdTime>
+<ownerDesignName>aplicacionweb</ownerDesignName>
+<engineerTo>
+<item key="30236F03-14AC-BDA5-B6AA-2C2637A2818E" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30 CHAR</dataTypeSize>
+<ownDataTypeParameters>30 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Nombre" id="B4B1D1A0-B756-745E-0277-161C34285818">
+<createdBy>José Ángel</createdBy>
+<createdTime>2019-03-18 08:28:04 UTC</createdTime>
+<ownerDesignName>aplicacionweb</ownerDesignName>
+<engineerTo>
+<item key="30236F03-14AC-BDA5-B6AA-2C2637A2818E" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>40 CHAR</dataTypeSize>
+<ownDataTypeParameters>40 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Apellido" id="5A69E926-9C67-90F4-E8C5-8DB6A52CBF7E">
+<createdBy>José Ángel</createdBy>
+<createdTime>2019-03-18 08:28:28 UTC</createdTime>
+<ownerDesignName>aplicacionweb</ownerDesignName>
+<engineerTo>
+<item key="30236F03-14AC-BDA5-B6AA-2C2637A2818E" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30 CHAR</dataTypeSize>
+<ownDataTypeParameters>30 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Fecha_Nacimiento" id="DF08252F-C2BD-63FE-340C-72C245EDFBD7">
+<createdBy>José Ángel</createdBy>
+<createdTime>2019-03-18 08:29:27 UTC</createdTime>
+<ownerDesignName>aplicacionweb</ownerDesignName>
+<engineerTo>
+<item key="30236F03-14AC-BDA5-B6AA-2C2637A2818E" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Pais" id="015CE82D-75B8-2A9D-0AAF-96F3DF134909">
+<createdBy>José Ángel</createdBy>
+<createdTime>2019-03-18 08:30:20 UTC</createdTime>
+<ownerDesignName>aplicacionweb</ownerDesignName>
+<engineerTo>
+<item key="30236F03-14AC-BDA5-B6AA-2C2637A2818E" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10 CHAR</dataTypeSize>
+<ownDataTypeParameters>10 CHAR,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="55C9193E-B715-1E9F-A4B0-5C626961A5CC" name="Usuario PK">
+<createdBy>José Ángel</createdBy>
+<createdTime>2019-03-18 08:24:06 UTC</createdTime>
+<ownerDesignName>aplicacionweb</ownerDesignName>
+<engineerTo>
+<item key="30236F03-14AC-BDA5-B6AA-2C2637A2818E" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>50B857F9-7F86-4E5A-A5E5-47249FA7E15D</attributeRef>
+</usedAttributes>
+</identifier>
+<identifier id="FBBC07F3-A081-5217-1A19-3FB185CDB7E1" name="Username_UN">
+<createdBy>José Ángel</createdBy>
+<createdTime>2019-03-18 08:26:40 UTC</createdTime>
+<ownerDesignName>aplicacionweb</ownerDesignName>
+<engineerTo>
+<item key="30236F03-14AC-BDA5-B6AA-2C2637A2818E" value="true"/>
+</engineerTo>
+<newElementsIDs>542E113D-DDC1-7510-BCBD-81135334757B</newElementsIDs>
+<usedAttributes>
+<attributeRef>542E113D-DDC1-7510-BCBD-81135334757B</attributeRef>
+</usedAttributes>
+</identifier>
+<identifier id="6433B98E-DB8E-EDCC-02B5-E7194C33E4B6" name="Email_UN">
+<createdBy>José Ángel</createdBy>
+<createdTime>2019-03-18 08:28:59 UTC</createdTime>
+<ownerDesignName>aplicacionweb</ownerDesignName>
+<engineerTo>
+<item key="30236F03-14AC-BDA5-B6AA-2C2637A2818E" value="true"/>
+</engineerTo>
+<newElementsIDs>CEA200EE-6D36-7D65-C9C5-47A891D460D1</newElementsIDs>
+<usedAttributes>
+<attributeRef>CEA200EE-6D36-7D65-C9C5-47A891D460D1</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

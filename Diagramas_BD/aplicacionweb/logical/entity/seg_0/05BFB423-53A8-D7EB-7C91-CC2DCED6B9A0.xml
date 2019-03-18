@@ -1,0 +1,87 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="05BFB423-53A8-D7EB-7C91-CC2DCED6B9A0" name="Peticion">
+<createdBy>José Ángel</createdBy>
+<createdTime>2019-03-18 08:49:03 UTC</createdTime>
+<ownerDesignName>aplicacionweb</ownerDesignName>
+<engineerTo>
+<item key="30236F03-14AC-BDA5-B6AA-2C2637A2818E" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="Fecha" id="00D5A98C-5F0B-19CA-29AF-943486C7105D">
+<createdBy>José Ángel</createdBy>
+<createdTime>2019-03-18 08:49:24 UTC</createdTime>
+<ownerDesignName>aplicacionweb</ownerDesignName>
+<engineerTo>
+<item key="30236F03-14AC-BDA5-B6AA-2C2637A2818E" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Confirmada" id="078C6752-8A54-2CDB-CD9F-544D584B458D">
+<createdBy>José Ángel</createdBy>
+<createdTime>2019-03-18 08:49:59 UTC</createdTime>
+<ownerDesignName>aplicacionweb</ownerDesignName>
+<engineerTo>
+<item key="30236F03-14AC-BDA5-B6AA-2C2637A2818E" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<dataTypeSize>1 BYTE</dataTypeSize>
+<ownDataTypeParameters>1 BYTE,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="ID" id="C3366A7D-F185-93EC-F326-2B83C159E428">
+<createdBy>José Ángel</createdBy>
+<createdTime>2019-03-18 08:51:01 UTC</createdTime>
+<generatorID>ABF9027D-901F-0CE4-C793-5097E18A5A4E</generatorID>
+<ownerDesignName>aplicacionweb</ownerDesignName>
+<engineerTo>
+<item key="30236F03-14AC-BDA5-B6AA-2C2637A2818E" value="true"/>
+</engineerTo>
+<referedAttribute>50B857F9-7F86-4E5A-A5E5-47249FA7E15D</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="ID1" id="84570C22-6404-25E2-1596-08D1D689034C">
+<createdBy>José Ángel</createdBy>
+<createdTime>2019-03-18 08:51:51 UTC</createdTime>
+<generatorID>7EE4791C-7C9D-FEC5-1B2C-ACED4869FD69</generatorID>
+<ownerDesignName>aplicacionweb</ownerDesignName>
+<engineerTo>
+<item key="30236F03-14AC-BDA5-B6AA-2C2637A2818E" value="true"/>
+</engineerTo>
+<referedAttribute>50B857F9-7F86-4E5A-A5E5-47249FA7E15D</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="2C17A7E4-EC05-C16F-995A-3B8896030943" name="Peticion PK">
+<createdBy>José Ángel</createdBy>
+<createdTime>2019-03-18 08:51:01 UTC</createdTime>
+<ownerDesignName>aplicacionweb</ownerDesignName>
+<engineerTo>
+<item key="30236F03-14AC-BDA5-B6AA-2C2637A2818E" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>C3366A7D-F185-93EC-F326-2B83C159E428</attributeRef>
+<attributeRef>84570C22-6404-25E2-1596-08D1D689034C</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>
