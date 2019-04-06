@@ -36,9 +36,9 @@
 				<input class="btn btn-primary" type="submit" value="Sign In" />
 			</div>
                    
-                      <h3 align="center">¿Eres nuevo?</h3>
+                      <h4 align="center">¿Eres nuevo?</h4>
                         <p align="center">
-                            <button class="enlace" role="link" onclick="window.location='registro.html'">Registrarse</button>
+                            <button class="btn btn-primary" role="link" onclick="window.location='registro.html'">Registrarse</button>
                         </p>
                 </form>
               
