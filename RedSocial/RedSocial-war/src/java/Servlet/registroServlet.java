@@ -65,6 +65,10 @@ public class registroServlet extends HttpServlet {
                || request.getParameter("nombre").equals("") || request.getParameter("apellido").equals("") || request.getParameter("pais").equals("") ){
             ready = false;
             //AQUI DEBERIAMOS HACER ALGO QUE MUESTRE UNA VENTANA EMERGENTE DE ERROR DICIENDO "FALTAN DATOS"
+            request.setAttribute("mensaje", "Faltan datos de entrada necesarios");
+            request.setAttribute("url", "registro.html");
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
+            rd.forward(request, response);
         }
         
         
@@ -90,12 +94,20 @@ public class registroServlet extends HttpServlet {
         }else{
             ready = false;
             //ERROR: EL USERNAME NO ESTA DISPONIBLE
+            request.setAttribute("mensaje", "El username indicado no esta disponible");
+            request.setAttribute("url", "registro.html");
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
+            rd.forward(request, response);
         }
         
         if(!AccountUtil.correoEnUso(UsuarioFacade, email)){
             usuario.setEmail(email);
         }else{
             //ERROR: ESE CORREO YA ESTA ASOCIADO A UNA CUENTA
+            request.setAttribute("mensaje", "El correo ya esta asociado a una cuenta");
+            request.setAttribute("url", "registro.html");
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
+            rd.forward(request, response);
         }
         
         if(ready){
