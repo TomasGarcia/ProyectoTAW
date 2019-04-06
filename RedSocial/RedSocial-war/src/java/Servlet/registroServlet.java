@@ -5,8 +5,13 @@
  */
 package Servlet;
 
+import Entities.Usuario;
+import ejb.UsuarioFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
+import java.util.Date;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +24,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "registroServlet", urlPatterns = {"/registroServlet"})
 public class registroServlet extends HttpServlet {
+    
+    @EJB
+    private UsuarioFacade UsuarioFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,20 +39,38 @@ public class registroServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet registroServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet registroServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        //response.setContentType("text/html;charset=UTF-8");
+        //try (PrintWriter out = response.getWriter()) {
+        //    /* TODO output your page here. You may use following sample code. */
+        //    out.println("<!DOCTYPE html>");
+        //    out.println("<html>");
+        //    out.println("<head>");
+        //    out.println("<title>Servlet registroServlet</title>");            
+        //    out.println("</head>");
+        //    out.println("<body>");
+        //    out.println("<h1>Servlet registroServlet at " + request.getContextPath() + "</h1>");
+        //    out.println("</body>");
+        //    out.println("</html>");
+        String username, email, password, nombre, apellido, pais;
+        Date fecha_nacimiento;
+        Usuario usuario;
+        username = request.getParameter("username");
+        email = request.getParameter("email");
+        password = request.getParameter("password");
+        nombre = request.getParameter("nombre");
+        apellido = request.getParameter("apellido");
+        pais = request.getParameter("pais");
+        //fecha_nacimiento = request.getParameter("fecha_nacimiento");
+        
+        usuario = new Usuario();
+        usuario.setNombre(nombre);
+        usuario.setEmail(email);
+        usuario.setClave(password);
+        usuario.setNombre(nombre);
+        usuario.setApellido(apellido);
+        usuario.setPais(pais);
+        //usuario.setId(?????????);
         }
-    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
