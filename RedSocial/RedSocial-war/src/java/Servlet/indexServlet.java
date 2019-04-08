@@ -43,8 +43,8 @@ public class indexServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
 
-        String email = new String(request.getParameter("email").getBytes("ISO-8559-1"), "UTF-8");
-        String password = new String(request.getParameter("password").getBytes("IS0-8559-1"), "utf-8");
+        String email = request.getParameter("email");//.getBytes("ISO-8559-1"), "UTF-8");
+        String password =(request.getParameter("password"));//.getBytes("IS0-8559-1"), "utf-8");
 
         for (Usuario u : userFacade.findAll()) {
             if (u.getEmail().equals(email) && u.getClave().equals(password)) {
@@ -57,16 +57,18 @@ public class indexServlet extends HttpServlet {
         //Atributo que será creado en la sesion y recogido en index.jsp para que si ha introducido datos invalidos (log==false) le muestre un error
         session.setAttribute("log", log);
 
-        String redirect = "/home.jsp";
+        String redirect = "/muro.jsp";
         if (!log) {
             request.setAttribute("mensaje", "Email o clave incorrecta");
             request.setAttribute("url", "index.jsp");
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
+        }else{
+           RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(redirect);
+           dispatcher.forward(request, response);  
         }
 
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(redirect);
-        dispatcher.forward(request, response);
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
