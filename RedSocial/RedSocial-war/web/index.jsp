@@ -35,13 +35,14 @@
 			<div class="text-center">
 				<input class="btn btn-primary" type="submit" value="Sign In" />
 			</div>
-                   
-                      <h4 align="center">¿Eres nuevo?</h4>
-                        <p align="center">
-                            <button class="btn btn-primary" role="link" onclick="window.location='registro.html'">Registrarse</button>
-                        </p>
                 </form>
-              
+                <div>
+                      <h4 align="center">¿Eres nuevo?</h4>
+                           <p align="center">
+                               <button class="btn btn-primary" role="link" onclick="window.location='registro.html'">Registrarse</button>
+                            </p>
+                </div>
+                
         </div>
    
        

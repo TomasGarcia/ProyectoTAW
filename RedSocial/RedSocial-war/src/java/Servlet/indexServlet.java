@@ -15,7 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import Entities.Usuario;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.jsp.PageContext;
 
 /**
  *
@@ -24,8 +27,8 @@ import javax.servlet.RequestDispatcher;
 @WebServlet(name = "indexServlet", urlPatterns = {"/indexServlet"})
 public class indexServlet extends HttpServlet {
 
-    private UsuarioFacade userFacade;
 
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -42,33 +45,45 @@ public class indexServlet extends HttpServlet {
         int id = -1;
 
         HttpSession session = request.getSession();
+        
+        UsuarioFacade userFacade;
 
-        String email = request.getParameter("email");//.getBytes("ISO-8559-1"), "UTF-8");
-        String password =(request.getParameter("password"));//.getBytes("IS0-8559-1"), "utf-8");
 
-        for (Usuario u : userFacade.findAll()) {
-            if (u.getEmail().equals(email) && u.getClave().equals(password)) {
-                id = u.getId();
-                log = true;
-            }
+        userFacade = (UsuarioFacade)session.getAttribute("userDB");
+
+        if (userFacade == null) {
+            userFacade = new UsuarioFacade();
+            session.setAttribute("userDB", userFacade);
+        }else{
+            String email = request.getParameter("email");//.getBytes("ISO-8559-1"), "UTF-8");
+            String password =(request.getParameter("password"));//.getBytes("IS0-8559-1"), "utf-8");
+
+            List<Usuario> usuarios = userFacade.findAll();
+            if(usuarios != null){
+               for (Usuario u : usuarios) {
+                    if (u.getEmail().equals(email) && u.getClave().equals(password)) {
+                        id = u.getId();
+                        log = true;
+                    }
+                }
+            }           
         }
+        
 
-        session.setAttribute("id", id);
-        //Atributo que será creado en la sesion y recogido en index.jsp para que si ha introducido datos invalidos (log==false) le muestre un error
-        session.setAttribute("log", log);
-
+        
         String redirect = "/muro.jsp";
         if (!log) {
             request.setAttribute("mensaje", "Email o clave incorrecta");
             request.setAttribute("url", "index.jsp");
-            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
-            rd.forward(request, response);
+            redirect = "/error.jsp";
         }else{
-           RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(redirect);
-           dispatcher.forward(request, response);  
+            session.setAttribute("id", id);
+            //Atributo que será creado en la sesion y recogido en index.jsp para que si ha introducido datos invalidos (log==false) le muestre un error
+            session.setAttribute("log", log);
         }
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(redirect);
+        dispatcher.forward(request, response);  
 
-       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
