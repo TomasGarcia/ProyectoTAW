@@ -14,6 +14,8 @@ import javax.persistence.PersistenceContext;
  *
  * @author Hp
  */
+import java.util.List;
+import javax.persistence.Query;
 @Stateless
 public class PostFacade extends AbstractFacade<Post> {
 
@@ -29,4 +31,13 @@ public class PostFacade extends AbstractFacade<Post> {
         super(Post.class);
     }
     
+    //Get all the posts
+    public List<Post> getPostList(){
+        List<Post> list;
+        Query q;
+        q = this.em.createQuery("SELECT p FROM Post p");
+        
+        list = q.getResultList();
+        return list;
+    }
 }

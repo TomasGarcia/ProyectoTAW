@@ -3,12 +3,15 @@
     Created on : 01-abr-2019, 9:39:11
     Author     : Hp
 --%>
-<%@page import="Entities.Post"%>
+<%@page import= "Entities.Usuario" %>
+<%@page import= "Entities.Post"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
 <%
-    List<Post> posts = (List)request.getAttribute("listaPosts");
+    
+    List<Post> PostsList = (List<Post>)request.getAttribute("PostList");
+    
 %>
 <html>
     <head>
@@ -16,21 +19,24 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Menu Principal</title>
         
-    <button>Mi Perfil</button>
     </head>
     <body>
-        <h1>Publicaciones</h1>
+        <!--Perfil con datos personales-->
+        <button class="btn btn-primary" role="link" onclick="window.location='profile.jsp'">Mi perfil</button>
         
-        <%
-            for(Post post : posts){
-        %>
-        
-        
-        
-        <%
-               }
-        %>
-        
+        <!--Publicaciones-->
+        <div>
+            <h1>Publicaciones</h1>
+            <%
+               for(Post p : PostsList){ 
+            %>  
+                <h2><%=p.getUsuarioId().getUsername()%></h2>
+                <%=p.getTexto()%>
+            <%
+                }
+             %>    
+        </div>
+       
         
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
