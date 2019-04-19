@@ -16,7 +16,7 @@
     <body>
         <h1 class="display-4" align="center">Nueva Publicación</h1>
         <div class="mx-auto" style="width: 400px;">
-            <form method="get" action="registroServlet" name="registro" accept-charset="utf-8">
+            <form method="post" action="newpostServlet" name="newpostServlet" accept-charset="utf-8">
                 <div class="mx-auto d-block">
                     <label>Título</label>
                     <input class="form-control" name="titulo">
@@ -34,7 +34,7 @@
                 <button class="btn btn-primary" role="link" onclick="window.location='muro.jsp'">Publicar</button>
                 <div>
                 <br>
-                <button class="btn btn-primary" role="link" onclick="window.location='index.jsp'">Volver</button>
+                <button class="btn btn-primary" role="link" onclick="window.location='muro.jsp'">Volver</button>
                 </div
             </form>
         </div>
