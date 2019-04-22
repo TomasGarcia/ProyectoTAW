@@ -20,6 +20,10 @@
         <div class="mx-auto" style="width: 400px;">
             <form method="post" action="profileServlet" name="profile" accept-charset="utf-8">
                 <div class="mx-auto d-block">
+                    <label>ID</label>
+                    <input type = "hidden" class="form-control" name="id" value = "<%=usuario.getId()%>">
+                </div> 
+                <div class="mx-auto d-block">
                     <label>Nombre de Usuario</label>
                     <input type = "hidden" class="form-control" name="username" value = "<%=usuario.getUsername()%>">
                 </div>   
