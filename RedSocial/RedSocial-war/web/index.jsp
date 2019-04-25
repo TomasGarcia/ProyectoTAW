@@ -14,8 +14,8 @@
         
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <img class="mx-auto d-block" src="https://github.com/TomasGarcia/ProyectoTAW/blob/master/RedSocial/RedSocial-war/src/java/logo.png?raw=true"  border="0" alt="error" width="200" height="200">
-	<div class="container">
+        <%-- <img class="mx-auto d-block" src="https://github.com/TomasGarcia/ProyectoTAW/blob/master/RedSocial/RedSocial-war/src/java/logo.png?raw=true"  border="0" alt="error" width="200" height="200">
+	--%><div class="container">
         
         
     </head>

@@ -66,7 +66,7 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
-    @Column(name = "clave")
+    @Column(name = "password")
     private String clave;
     @Size(max = 40)
     @Column(name = "nombre")

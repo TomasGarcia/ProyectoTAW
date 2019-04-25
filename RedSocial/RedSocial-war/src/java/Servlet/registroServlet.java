@@ -19,7 +19,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import static Utils.AccountUtil.usuarioDisponible;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
 
@@ -29,7 +37,7 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "registroServlet", urlPatterns = {"/registroServlet"})
 public class registroServlet extends HttpServlet {
-    
+
     @EJB
     private UsuarioFacade UsuarioFacade;
 
@@ -43,19 +51,7 @@ public class registroServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        //response.setContentType("text/html;charset=UTF-8");
-        //try (PrintWriter out = response.getWriter()) {
-        //    /* TODO output your page here. You may use following sample code. */
-        //    out.println("<!DOCTYPE html>");
-        //    out.println("<html>");
-        //    out.println("<head>");
-        //    out.println("<title>Servlet registroServlet</title>");            
-        //    out.println("</head>");
-        //    out.println("<body>");
-        //    out.println("<h1>Servlet registroServlet at " + request.getContextPath() + "</h1>");
-        //    out.println("</body>");
-        //    out.println("</html>");
+            throws ServletException, IOException, SQLException, ParseException {
         String username, email, password, nombre, apellido, pais;
         Date fecha_nacimiento;
         Usuario usuario, user;
@@ -78,18 +74,30 @@ public class registroServlet extends HttpServlet {
         nombre = request.getParameter("nombre");
         apellido = request.getParameter("apellido");
         pais = request.getParameter("pais");
-        //fecha_nacimiento = request.getParameter("fecha_nacimiento");
+        
+        
+        fecha_nacimiento = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("fecha_nacimiento"));
+        
+        
+        
+        System.out.println(username);
+        System.out.println(email);
+        System.out.println(password);
+        System.out.println(nombre);
+        System.out.println(apellido);
+        System.out.println(pais);
+        System.out.println(fecha_nacimiento);
         
         usuario = new Usuario();
+        usuario.setId(0);
         usuario.setNombre(nombre);
         usuario.setClave(password);
         usuario.setNombre(nombre);
         usuario.setApellido(apellido);
         usuario.setPais(pais);
-        //usuario.setId(?????????);
-        //usuario.setFeecha_Nacimiento(???????)
+        usuario.setFechaNacimiento(fecha_nacimiento);
         
-        if(!usuarioDisponible(UsuarioFacade,username)){
+        if(usuarioDisponible(UsuarioFacade,username)){
             usuario.setUsername(username);
         }else{
             ready = false;
@@ -112,14 +120,17 @@ public class registroServlet extends HttpServlet {
         
         if(ready){
             HttpSession session = request.getSession();
-            user = (Usuario) session.getAttribute("userLogin"); //No se si esta bien
-            List<Usuario> listaUsuarios = this.UsuarioFacade.findAll();
-            session.setAttribute("listaUsuarios", listaUsuarios);
+//          user = (Usuario) session.getAttribute("userLogin"); //No se si esta bien
+            this.UsuarioFacade.create(usuario);
+            UsuarioFacade userF = (UsuarioFacade)session.getAttribute("userDB");
+            if(userF == null){
+                userF = new UsuarioFacade();
+            }
+            session.setAttribute("userDB", userF);
             request.setAttribute("usuarioCreado", usuario);
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/index.jsp");
             rd.forward(request, response);
         }
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -134,7 +145,13 @@ public class registroServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(registroServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(registroServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -148,7 +165,13 @@ public class registroServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(registroServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(registroServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

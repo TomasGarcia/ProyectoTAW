@@ -15,12 +15,7 @@ import Entities.Usuario;
  */
 public class AccountUtil {
     public static boolean usuarioDisponible(UsuarioFacade facade, String username){
-        List<Usuario> lista = facade.findAll();
-        int i = 0;
-        while(i < lista.size() && lista.get(i).getUsername() != username){
-            i++;
-        }
-        return i != lista.size();
+     return facade.buscarUsuarioPorUsername(username).isEmpty();
     }
     
     public static boolean correoEnUso(UsuarioFacade facade, String email){
