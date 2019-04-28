@@ -20,15 +20,23 @@
                 <div class="mx-auto d-block">
                     <label>Título</label>
                     <input class="form-control" name="titulo">
-                </div>   
-                <div class="mx-auto d-block">
-                    <label>Adjuntar Archivos</label>
-                    <input type="file" name="archivo">
-                </div>  
+                </div>
                 <div class="mx-auto d-block">
                     <label>Contenido</label>
-                    <textarea name="contenido" rows="10" cols="40">Escribe aquí </textarea>
-                </div>  
+                    <textarea name="texto" rows="10" cols="40">Escribe aquí </textarea>
+                </div> 
+                <div class="mx-auto d-block">
+                    <label>Adjuntar Imagen</label>
+                    <input type="url" name="imagen">
+                </div>
+                
+                <div class="mx-auto d-block">
+                    <label>Adjuntar Video</label>
+                    <input type="url" name="video">
+                </div>
+                
+                
+                 
                 
                 <br>
                 <button class="btn btn-primary" role="link" onclick="window.location='muro.jsp'">Publicar</button>

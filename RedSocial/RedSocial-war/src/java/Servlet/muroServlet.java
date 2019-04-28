@@ -5,28 +5,31 @@
  */
 package Servlet;
 
-import ejb.PostFacade;
 import Entities.Post;
 import Entities.Usuario;
-import javax.servlet.http.HttpSession;
+import ejb.PostFacade;
+import ejb.UsuarioFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Hp
+ * @author Jose
  */
-@WebServlet(name = "newpostServlet", urlPatterns = {"/newpostServlet"})
-public class newpostServlet extends HttpServlet {
+@WebServlet(name = "MuroServlet", urlPatterns = {"/MuroServlet"})
+public class muroServlet extends HttpServlet {
 
-    private PostFacade postFacade;
+    
+    @EJB private PostFacade postFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,21 +42,21 @@ public class newpostServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-      
-        HttpSession sesion = request.getSession();
-        int userId = (Integer)sesion.getAttribute("id");
-        Usuario usuario = new Usuario(userId);
-        Date date = new Date();
+        response.setContentType("text/html;charset=UTF-8");
+        Boolean log = true;
         
-        String postTitulo = request.getParameter("titulo");
-        String postText = request.getParameter("texto");
-    
-        //¿DESTINATARIO?
-        Post post = new Post(userId, postTitulo, postText, userId, date);
-        this.postFacade.create(post);
+
+        HttpSession session = request.getSession();
+
+
+        List<Post> posts = this.postFacade.getPostList();
+            
         
-        RequestDispatcher rd = request.getRequestDispatcher("/muroServlet");
-        rd.forward(request, response);
+        
+        String redirect = "/muro.jsp";
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(redirect);
+        dispatcher.forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
