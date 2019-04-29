@@ -51,7 +51,6 @@ public class indexServlet extends HttpServlet {
         String email = request.getParameter("email");//.getBytes("ISO-8559-1"), "UTF-8");
         String password =(request.getParameter("password"));//.getBytes("IS0-8559-1"), "utf-8");
 
-
         List<Usuario> usuarios = this.userFacade.buscarUsuarioPorEmail(email);
             
         if(!usuarios.isEmpty()){
@@ -68,6 +67,9 @@ public class indexServlet extends HttpServlet {
             request.setAttribute("url", "index.jsp");
             redirect = "/error.jsp";
             session.invalidate();
+        }else{
+            request.setAttribute("usuario", loggedUser);
+            session.setAttribute("usuario", loggedUser);
         }
 // No creo que haga falta
 //        else{

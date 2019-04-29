@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "newpostServlet", urlPatterns = {"/newpostServlet"})
 public class newpostServlet extends HttpServlet {
 
+    @EJB
     private PostFacade postFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,16 +43,15 @@ public class newpostServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
       
         HttpSession sesion = request.getSession();
-        int userId = (Integer)sesion.getAttribute("id");
-        Usuario usuario = new Usuario(userId);
+        Usuario user= (Usuario)sesion.getAttribute("usuario");
         Date date = new Date();
         
         String postTitulo = request.getParameter("titulo");
         String postText = request.getParameter("texto");
     
         //¿DESTINATARIO?
-        Post post = new Post(userId, postTitulo, postText, userId, date);
-        this.postFacade.create(post);
+        //Post post = new Post(userId, postTitulo, postText, userId, date);
+        //this.postFacade.create(post);
         
         RequestDispatcher rd = request.getRequestDispatcher("/muroServlet");
         rd.forward(request, response);

@@ -5,11 +5,15 @@
 --%>
 <%@page import="Entities.Usuario"%>
 <%@page import="java.util.List"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
 <%
     Usuario usuario = (Usuario)request.getAttribute("usuario");
+    if(usuario == null){
+        usuario = (Usuario)session.getAttribute("usuario");
+    }
 %>
 
 <html>
@@ -17,12 +21,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Editar Datos</title>
     </head>
-    <body>
+    
         <h1>Modifique los datos que considere oportunos:</h1>
-        <form action ="editProfileServlet" method="post">
+        <form method="get" action="editProfileServlet" name="editar" accept-charset="utf-8">
                  <div class="mx-auto d-block">
                     <label>ID</label>
-                    <input  type="hidden" class="form-control" name="id" value = "<%=usuario.getId()%>">
+                    <input class="form-control" name="id" value = "<%=usuario.getId()%>" readonly>
                 </div>   
                 <div class="mx-auto d-block">
                     <label>Nombre de Usuario</label>
@@ -44,15 +48,20 @@
                     <label>Apellido</label>
                     <input class="form-control" name="apellido"value = "<%=usuario.getApellido()%>">
                 </div>  
-                <div class="mx-auto d-block">
+                
                     <label>Fecha de Nacimiento</label>
-                    <input class="form-control" type="datetime" name="fecha_nacimiento" value = "<%=usuario.getFechaNacimiento()%>">
-                </div>  
+                    <%
+                        String pattern = "dd/MM/yyyy";
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+                        String fecha = simpleDateFormat.format(usuario.getFechaNacimiento());
+                    %>
+                    <input class="form-control" type="text" name="fecha_nacimiento" value = "<%=fecha%>" readonly>
+                  
                 <div class="mx-auto d-block">
                     <label>Pais</label>
                     <input class="form-control" name="pais" value = "<%=usuario.getPais()%>">
                 </div> 
             <input type="submit" value="Editar" />
         </form>
-    </body>
+    
 </html>
