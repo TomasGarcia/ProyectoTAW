@@ -60,19 +60,21 @@ public class newpostServlet extends HttpServlet {
         
         if(destinatario == null){
         //Entiendo por esto que el mensaje es publico
-            Post post = new Post(0, titulo, texto, 0, fecha);
-            post.setId(user.getId());
+            Post post = new Post();
+            post.setId(0);
+            post.setUsuarioId(user);
             post.setDestinatario(0);
             post.setFecha(fecha);
             post.setImagen(imagen);
             post.setVideo(video);
             post.setTitulo(titulo);
             
-            this.postFacade.create(post);
+            postFacade.create(post);
         }else{
             //Mensaje privado
-            Post post = new Post(0, titulo, texto, destinatario, fecha);
-            post.setId(user.getId());
+            Post post = new Post();
+            post.setId(0);
+            post.setUsuarioId(user);
             post.setDestinatario(destinatario);
             post.setFecha(fecha);
             post.setImagen(imagen);

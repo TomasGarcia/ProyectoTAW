@@ -5,9 +5,12 @@
  */
 package Servlet;
 
+import Entities.Grupo;
+import Entities.Usuario;
 import ejb.GrupoFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,6 +18,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.jboss.weld.servlet.SessionHolder;
 
 /**
  *
@@ -37,10 +42,22 @@ public class newgrupoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        Usuario usuario = (Usuario)session.getAttribute("usuario");
         
-        String nombre = request.getParameter("nombre");//.getBytes("ISO-8559-1"), "UTF-8");
+        String nombre = request.getParameter("nombre");
         String descripcion =(request.getParameter("descripcion"));
+        Date date = new Date();
         
+        
+        Grupo grupo = new Grupo();
+        grupo.setNombre(nombre);
+        grupo.setDescripcion(descripcion);
+        grupo.setFechaCreacion(date);
+        grupo.setId(1);
+        grupo.setUsuarioId(usuario);
+        
+        this.grupoFacade.create(grupo);
         
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/muro.jsp");
         dispatcher.forward(request, response); 
