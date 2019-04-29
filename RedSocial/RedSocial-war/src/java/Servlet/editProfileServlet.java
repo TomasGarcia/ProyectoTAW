@@ -58,7 +58,6 @@ public class editProfileServlet extends HttpServlet {
        usuario.setNombre(str);
        str = request.getParameter("apellido");
        usuario.setApellido(str);
-       //FALTA PONER FECHA
        date = new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("fecha_nacimiento"));
        usuario.setFechaNacimiento(date);
        str = request.getParameter("pais");

@@ -8,9 +8,11 @@ package Servlet;
 import ejb.PostFacade;
 import Entities.Post;
 import Entities.Usuario;
+import ejb.UsuarioFacade;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -19,6 +21,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.RequestDispatcher;
+import javax.xml.bind.ParseConversionEvent;
 
 /**
  *
@@ -29,6 +33,7 @@ public class newpostServlet extends HttpServlet {
 
     @EJB
     private PostFacade postFacade;
+    private UsuarioFacade usuarioFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -42,16 +47,44 @@ public class newpostServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
       
-        HttpSession sesion = request.getSession();
-        Usuario user= (Usuario)sesion.getAttribute("usuario");
-        Date date = new Date();
+        HttpSession session = request.getSession();
+        Usuario user = (Usuario)session.getAttribute("usuario");
         
-        String postTitulo = request.getParameter("titulo");
-        String postText = request.getParameter("texto");
-    
-        //¿DESTINATARIO?
-        //Post post = new Post(userId, postTitulo, postText, userId, date);
-        //this.postFacade.create(post);
+        String titulo = request.getParameter("titulo");
+        String texto = request.getParameter("texto");
+        String imagen = request.getParameter("imagen");
+        String video = request.getParameter("video");
+        Date fecha = new Date();
+        
+        Integer destinatario = Integer.parseInt(request.getParameter("destinatario"));
+        
+        if(destinatario == null){
+        //Entiendo por esto que el mensaje es publico
+            Post post = new Post(0, titulo, texto, 0, fecha);
+            post.setId(user.getId());
+            post.setDestinatario(0);
+            post.setFecha(fecha);
+            post.setImagen(imagen);
+            post.setVideo(video);
+            post.setTitulo(titulo);
+            
+            this.postFacade.create(post);
+        }else{
+            //Mensaje privado
+            Post post = new Post(0, titulo, texto, destinatario, fecha);
+            post.setId(user.getId());
+            post.setDestinatario(destinatario);
+            post.setFecha(fecha);
+            post.setImagen(imagen);
+            post.setVideo(video);
+            post.setTitulo(titulo);
+            
+            this.postFacade.create(post);
+        
+        }
+        
+       
+        
         
         RequestDispatcher rd = request.getRequestDispatcher("/muroServlet");
         rd.forward(request, response);
