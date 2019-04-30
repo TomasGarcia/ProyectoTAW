@@ -6,9 +6,12 @@
 package Servlet;
 
 import Entities.Grupo;
+import Entities.Usuario;
 import ejb.GrupoFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -31,14 +35,27 @@ public class editargrupoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        String str = request.getParameter("id");
-        Integer id = new Integer(str);
-        Grupo grupo = this.grupoFacade.find(id);
-        request.setAttribute("grupo", grupo);
+       String str;
+       HttpSession session = request.getSession();
+       
+       str = request.getParameter("nombre");
+       Grupo grupo = this.grupoFacade.find(str);
+       str = request.getParameter("descripcion");
+       grupo.setDescripcion(str);
+       
+ 
+       this.grupoFacade.edit(grupo);
 
-        RequestDispatcher rd = request.getRequestDispatcher("/editgrupo.jsp");
-        rd.forward(request, response);   
+       session.setAttribute("grupo", grupo);
+
+//         String str = request.getParameter("id");
+//         Integer idCustomer = new Integer(str);
+//         Usuario usuario = this.usuarioFacade.find(idCustomer);
+//         request.setAttribute("usuario", usuario);
+                  
+       
+       RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/muro.jsp");
+       rd.forward(request, response);   
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

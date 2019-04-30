@@ -30,9 +30,18 @@
                 </div>   
                 <div class="mx-auto d-block">
                     <label>Nombre de Usuario</label>
-                    <input class="form-control" name="username" value = "<%=grupo.getDescripcion()%>">
+                    <input class="form-control" name="descripcion" value = "<%=grupo.getDescripcion()%>">
                 </div>
                  <input type="submit" value="Editar" />
          </form>
+              <p align ="center">                 
+                    <button onclick="goBack()">Volver</button>
+                </p>
+
+                    <script>
+                    function goBack() {
+                      window.history.back();
+                    }
+                    </script>
     </body>
 </html>
