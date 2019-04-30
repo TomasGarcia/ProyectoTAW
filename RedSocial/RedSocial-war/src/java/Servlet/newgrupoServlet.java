@@ -11,6 +11,7 @@ import ejb.GrupoFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -58,7 +59,9 @@ public class newgrupoServlet extends HttpServlet {
         grupo.setUsuarioId(usuario);
         
         this.grupoFacade.create(grupo);
-        
+        List<Grupo> grupos = this.grupoFacade.findAll();
+
+        request.setAttribute("GrupoList", grupos);
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/muro.jsp");
         dispatcher.forward(request, response); 
     }
