@@ -6,12 +6,9 @@
 package Servlet;
 
 import Entities.Grupo;
-import Entities.Usuario;
 import ejb.GrupoFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -24,40 +21,39 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Hp
+ * @author tmgrm
  */
-@WebServlet(name = "editargrupoServlet", urlPatterns = {"/editargrupoServlet"})
-public class editargrupoServlet extends HttpServlet {
+@WebServlet(name = "saveGrupo", urlPatterns = {"/saveGrupo"})
+public class saveGrupo extends HttpServlet {
+    @EJB private GrupoFacade grupoFacade;
 
-    @EJB
-    private GrupoFacade grupoFacade;
-   
     
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-       String str;
        HttpSession session = request.getSession();
-       String strId;
-       
-       strId = request.getParameter("id");
-       Integer id = new Integer(strId);
-       System.out.println(id);
+       String str;
+       Integer id = (Integer)session.getAttribute("idGrupo");
        Grupo grupo = this.grupoFacade.find(id);
-
-       session.setAttribute("idGrupo", id);
-       request.setAttribute("grupo", grupo);
-       List<Grupo> grupos = this.grupoFacade.findAll();
-       request.setAttribute("GrupoList", grupos);
-
-//         String str = request.getParameter("id");
-//         Integer idCustomer = new Integer(str);
-//         Usuario usuario = this.usuarioFacade.find(idCustomer);
-//         request.setAttribute("usuario", usuario);
-                  
+        
+       str = request.getParameter("nombre");
+       grupo.setNombre(str);
+       str = request.getParameter("descripcion");
+       grupo.setDescripcion(str);
        
-       RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/editgrupo.jsp");
-       rd.forward(request, response);   
+        this.grupoFacade.edit(grupo);
+        List<Grupo> grupos = this.grupoFacade.findAll();
+        request.setAttribute("GrupoList", grupos);
+        
+        response.sendRedirect("MuroServlet");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

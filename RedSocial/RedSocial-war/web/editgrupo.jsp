@@ -23,7 +23,7 @@
         <h1>Modifique los datos del grupo</h1>
         <h5>Esto solo será posible si es el creador del grupo,abstenerse de intentarlos, hackers, o sereis destruidos</h5>
         
-         <form method="get" action="editargrupoServlet" name="editar" accept-charset="utf-8">
+         <form method="get" action="saveGrupo" name="editar" accept-charset="utf-8">
                  <div class="mx-auto d-block">
                     <label>Nombre</label>
                     <input class="form-control" name="nombre" value = "<%=grupo.getNombre()%>" 
