@@ -43,12 +43,21 @@
                  <th>
                      NOMBRE
                  </th>
+                 <th>
+                    DESCRIPCION
+                 </th>
              </tr>
 
              <% for(Grupo g: GruposList){ %>
          <tr>
              <td>
                  <%= g.getNombre() %>
+             </td>
+             <td>
+                 <%= g.getDescripcion()%>
+             </td>
+             <td>
+               <a href="editargrupoServlet?id=<%= g.getId()%>">Editar</a>
              </td>
          </tr>
              <% } %>
@@ -68,8 +77,5 @@
     <p align="center">
         <button class="btn btn-primary" role="link" onclick="window.location='newgrupo.jsp'">Crear nuevo grupo</button>
     </p>
-    
-
-    
-    
+  
 </html>

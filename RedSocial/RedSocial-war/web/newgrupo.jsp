@@ -23,7 +23,7 @@
                 </div>    
                 <div class="mx-auto d-block">
                     <label>Descripcion</label>
-                    <textarea name="descripcion" rows="10" cols="50">Escribe aquí </textarea>
+                    <textarea name="descripcion" rows="10" cols="50"></textarea>
                 </div>  
                 
                 <br>
