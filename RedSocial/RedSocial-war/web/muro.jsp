@@ -10,9 +10,9 @@
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
 <%
-    
-    List<Post> PostsList = (List<Post>)request.getAttribute("PostList");
-    List<Grupo> GruposList = (List<Grupo>)request.getAttribute("GrupoList");
+   
+   // List<Post> PostsList = (List<Post>)request.getAttribute("PostList");
+    List<Grupo> GruposList = (List<Grupo>)session.getAttribute("GrupoList");
     
 %>
 <html>
@@ -48,6 +48,22 @@
         <button class="btn btn-primary" role="link" onclick="window.location='newgrupo.jsp'">Crear nuevo grupo</button>
     </p>
     
+    <h4 align="center">Grupos</h4>
+    <table border ="1">
+        <tr>
+            <th>
+                NOMBRE
+            </th>
+        </tr>
+        
+        <% for(Grupo g: GruposList){ %>
+    <tr>
+        <td>
+            <%= g.getNombre() %>
+        </td>
+    </tr>
+        <% } %>
+    </table>
     
     
 </html>

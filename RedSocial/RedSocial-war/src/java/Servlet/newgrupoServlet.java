@@ -54,7 +54,7 @@ public class newgrupoServlet extends HttpServlet {
         grupo.setNombre(nombre);
         grupo.setDescripcion(descripcion);
         grupo.setFechaCreacion(date);
-        grupo.setId(2);
+        grupo.setId(0);
         grupo.setUsuarioId(usuario);
         
         this.grupoFacade.create(grupo);
