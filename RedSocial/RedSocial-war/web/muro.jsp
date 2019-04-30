@@ -16,14 +16,7 @@
     
    // List<Post> PostsList = (List<Post>)request.getAttribute("PostList");
     List<Grupo> GruposList = (List<Grupo>)request.getAttribute("GrupoList");
-    if(GruposList == null){
-        System.out.println("LISTA NULL GILIPOLLAS");
-        GruposList = (List)session.getAttribute("GrupoList");
-        if(GruposList == null){
-            GruposList = new ArrayList<Grupo>();
-            System.out.println("LISTA NULL GILIPOLLAS OTRA VEZ");
-        }
-    }
+    
 %>
 <html>
     <head>

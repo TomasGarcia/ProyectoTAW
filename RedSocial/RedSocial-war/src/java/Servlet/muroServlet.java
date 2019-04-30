@@ -5,8 +5,10 @@
  */
 package Servlet;
 
+import Entities.Grupo;
 import Entities.Post;
 import Entities.Usuario;
+import ejb.GrupoFacade;
 import ejb.PostFacade;
 import ejb.UsuarioFacade;
 import java.io.IOException;
@@ -30,6 +32,7 @@ public class muroServlet extends HttpServlet {
 
     
     @EJB private PostFacade postFacade;
+    @EJB private GrupoFacade grupoFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -50,8 +53,9 @@ public class muroServlet extends HttpServlet {
 
 
         List<Post> posts = this.postFacade.getPostList();
-            
+        List<Grupo> grupos = this.grupoFacade.findAll();
         
+        request.setAttribute("GrupoList", grupos);
         
         String redirect = "/muro.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(redirect);

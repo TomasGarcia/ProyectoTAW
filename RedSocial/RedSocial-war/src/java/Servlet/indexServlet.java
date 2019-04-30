@@ -78,8 +78,9 @@ public class indexServlet extends HttpServlet {
 //            session.setAttribute("log", log);
 //            session.setAttribute("loggedUser", loggedUser);
 //        }
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(redirect);
-        dispatcher.forward(request, response);  
+          response.sendRedirect("MuroServlet");
+//        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(redirect);
+//        dispatcher.forward(request, response);  
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
