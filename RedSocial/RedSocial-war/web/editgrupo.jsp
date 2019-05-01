@@ -29,7 +29,7 @@
                     <input class="form-control" name="nombre" value = "<%=grupo.getNombre()%>" 
                 </div>   
                 <div class="mx-auto d-block">
-                    <label>Nombre de Usuario</label>
+                    <label>Descripcion</label>
                     <input class="form-control" name="descripcion" value = "<%=grupo.getDescripcion()%>">
                 </div>
                  <input type="submit" value="Editar" />
