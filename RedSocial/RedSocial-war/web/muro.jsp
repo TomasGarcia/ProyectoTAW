@@ -55,6 +55,9 @@
              <td>
                <a href="editargrupoServlet?id=<%= g.getId()%>">Editar</a>
              </td>
+             <td>
+               <a href="paginaGrupoServlet?id=<%= g.getId()%>">Pagina</a>
+             </td>
          </tr>
              <% } %>
          </table>      
