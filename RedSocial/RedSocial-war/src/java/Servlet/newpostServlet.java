@@ -52,11 +52,9 @@ public class newpostServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Usuario user = (Usuario)session.getAttribute("usuario");
         if(user == null){
-                    System.out.println("USUARIO NULL OUIDESUIOFJÑEUU");
+                System.out.println("USUARIO NULL OUIDESUIOFJÑEUU");
 
         }
-        Usuario user1 = (Usuario)this.usuarioFacade.buscarPorID(2);
-        System.out.println(user1.getUsername());
         
         String titulo = request.getParameter("titulo");
         System.out.println(titulo);

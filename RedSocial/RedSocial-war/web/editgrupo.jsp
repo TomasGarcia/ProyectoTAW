@@ -26,7 +26,7 @@
          <form method="get" action="saveGrupo" name="editar" accept-charset="utf-8">
                  <div class="mx-auto d-block">
                     <label>Nombre</label>
-                    <input class="form-control" name="nombre" value = "<%=grupo.getNombre()%>" 
+                    <input class="form-control" name="nombre" value = "<%=grupo.getNombre()%>" >
                 </div>   
                 <div class="mx-auto d-block">
                     <label>Descripcion</label>
