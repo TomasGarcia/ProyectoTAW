@@ -48,4 +48,12 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         
         return q.getResultList();
     }
+    
+    public Usuario buscarPorID(int id){
+        Query q;
+        q = this.em.createQuery("select u from Usuario u where u.id = :id");
+        q.setParameter("id", id);
+        
+        return (Usuario)q.getResultList().get(0);
+    }
 }

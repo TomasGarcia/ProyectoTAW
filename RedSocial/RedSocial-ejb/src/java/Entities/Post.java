@@ -79,6 +79,10 @@ public class Post implements Serializable {
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Usuario usuarioId;
+//    @JoinColumn(name = "usuario_id1", referencedColumnName = "id")
+//    @ManyToOne(optional = false)
+//    private Usuario usuarioId1;    
+    
 
     public Post() {
     }
@@ -166,7 +170,14 @@ public class Post implements Serializable {
 
     public void setUsuarioId(Usuario usuarioId) {
         this.usuarioId = usuarioId;
-    }
+    }   
+//    public Usuario getUsuarioId1() {
+//        return usuarioId1;
+//    }
+//
+//    public void setUsuarioId1(Usuario usuarioId) {
+//        this.usuarioId1 = usuarioId;
+//    }
 
     @Override
     public int hashCode() {
