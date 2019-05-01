@@ -40,4 +40,12 @@ public class PostFacade extends AbstractFacade<Post> {
         list = q.getResultList();
         return list;
     }
+    
+    public Post buscarPostPorID(int id){
+        Query q;
+        q = this.em.createQuery("select p from Post p where p.id = :id");
+        q.setParameter("id", id);
+        
+        return (Post)q.getResultList().get(0);
+    }
 }
