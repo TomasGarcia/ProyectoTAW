@@ -14,7 +14,7 @@
 <!DOCTYPE html>
 <%
     
-   // List<Post> PostsList = (List<Post>)request.getAttribute("PostList");
+    List<Post> PostsList = (List<Post>)request.getAttribute("PostList");
     List<Grupo> GruposList = (List<Grupo>)request.getAttribute("GrupoList");
     
 %>
@@ -29,6 +29,10 @@
         Bienvenido a nuestra Red Social
         <!--Perfil con datos personales-->
         <button class="btn btn-primary" role="link" onclick="window.location='profile.jsp'">Mi perfil</button>
+        <form action="cerrarSesion">
+            <button class="btn btn-primary" role="link" >Desconectar</button>
+        </form> 
+        
         <form action="newGrupoServlet">   
             <h4 align="left">Grupos</h4>
          <table border ="1">
@@ -52,6 +56,29 @@
              <td>
                <a href="editargrupoServlet?id=<%= g.getId()%>">Editar</a>
              </td>
+         </tr>
+             <% } %>
+         </table>      
+         <h4 align="left">Posts</h4>
+         <table border ="1" >
+             <tr>
+                 <th>
+                     TITULO
+                 </th>
+                 <th>
+                    TEXTO
+                 </th>
+             </tr>
+
+             <% for(Post g: PostsList){ %>
+         <tr>
+             <td>
+                 <%= g.getTitulo()%>
+             </td>
+             <td>
+                 <%= g.getTexto()%>
+             </td>
+             
          </tr>
              <% } %>
          </table>

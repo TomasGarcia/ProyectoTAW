@@ -1,4 +1,4 @@
-*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -81,7 +81,8 @@ public class newpostServlet extends HttpServlet {
             post.setImagen(imagen);
             post.setVideo(video);
             post.setTitulo(titulo);
-//            post.setUsuarioId1(null);
+            post.setUsuarioId1(null);
+            post.setTexto(texto);
             
         }else{
             //Mensaje privado
@@ -92,21 +93,22 @@ public class newpostServlet extends HttpServlet {
             post.setDestinatario(destinatario);
             Usuario usDest = (Usuario)this.usuarioFacade.buscarPorID(destinatario);
          
-//            post.setUsuarioId1(usDest);
+            post.setUsuarioId1(usDest);
             post.setFecha(fecha);
             post.setImagen(imagen);
             post.setVideo(video);
             post.setTitulo(titulo);
-               
+            post.setTexto(texto);
         }
         
         this.postFacade.create(post);
 
         List<Post> posts = this.postFacade.findAll();
-        request.setAttribute("postList", posts);
+        request.setAttribute("PostList", posts);
         
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/muro.jsp");
-        dispatcher.forward(request, response); 
+        response.sendRedirect("MuroServlet");
+//        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/muro.jsp");
+//        dispatcher.forward(request, response); 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
