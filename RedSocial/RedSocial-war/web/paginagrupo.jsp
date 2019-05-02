@@ -28,6 +28,8 @@
             <input class="form-control" name="descripcion" value = "<%=grupo.getDescripcion()%>" readonly>
         </div>
         
+        
+        
         </table>      
          <h4 align="left">Posts</h4>
          <table border ="1" >

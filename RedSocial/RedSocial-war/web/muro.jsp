@@ -70,6 +70,15 @@
                  <th>
                     TEXTO
                  </th>
+                 <th>
+                    IMAGEN
+                 </th>
+                 <th>
+                    VIDEO
+                 </th>
+                 <th>
+                    DESTINATARIO
+                 </th>
              </tr>
 
              <% for(Post g: PostsList){ %>
@@ -79,6 +88,16 @@
              </td>
              <td>
                  <%= g.getTexto()%>
+             </td>
+             
+             <td>
+                 <%= g.getImagen()%>
+             </td>
+             <td>
+                 <%= g.getVideo()%>
+             </td>
+             <td>
+                 <%= g.getDestinatario()%>
              </td>
             <td>
                 <%
