@@ -8,10 +8,10 @@ package Servlet;
 import Entities.Grupo;
 import Entities.Usuario;
 import ejb.GrupoFacade;
+import ejb.UsuarioFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -21,17 +21,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.jboss.weld.servlet.SessionHolder;
 
 /**
  *
- * @author Hp
+ * @author Jose
  */
-@WebServlet(name = "newgrupoServlet", urlPatterns = {"/newgrupoServlet"})
-public class newgrupoServlet extends HttpServlet {
-
+@WebServlet(name = "addIntegrantesServlet", urlPatterns = {"/addIntegrantesServlet"})
+public class addIntegrantesServlet extends HttpServlet {
+    
     @EJB private GrupoFacade grupoFacade;
-            
+    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,33 +44,24 @@ public class newgrupoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        Usuario usuario = (Usuario)session.getAttribute("usuario");
         
-        String nombre = request.getParameter("nombre");
-        String descripcion =(request.getParameter("descripcion"));
-        Date date = new Date();
-        
-        
-        Grupo grupo = new Grupo();
-        grupo.setNombre(nombre);
-        grupo.setDescripcion(descripcion);
-        grupo.setFechaCreacion(date);
-        grupo.setId(0);
-        grupo.setUsuarioId(usuario);
-        
-        this.grupoFacade.create(grupo);
-        
-        
+       String strId;
+       HttpSession session = request.getSession();
+       strId = request.getParameter("id");
+       Integer id = new Integer(strId);
+       System.out.println(id);
+       Grupo grupo = this.grupoFacade.find(id);
+
+       session.setAttribute("idGrupo", id);
+       request.setAttribute("grupo", grupo);
+       List<Grupo> grupos = this.grupoFacade.findAll();
+       request.setAttribute("GrupoList", grupos);
        
-        List<Grupo> grupos = this.grupoFacade.findAll();
-        
-        
-        
-        request.setAttribute("GrupoList", grupos);
-        response.sendRedirect("MuroServlet");
-//        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/muro.jsp");
-//        dispatcher.forward(request, response); 
+       Collection<Usuario> participantes=grupo.getUsuarioCollection();
+       request.setAttribute("Participantes",participantes);
+       
+       RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/addparticipante.jsp");
+       rd.forward(request, response);  
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

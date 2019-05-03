@@ -62,6 +62,9 @@
              <td>
                <a href="paginaGrupoServlet?id=<%= g.getId()%>">Pagina</a>
              </td>
+             <td>
+               <a href="addIntegrantesServlet?id=<%= g.getId()%>">Integrantes</a>
+             </td>
          </tr>
              <% } %>
          </table>      
@@ -95,10 +98,11 @@
              </td>
              
              <td>
-                 <%= g.getImagen()%>
+                 <img src="<%= g.getImagen()%>" alt="Imagen" width="200" height="100">
              </td>
              <td>
-                 <%= g.getVideo()%>
+                <iframe width="200" height="100" src="<%=g.getVideo()%>">
+                </iframe>
              </td>
              <td>
                  <%= g.getDestinatario()%>

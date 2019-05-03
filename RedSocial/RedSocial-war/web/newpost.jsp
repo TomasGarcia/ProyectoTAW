@@ -27,12 +27,12 @@
                 </div> 
                 <div class="mx-auto d-block">
                     <label>Adjuntar Imagen</label>
-                    <input type="text" name="imagen">
+                    <input type="url" name="imagen">
                 </div>
                 
                 <div class="mx-auto d-block">
                     <label>Adjuntar Video</label>
-                    <input type="text" name="video">
+                    <input type="url" name="video">
                 </div>
                 
                 <%--
