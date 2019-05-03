@@ -52,9 +52,9 @@ public class paginaGrupoServlet extends HttpServlet {
         List<Grupo> grupos = this.grupoFacade.findAll();
         request.setAttribute("GrupoList", grupos);
         
-//       RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/paginagrupo.jsp");
-//       rd.forward(request, response); 
-        response.sendRedirect("paginagrupo.jsp");
+        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/paginagrupo.jsp");
+        rd.forward(request, response); 
+        //response.sendRedirect("paginagrupo.jsp");
         
     }
 

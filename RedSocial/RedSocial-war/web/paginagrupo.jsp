@@ -10,9 +10,13 @@
 <!DOCTYPE html>
 <%
     Grupo grupo = (Grupo)request.getAttribute("grupo");
+    if(grupo == null){
+        grupo = (Grupo)session.getAttribute("grupo");
+    }
     List<Post> PostsList = (List<Post>)request.getAttribute("PostList");
 %>    
 <html>
+    
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Pagina del grupo <%=grupo.getNombre() %></title>

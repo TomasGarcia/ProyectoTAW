@@ -26,11 +26,15 @@
         
     </head>
     <body>
-        Bienvenido a nuestra Red Social
+        Bienvenido a nuestra Red Social 
+        <br>
         <!--Perfil con datos personales-->
+        <img src=https://www.soporte.ipn.mx/assets/images/cau-profile-default.png alt="usuario" style="width:100px;height:100px;"> 
+        <br>
         <button class="btn btn-primary" role="link" onclick="window.location='profile.jsp'">Mi perfil</button>
+        <br>
         <form action="cerrarSesion">
-            <button class="btn btn-primary" role="link" >Desconectar</button>
+            <button class="btn btn-danger" role="link" >Desconectar</button>
         </form> 
         
         <h4 align="left">Grupos</h4>

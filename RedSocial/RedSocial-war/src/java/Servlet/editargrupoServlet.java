@@ -36,7 +36,6 @@ public class editargrupoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       String str;
        HttpSession session = request.getSession();
        String strId;
        
