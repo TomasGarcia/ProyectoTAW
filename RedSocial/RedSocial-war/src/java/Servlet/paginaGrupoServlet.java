@@ -6,9 +6,11 @@
 package Servlet;
 
 import Entities.Grupo;
+import Entities.Post;
 import ejb.GrupoFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -51,6 +53,9 @@ public class paginaGrupoServlet extends HttpServlet {
         request.setAttribute("grupo", grupo);
         List<Grupo> grupos = this.grupoFacade.findAll();
         request.setAttribute("GrupoList", grupos);
+        
+        Collection<Post> posts=grupo.getPostCollection();
+        request.setAttribute("PostList", posts);
         
         RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/paginagrupo.jsp");
         rd.forward(request, response); 

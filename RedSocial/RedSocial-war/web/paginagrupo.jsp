@@ -3,6 +3,8 @@
     Created on : 01-may-2019, 19:46:46
     Author     : Hp
 --%>
+<%@page import="java.util.Collection"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="Entities.Post"%>
 <%@page import="Entities.Grupo"%>
@@ -13,7 +15,8 @@
     if(grupo == null){
         grupo = (Grupo)session.getAttribute("grupo");
     }
-    List<Post> PostsList = (List<Post>)request.getAttribute("PostList");
+    Collection<Post> PostsList = (Collection<Post>)request.getAttribute("PostList");
+    
 %>    
 <html>
     
@@ -44,6 +47,15 @@
                  <th>
                     TEXTO
                  </th>
+                 <th>
+                    IMAGEN
+                 </th>
+                 <th>
+                    VIDEO
+                 </th>
+                 <th>
+                    DESTINATARIO
+                 </th>
              </tr>
 
              <% for(Post g: PostsList){ %>
@@ -54,20 +66,37 @@
              <td>
                  <%= g.getTexto()%>
              </td>
+             <td>
+                 <%= g.getImagen()%>
+             </td>
+             <td>
+                 <%= g.getVideo()%>
+             </td>
+             <td>
+                 <%= g.getDestinatario()%>
+             </td>
              
          </tr>
              <% } %>
          </table>
          <form action="newpostServlet"
          <h4 align="center">Nueva Publicacion en este Grupo</h4>
-        <p align="center">
-            <button class="btn btn-primary" role="link" onclick="window.location='newpost.jsp'">Crear nueva publicacion</button>
-        </p>
+        
          </form>
          
         <div>
+            
+            <p align="center">
+            <button class="btn btn-primary" role="link" onclick="window.location='newpost.jsp'">Crear nueva publicacion</button>
+        </p>
                 <br>
-                <button class="btn btn-primary" role="link" onclick="window.location='muro.jsp'">Volver</button>
+                <button class="btn btn-primary" onclick="goBack()">Volver</button>
+                
+                <script>
+                    function goBack() {
+                      window.history.back();
+                    }
+                    </script>
         </div>
     </body>
 </html>

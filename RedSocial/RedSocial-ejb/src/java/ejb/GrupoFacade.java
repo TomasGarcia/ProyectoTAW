@@ -6,9 +6,12 @@
 package ejb;
 
 import Entities.Grupo;
+import Entities.Post;
+import java.util.Collection;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +31,7 @@ public class GrupoFacade extends AbstractFacade<Grupo> {
     public GrupoFacade() {
         super(Grupo.class);
     }
+    
+//   
     
 }
