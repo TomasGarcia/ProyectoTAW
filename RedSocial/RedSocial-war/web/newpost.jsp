@@ -4,8 +4,26 @@
     Author     : Hp
 --%>
 
+<%@page import="Entities.Usuario"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
+<%
+    List<Usuario> usuarios = (List)session.getAttribute("usuarios");
+    Usuario loggedUser = (Usuario) session.getAttribute("usuario");
+    String strDestinatario = request.getParameter("destinatario");
+    Integer destinatario;
+    if(strDestinatario == null){
+       destinatario = 0;
+    }else{
+       destinatario = new Integer(strDestinatario);
+    }
+
+
+%>
+    
+
 <html>
     <head>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -27,20 +45,40 @@
                 </div> 
                 <div class="mx-auto d-block">
                     <label>Adjuntar Imagen</label>
-                    <input type="url" name="imagen">
+                    <input type="text" name="imagen">
                 </div>
                 
                 <div class="mx-auto d-block">
                     <label>Adjuntar Video</label>
-                    <input type="url" name="video">
+                    <input type="text" name="video">
                 </div>
                 
                 <%--
                 A ver si aclaramos que coño va a destinario y como lo vamos a poner
                 --%>              
                 <div class="mx-auto d-block">
-                    <label>Elegir Destinatario</label>
-                    <input name="destinatario">
+                    <label>Destinatario</label>
+                    <select name="destinatario">
+                        <option name="destinatario" value="1" >
+                            Publico
+                        </option>  
+                        
+                        <% 
+                            for(Usuario u : usuarios){
+                                if(u.getId() != loggedUser.getId() && u.getId() != 1){ 
+                                    String str = "";
+                                    if (u.getId().equals(destinatario)) {
+                                        str = "selected";
+                                    } 
+                        %>
+                        <option name="destinatario" value="<%= u.getId() %>"  <%= str %>> <%= u.getUsername() %> </option>
+                                
+                        <%     }
+                            }
+                        %>
+                          
+                        
+                    </select>
                 </div>
                 
                  

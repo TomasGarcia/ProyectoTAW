@@ -61,7 +61,7 @@ public class indexServlet extends HttpServlet {
             }                                
         }
         
-        String redirect = "/muro.jsp";
+        String redirect = "/MuroServlet";
         if (!log) {
             request.setAttribute("mensaje", "Email o clave incorrecta");
             request.setAttribute("url", "index.jsp");
@@ -72,17 +72,12 @@ public class indexServlet extends HttpServlet {
         }else{
 //            request.setAttribute("usuario", loggedUser);
             session.setAttribute("usuario", loggedUser);
-            response.sendRedirect("MuroServlet");
-
+            usuarios = (List) this.userFacade.findAll();
+            session.setAttribute("usuarios", usuarios);
         }
-// No creo que haga falta
-//        else{
-//            session.setAttribute("id", id);
-//            //Atributo que será creado en la sesion y recogido en index.jsp para que si ha introducido datos invalidos (log==false) le muestre un error
-//            session.setAttribute("log", log);
-//            session.setAttribute("loggedUser", loggedUser);
-//        }
- 
+        
+        RequestDispatcher dispatcher = request.getRequestDispatcher(redirect);
+        dispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

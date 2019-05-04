@@ -67,46 +67,60 @@ public class newpostServlet extends HttpServlet {
         Date fecha = new Date();
         
         String strDestinatario = request.getParameter("destinatario");
-        Post post = new Post();
-
+        Integer idDest = new Integer(strDestinatario);
         
-        if("".equals(strDestinatario)){
-        //Entiendo por esto que el mensaje es publico
-            post.setId(0);
-            post.setUsuarioId(user);
-            post.setDestinatario(0);
-            post.setFecha(fecha);
-            post.setImagen(imagen);
-            post.setVideo(video);
-            post.setTitulo(titulo);
-            post.setUsuarioId1(null);
-            post.setTexto(texto);
-            
-        }else{
-            //Mensaje privado
-            Integer destinatario = new Integer(request.getParameter("destinatario"));
-            System.out.println(destinatario);
-            post.setId(0);
-            post.setUsuarioId(user);
-            post.setDestinatario(destinatario);
-            Usuario usDest = (Usuario)this.usuarioFacade.buscarPorID(destinatario);
-         
-            post.setUsuarioId1(usDest);
-            post.setFecha(fecha);
-            post.setImagen(imagen);
-            post.setVideo(video);
-            post.setTitulo(titulo);
-            post.setTexto(texto);
-        }
+        Post post = new Post();
+        post.setId(0);
+        post.setUsuarioId(user);
+        post.setDestinatario(idDest);
+        post.setFecha(fecha);
+        post.setImagen(imagen);
+        post.setVideo(video);
+        post.setTitulo(titulo);
+        Usuario usuarioDest = (Usuario) this.usuarioFacade.buscarPorID(idDest);
+        post.setUsuarioId1(usuarioDest);
+        post.setTexto(texto);
+        
+        
+        
+//        if("1".equals(strDestinatario)){
+//        //Entiendo por esto que el mensaje es publico
+//            post.setId(0);
+//            post.setUsuarioId(user);
+//            post.setDestinatario(0);
+//            post.setFecha(fecha);
+//            post.setImagen(imagen);
+//            post.setVideo(video);
+//            post.setTitulo(titulo);
+//            Usuario todos = this.usuarioFacade.buscarPorID(1);
+//            post.setUsuarioId1(todos);
+//            post.setTexto(texto);
+//            
+//        }else{
+//            //Mensaje privado
+//            Integer destinatario = new Integer(request.getParameter("destinatario"));
+//            System.out.println(destinatario);
+//            post.setId(0);
+//            post.setUsuarioId(user);
+//            post.setDestinatario(destinatario);
+//            Usuario usDest = (Usuario)this.usuarioFacade.buscarPorID(destinatario);
+//         
+//            post.setUsuarioId1(usDest);
+//            post.setFecha(fecha);
+//            post.setImagen(imagen);
+//            post.setVideo(video);
+//            post.setTitulo(titulo);
+//            post.setTexto(texto);
+//        }
         
         this.postFacade.create(post);
 
         List<Post> posts = this.postFacade.findAll();
         request.setAttribute("PostList", posts);
         
-        response.sendRedirect("MuroServlet");
-//        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/muro.jsp");
-//        dispatcher.forward(request, response); 
+        
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/MuroServlet");
+        dispatcher.forward(request, response); 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

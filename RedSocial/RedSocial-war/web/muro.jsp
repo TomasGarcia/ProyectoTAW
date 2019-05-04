@@ -16,6 +16,7 @@
     
     List<Post> PostsList = (List<Post>)request.getAttribute("PostList");
     List<Grupo> GruposList = (List<Grupo>)request.getAttribute("GrupoList");
+    Usuario loggedUser = (Usuario) session.getAttribute("usuario");
     
 %>
 <html>
@@ -26,7 +27,7 @@
         
     </head>
     <body>
-        Bienvenido a nuestra Red Social 
+        Bienvenido a nuestra Red Social @<%= loggedUser.getUsername() %>
         <br>
         <!--Perfil con datos personales-->
         <img src=https://www.soporte.ipn.mx/assets/images/cau-profile-default.png alt="usuario" style="width:100px;height:100px;"> 
@@ -48,7 +49,7 @@
                  </th>
              </tr>
 
-             <% for(Grupo g: GruposList){ %>
+             <% for(Grupo g: GruposList){ %>     
          <tr>
              <td>
                  <%= g.getNombre() %>
@@ -86,9 +87,15 @@
                  <th>
                     DESTINATARIO
                  </th>
+                 <th>
+                     ENVIADO POR
+                 </th>
              </tr>
 
-             <% for(Post g: PostsList){ %>
+             <% for(Post g: PostsList){ 
+                    if(g.getUsuarioId().getId()== loggedUser.getId() || g.getUsuarioId1().getId()== loggedUser.getId() || g.getDestinatario() == 1){
+             
+             %>
          <tr>
              <td>
                  <%= g.getTitulo()%>
@@ -105,13 +112,21 @@
                 </iframe>
              </td>
              <td>
-                 <%= g.getDestinatario()%>
+                 <% 
+                     String dest = g.getUsuarioId1().getUsername();
+                     if(g.getUsuarioId1().getId() == 1){
+                         dest = "Publico";
+                     }
+                 %>
+                 <%= dest %>
              </td>
+            <td>
+                <%= g.getUsuarioId().getUsername() %>
+            </td> 
             <td>
                 <%
                     boolean eliminar = false;
                     Usuario userPost = g.getUsuarioId();
-                    Usuario loggedUser = (Usuario)session.getAttribute("usuario");
                     if(userPost.getId() == loggedUser.getId()){
                         eliminar = true;
                     }
@@ -122,7 +137,9 @@
                 <%}%>>Eliminar</button>
             </td>
          </tr>
-             <% } %>
+             <%     }
+                
+                } %>
          </table>
         
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
