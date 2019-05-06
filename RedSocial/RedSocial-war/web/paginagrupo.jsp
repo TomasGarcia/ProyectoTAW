@@ -34,7 +34,10 @@
             <label>Descripcion</label>
             <input class="form-control" name="descripcion" value = "<%=grupo.getDescripcion()%>" readonly>
         </div>
-        
+        <div class="mx-auto d-block">
+            <label>Administrador</label>
+            <input class="form-control" name="descripcion" value = "<%=grupo.getUsuarioId().getUsername()%>" readonly>
+        </div>
         
         
         </table>      

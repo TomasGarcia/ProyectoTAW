@@ -10,6 +10,7 @@ import Entities.Usuario;
 import ejb.GrupoFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -59,8 +60,11 @@ public class newgrupoServlet extends HttpServlet {
         grupo.setId(0);
         grupo.setUsuarioId(usuario);
         
-        this.grupoFacade.create(grupo);
         
+        grupo.getUsuarioCollection().add(usuario);
+        Collection<Usuario> coleccion=grupo.getUsuarioCollection();
+        grupo.setUsuarioCollection(coleccion);
+        this.grupoFacade.create(grupo);
         
        
         List<Grupo> grupos = this.grupoFacade.findAll();

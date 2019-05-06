@@ -27,7 +27,7 @@ import javax.servlet.http.HttpSession;
  * @author Jose
  */
 @WebServlet(name = "addIntegrantesServlet", urlPatterns = {"/addIntegrantesServlet"})
-public class addIntegrantesServlet extends HttpServlet {
+public class integrantesServlet extends HttpServlet {
     
     @EJB private GrupoFacade grupoFacade;
     
@@ -60,7 +60,7 @@ public class addIntegrantesServlet extends HttpServlet {
        Collection<Usuario> participantes=grupo.getUsuarioCollection();
        request.setAttribute("Participantes",participantes);
        
-       RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/addparticipante.jsp");
+       RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/integrantes.jsp");
        rd.forward(request, response);  
     }
 

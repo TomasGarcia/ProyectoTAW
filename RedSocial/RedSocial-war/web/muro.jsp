@@ -47,27 +47,44 @@
                  <th>
                     DESCRIPCION
                  </th>
+                 <th>
+                    ADMINISTRADOR
+                 </th>
+                 
              </tr>
 
-             <% for(Grupo g: GruposList){ %>     
+             <% for(Grupo p: GruposList){ 
+                    if(p.getUsuarioId().getId()== loggedUser.getId() || p.getUsuarioCollection().contains(loggedUser) ){
+             
+             %>     
          <tr>
              <td>
-                 <%= g.getNombre() %>
+                 <%= p.getNombre() %>
              </td>
              <td>
-                 <%= g.getDescripcion()%>
+                 <%= p.getDescripcion()%>
              </td>
              <td>
-               <a href="editargrupoServlet?id=<%= g.getId()%>">Editar</a>
+                 <%= p.getUsuarioId().getEmail()%>
              </td>
              <td>
-               <a href="paginaGrupoServlet?id=<%= g.getId()%>">Pagina</a>
+                 <% 
+                     if(p.getUsuarioId().getId() == loggedUser.getId() ){
+                        
+                 %>
+               <a href="editargrupoServlet?id=<%= p.getId()%>">Editar</a>
+               <% } %>
              </td>
              <td>
-               <a href="addIntegrantesServlet?id=<%= g.getId()%>">Integrantes</a>
+               <a href="paginaGrupoServlet?id=<%= p.getId()%>">Pagina</a>
+             </td>
+             <td>
+               <a href="integrantesServlet?id=<%= p.getId()%>">Integrantes</a>
              </td>
          </tr>
-             <% } %>
+       <%     }
+                
+                } %>
          </table>      
          <h4 align="left">Posts</h4>
          <table border ="1" >
@@ -105,7 +122,7 @@
              </td>
              
              <td>
-                 <img src="<%= g.getImagen()%>" alt="Imagen" width="200" height="100">
+                 <img src="<%= g.getImagen()%>" alt="Sin Imagen" width="200" height="100">
              </td>
              <td>
                 <iframe width="200" height="100" src="<%=g.getVideo()%>">
