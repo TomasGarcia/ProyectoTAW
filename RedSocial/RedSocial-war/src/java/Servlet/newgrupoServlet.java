@@ -61,7 +61,12 @@ public class newgrupoServlet extends HttpServlet {
         grupo.setUsuarioId(usuario);
         
         
-
+        List<Usuario> lista = grupo.getUsuarioList();
+        if(lista == null){
+            lista = new ArrayList<>();
+        }
+        lista.add(usuario);
+        grupo.setUsuarioList(lista);
         
 
         this.grupoFacade.create(grupo);
