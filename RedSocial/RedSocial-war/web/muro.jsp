@@ -38,6 +38,8 @@
             <button class="btn btn-danger" role="link" >Desconectar</button>
         </form> 
         
+        <button onclick="window.location.href='friendServlet?id=<%= loggedUser.getId() %>'">Amigos</button> 
+                
         <h4 align="left">Grupos</h4>
          <table border ="1">
              <tr>
