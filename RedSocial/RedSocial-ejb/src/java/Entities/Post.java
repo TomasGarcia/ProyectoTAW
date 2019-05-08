@@ -8,6 +8,7 @@ package Entities;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -43,6 +44,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Post.findByFecha", query = "SELECT p FROM Post p WHERE p.fecha = :fecha")})
 public class Post implements Serializable {
 
+    @ManyToMany(mappedBy = "postList")
+    private List<Grupo> grupoList;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -74,8 +78,6 @@ public class Post implements Serializable {
     @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
     private Date fecha;
-//    @ManyToMany(mappedBy = "postCollection")
-//    private Collection<Grupo> grupoCollection;
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Usuario usuarioId;
@@ -202,6 +204,15 @@ public class Post implements Serializable {
     @Override
     public String toString() {
         return "Entities.Post[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public List<Grupo> getGrupoList() {
+        return grupoList;
+    }
+
+    public void setGrupoList(List<Grupo> grupoList) {
+        this.grupoList = grupoList;
     }
     
 }
