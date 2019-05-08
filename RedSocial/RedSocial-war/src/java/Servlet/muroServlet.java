@@ -55,6 +55,7 @@ public class muroServlet extends HttpServlet {
         List<Post> posts = this.postFacade.getPostList();
         List<Grupo> grupos = this.grupoFacade.findAll();
         
+        
         request.setAttribute("GrupoList", grupos);
         request.setAttribute("PostList", posts);
         

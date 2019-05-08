@@ -34,6 +34,23 @@ public class GrupoFacade extends AbstractFacade<Grupo> {
         super(Grupo.class);
     }
     
+    public List<Grupo> getGruposList(){
+        List<Grupo> list;
+        Query q;
+        q = this.em.createQuery("SELECT g FROM Grupo g");
+        
+        list = q.getResultList();
+        return list;
+    }
+    
+    public Grupo buscarGrupoPorID(int id){
+        Query q;
+        q = this.em.createQuery("select g from Grupo g where g.id = :id");
+        q.setParameter("id", id);
+        
+        return (Grupo)q.getResultList().get(0);
+    }
+    
     
     
     

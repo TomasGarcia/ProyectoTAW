@@ -61,10 +61,9 @@ public class newgrupoServlet extends HttpServlet {
         grupo.setUsuarioId(usuario);
         
         
-        grupo.getUsuarioCollection().add(usuario);
-        Collection<Usuario> coleccion=grupo.getUsuarioCollection();
-        grupo.setUsuarioCollection(coleccion);
+        
         this.grupoFacade.create(grupo);
+        
         
        
         List<Grupo> grupos = this.grupoFacade.findAll();

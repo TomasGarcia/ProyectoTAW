@@ -8,6 +8,7 @@ package Entities;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -69,7 +70,7 @@ public class Grupo implements Serializable {
         @JoinColumn(name = "grupo_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "usuario_id", referencedColumnName = "id")})
     @ManyToMany
-    private Collection<Usuario> usuarioCollection;
+    private List<Usuario> usuarioCollection;
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Usuario usuarioId;
@@ -129,11 +130,11 @@ public class Grupo implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Usuario> getUsuarioCollection() {
+    public List<Usuario> getUsuarioCollection() {
         return usuarioCollection;
     }
 
-    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
+    public void setUsuarioCollection(List<Usuario> usuarioCollection) {
         this.usuarioCollection = usuarioCollection;
     }
 

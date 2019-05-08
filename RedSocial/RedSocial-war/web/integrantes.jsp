@@ -4,6 +4,7 @@
     Author     : Jose
 --%>
 
+<%@page import="java.util.List"%>
 <%@page import="java.util.Collection"%>
 <%@page import="Entities.Usuario"%>
 <%@page import="Entities.Grupo"%>
@@ -13,7 +14,7 @@
     if(grupo == null){
         grupo = (Grupo)session.getAttribute("grupo");
     }
-    Collection<Usuario> usuarios=(Collection<Usuario>)request.getAttribute("Participantes");
+    List<Usuario> usuarios=(List<Usuario>)request.getAttribute("Participantes");
 %>
 <!DOCTYPE html>
 <html>

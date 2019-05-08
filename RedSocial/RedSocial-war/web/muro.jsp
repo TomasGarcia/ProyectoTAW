@@ -81,6 +81,19 @@
              <td>
                <a href="integrantesServlet?id=<%= p.getId()%>">Integrantes</a>
              </td>
+             <td>
+                <%
+                    boolean eliminar = false;
+                    Usuario userPost = p.getUsuarioId();
+                    if(userPost.getId() == loggedUser.getId()){
+                        eliminar = true;
+                    }
+                %>
+                <button onclick="window.location.href='eliminarGrupo?id=<%= p.getId() %>'" 
+                <% if(!eliminar){ %>
+                        disabled
+                <%}%>>Eliminar</button>
+            </td>
          </tr>
        <%     }
                 
