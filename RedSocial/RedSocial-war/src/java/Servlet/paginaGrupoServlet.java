@@ -54,7 +54,7 @@ public class paginaGrupoServlet extends HttpServlet {
         List<Grupo> grupos = this.grupoFacade.findAll();
         request.setAttribute("GrupoList", grupos);
         
-        Collection<Post> posts=grupo.getPostCollection();
+        List<Post> posts=grupo.getPostList();
         request.setAttribute("PostList", posts);
         
         RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/paginagrupo.jsp");

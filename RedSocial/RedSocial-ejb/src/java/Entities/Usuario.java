@@ -6,12 +6,14 @@
 package Entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -29,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author oscar
+ * @author tmgrm
  */
 @Entity
 @Table(name = "usuario")
@@ -39,7 +41,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Usuario.findById", query = "SELECT u FROM Usuario u WHERE u.id = :id")
     , @NamedQuery(name = "Usuario.findByUsername", query = "SELECT u FROM Usuario u WHERE u.username = :username")
     , @NamedQuery(name = "Usuario.findByEmail", query = "SELECT u FROM Usuario u WHERE u.email = :email")
-    , @NamedQuery(name = "Usuario.findByClave", query = "SELECT u FROM Usuario u WHERE u.clave = :clave")
+    , @NamedQuery(name = "Usuario.findByPassword", query = "SELECT u FROM Usuario u WHERE u.password = :password")
     , @NamedQuery(name = "Usuario.findByNombre", query = "SELECT u FROM Usuario u WHERE u.nombre = :nombre")
     , @NamedQuery(name = "Usuario.findByApellido", query = "SELECT u FROM Usuario u WHERE u.apellido = :apellido")
     , @NamedQuery(name = "Usuario.findByFechaNacimiento", query = "SELECT u FROM Usuario u WHERE u.fechaNacimiento = :fechaNacimiento")
@@ -48,8 +50,8 @@ public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
@@ -67,7 +69,7 @@ public class Usuario implements Serializable {
     @NotNull
     @Size(min = 1, max = 30)
     @Column(name = "password")
-    private String clave;
+    private String password;
     @Size(max = 40)
     @Column(name = "nombre")
     private String nombre;
@@ -82,23 +84,25 @@ public class Usuario implements Serializable {
     @Size(max = 10)
     @Column(name = "pais")
     private String pais;
-    @ManyToMany(mappedBy = "usuarioCollection")
-    private Collection<Grupo> grupoCollection;
+    @ManyToMany(mappedBy = "usuarioList")
+    private List<Grupo> grupoList;
     @JoinTable(name = "amistad", joinColumns = {
         @JoinColumn(name = "usuario_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "usuario_id1", referencedColumnName = "id")})
     @ManyToMany
-    private Collection<Usuario> usuarioCollection;
-    @ManyToMany(mappedBy = "usuarioCollection")
-    private Collection<Usuario> usuarioCollection1;
+    private List<Usuario> usuarioList;
+    @ManyToMany(mappedBy = "usuarioList")
+    private List<Usuario> usuarioList1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioId")
-    private Collection<Post> postCollection;
+    private List<Post> postList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioId1")
+    private List<Post> postList1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioId")
-    private Collection<Grupo> grupoCollection1;
+    private List<Grupo> grupoList1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
-    private Collection<Peticion> peticionCollection;
+    private List<Peticion> peticionList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario1")
-    private Collection<Peticion> peticionCollection1;
+    private List<Peticion> peticionList1;
 
     public Usuario() {
     }
@@ -107,11 +111,11 @@ public class Usuario implements Serializable {
         this.id = id;
     }
 
-    public Usuario(Integer id, String username, String email, String clave, Date fechaNacimiento) {
+    public Usuario(Integer id, String username, String email, String password, Date fechaNacimiento) {
         this.id = id;
         this.username = username;
         this.email = email;
-        this.clave = clave;
+        this.password = password;
         this.fechaNacimiento = fechaNacimiento;
     }
 
@@ -139,12 +143,12 @@ public class Usuario implements Serializable {
         this.email = email;
     }
 
-    public String getClave() {
-        return clave;
+    public String getPassword() {
+        return password;
     }
 
-    public void setClave(String clave) {
-        this.clave = clave;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getNombre() {
@@ -180,66 +184,75 @@ public class Usuario implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Grupo> getGrupoCollection() {
-        return grupoCollection;
+    public List<Grupo> getGrupoList() {
+        return grupoList;
     }
 
-    public void setGrupoCollection(Collection<Grupo> grupoCollection) {
-        this.grupoCollection = grupoCollection;
-    }
-
-    @XmlTransient
-    public Collection<Usuario> getUsuarioCollection() {
-        return usuarioCollection;
-    }
-
-    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
-        this.usuarioCollection = usuarioCollection;
+    public void setGrupoList(List<Grupo> grupoList) {
+        this.grupoList = grupoList;
     }
 
     @XmlTransient
-    public Collection<Usuario> getUsuarioCollection1() {
-        return usuarioCollection1;
+    public List<Usuario> getUsuarioList() {
+        return usuarioList;
     }
 
-    public void setUsuarioCollection1(Collection<Usuario> usuarioCollection1) {
-        this.usuarioCollection1 = usuarioCollection1;
-    }
-
-    @XmlTransient
-    public Collection<Post> getPostCollection() {
-        return postCollection;
-    }
-
-    public void setPostCollection(Collection<Post> postCollection) {
-        this.postCollection = postCollection;
+    public void setUsuarioList(List<Usuario> usuarioList) {
+        this.usuarioList = usuarioList;
     }
 
     @XmlTransient
-    public Collection<Grupo> getGrupoCollection1() {
-        return grupoCollection1;
+    public List<Usuario> getUsuarioList1() {
+        return usuarioList1;
     }
 
-    public void setGrupoCollection1(Collection<Grupo> grupoCollection1) {
-        this.grupoCollection1 = grupoCollection1;
-    }
-
-    @XmlTransient
-    public Collection<Peticion> getPeticionCollection() {
-        return peticionCollection;
-    }
-
-    public void setPeticionCollection(Collection<Peticion> peticionCollection) {
-        this.peticionCollection = peticionCollection;
+    public void setUsuarioList1(List<Usuario> usuarioList1) {
+        this.usuarioList1 = usuarioList1;
     }
 
     @XmlTransient
-    public Collection<Peticion> getPeticionCollection1() {
-        return peticionCollection1;
+    public List<Post> getPostList() {
+        return postList;
     }
 
-    public void setPeticionCollection1(Collection<Peticion> peticionCollection1) {
-        this.peticionCollection1 = peticionCollection1;
+    public void setPostList(List<Post> postList) {
+        this.postList = postList;
+    }
+
+    @XmlTransient
+    public List<Post> getPostList1() {
+        return postList1;
+    }
+
+    public void setPostList1(List<Post> postList1) {
+        this.postList1 = postList1;
+    }
+
+    @XmlTransient
+    public List<Grupo> getGrupoList1() {
+        return grupoList1;
+    }
+
+    public void setGrupoList1(List<Grupo> grupoList1) {
+        this.grupoList1 = grupoList1;
+    }
+
+    @XmlTransient
+    public List<Peticion> getPeticionList() {
+        return peticionList;
+    }
+
+    public void setPeticionList(List<Peticion> peticionList) {
+        this.peticionList = peticionList;
+    }
+
+    @XmlTransient
+    public List<Peticion> getPeticionList1() {
+        return peticionList1;
+    }
+
+    public void setPeticionList1(List<Peticion> peticionList1) {
+        this.peticionList1 = peticionList1;
     }
 
     @Override

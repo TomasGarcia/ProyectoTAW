@@ -57,8 +57,8 @@ public class integrantesServlet extends HttpServlet {
        List<Grupo> grupos = this.grupoFacade.findAll();
        request.setAttribute("GrupoList", grupos);
        
-       Collection<Usuario> participantes=grupo.getUsuarioCollection();
-       request.setAttribute("Participantes",participantes);
+//       Collection<Usuario> participantes=grupo.getUsuarioCollection();
+//       request.setAttribute("Participantes",participantes);
        
        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/integrantes.jsp");
        rd.forward(request, response);  
