@@ -138,8 +138,8 @@
                  <img src="<%= g.getImagen()%>" alt="Sin Imagen" width="200" height="100">
              </td>
              <td>
-                <iframe width="200" height="100" src="<%=g.getVideo()%>">
-                </iframe>
+                
+                <iframe width="260" height="115" src="<%=g.getVideo()%>" frameborder="0" allowfullscreen></iframe>
              </td>
              <td>
                  <% 
