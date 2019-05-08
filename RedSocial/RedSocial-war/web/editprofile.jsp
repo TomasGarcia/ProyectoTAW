@@ -38,7 +38,7 @@
                 </div>  
                 <div class="mx-auto d-block">
                     <label>Contraseña</label>
-                    <input class="form-control" name="password" value = "<%=usuario.getClave()%>">
+                    <input class="form-control" name="password" value = "<%=usuario.getPassword()%>">
                 </div>  
                 <div class="mx-auto d-block">
                     <label>Nombre</label>

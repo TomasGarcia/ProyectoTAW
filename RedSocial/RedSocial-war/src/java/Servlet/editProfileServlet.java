@@ -53,7 +53,7 @@ public class editProfileServlet extends HttpServlet {
        str = request.getParameter("email");
        usuario.setEmail(str);
        str = request.getParameter("password");
-       usuario.setClave(str);
+       usuario.setPassword(str);
        str = request.getParameter("nombre");
        usuario.setNombre(str);
        str = request.getParameter("apellido");

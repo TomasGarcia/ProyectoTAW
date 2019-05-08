@@ -6,12 +6,13 @@
 package Entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -29,7 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author oscar
+ * @author tmgrm
  */
 @Entity
 @Table(name = "grupo")
@@ -44,8 +45,8 @@ public class Grupo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
@@ -65,12 +66,12 @@ public class Grupo implements Serializable {
         @JoinColumn(name = "grupo_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "post_id", referencedColumnName = "id")})
     @ManyToMany
-    private Collection<Post> postCollection;
+    private List<Post> postList;
     @JoinTable(name = "pertenece", joinColumns = {
         @JoinColumn(name = "grupo_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "usuario_id", referencedColumnName = "id")})
     @ManyToMany
-    private List<Usuario> usuarioCollection;
+    private List<Usuario> usuarioList;
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Usuario usuarioId;
@@ -121,21 +122,23 @@ public class Grupo implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Post> getPostCollection() {
-        return postCollection;
+    public List<Post> getPostList() {
+        return postList;
     }
 
-    public void setPostCollection(Collection<Post> postCollection) {
-        this.postCollection = postCollection;
+    public void setPostList(List<Post> postList) {
+        this.postList = postList;
     }
 
+    
     @XmlTransient
-    public List<Usuario> getUsuarioCollection() {
-        return usuarioCollection;
+    public List<Usuario> getUsuarioList() {
+        return usuarioList;
     }
 
-    public void setUsuarioCollection(List<Usuario> usuarioCollection) {
-        this.usuarioCollection = usuarioCollection;
+    public void setUsuarioList(List<Usuario> usuarioList) {
+        this.usuarioList = usuarioList;
+
     }
 
     public Usuario getUsuarioId() {

@@ -91,7 +91,7 @@ public class registroServlet extends HttpServlet {
         usuario = new Usuario();
         usuario.setId(0);
         usuario.setNombre(nombre);
-        usuario.setClave(password);
+        usuario.setPassword(password);
         usuario.setNombre(nombre);
         usuario.setApellido(apellido);
         usuario.setPais(pais);

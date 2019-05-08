@@ -61,7 +61,9 @@ public class newgrupoServlet extends HttpServlet {
         grupo.setUsuarioId(usuario);
         
         
+
         
+
         this.grupoFacade.create(grupo);
         
         
@@ -69,11 +71,9 @@ public class newgrupoServlet extends HttpServlet {
         List<Grupo> grupos = this.grupoFacade.findAll();
         
         
-        
-        request.setAttribute("GrupoList", grupos);
-        response.sendRedirect("MuroServlet");
-//        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/muro.jsp");
-//        dispatcher.forward(request, response); 
+
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/MuroServlet");
+        dispatcher.forward(request, response); 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

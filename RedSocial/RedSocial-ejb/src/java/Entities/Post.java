@@ -6,11 +6,13 @@
 package Entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -27,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author oscar
+ * @author tmgrm
  */
 @Entity
 @Table(name = "post")
@@ -45,8 +47,8 @@ public class Post implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
@@ -74,15 +76,14 @@ public class Post implements Serializable {
     @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
     private Date fecha;
-//    @ManyToMany(mappedBy = "postCollection")
-//    private Collection<Grupo> grupoCollection;
+    @ManyToMany(mappedBy = "postList")
+    private List<Grupo> grupoList;
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Usuario usuarioId;
     @JoinColumn(name = "usuario_id1", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Usuario usuarioId1;    
-    
+    private Usuario usuarioId1;
 
     public Post() {
     }
@@ -155,14 +156,14 @@ public class Post implements Serializable {
         this.fecha = fecha;
     }
 
-//    @XmlTransient
-//    public Collection<Grupo> getGrupoCollection() {
-//        return grupoCollection;
-//    }
-//
-//    public void setGrupoCollection(Collection<Grupo> grupoCollection) {
-//        this.grupoCollection = grupoCollection;
-//    }
+    @XmlTransient
+    public List<Grupo> getGrupoList() {
+        return grupoList;
+    }
+
+    public void setGrupoList(List<Grupo> grupoList) {
+        this.grupoList = grupoList;
+    }
 
     public Usuario getUsuarioId() {
         return usuarioId;
@@ -170,13 +171,14 @@ public class Post implements Serializable {
 
     public void setUsuarioId(Usuario usuarioId) {
         this.usuarioId = usuarioId;
-    }   
+    }
+
     public Usuario getUsuarioId1() {
         return usuarioId1;
     }
 
-    public void setUsuarioId1(Usuario usuarioId) {
-        this.usuarioId1 = usuarioId;
+    public void setUsuarioId1(Usuario usuarioId1) {
+        this.usuarioId1 = usuarioId1;
     }
 
     @Override

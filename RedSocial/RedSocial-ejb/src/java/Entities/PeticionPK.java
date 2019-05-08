@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author oscar
+ * @author tmgrm
  */
 @Embeddable
 public class PeticionPK implements Serializable {

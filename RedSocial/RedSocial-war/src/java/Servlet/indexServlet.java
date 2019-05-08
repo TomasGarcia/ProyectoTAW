@@ -55,7 +55,7 @@ public class indexServlet extends HttpServlet {
             
         if(!usuarios.isEmpty()){
                 loggedUser = usuarios.get(0);
-            if(loggedUser.getClave().equals(password)){
+            if(loggedUser.getPassword().equals(password)){
               id = loggedUser.getId();
               log = true;    
             }                                

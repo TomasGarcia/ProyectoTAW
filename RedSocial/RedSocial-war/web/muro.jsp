@@ -54,7 +54,7 @@
              </tr>
 
              <% for(Grupo p: GruposList){ 
-                    if(p.getUsuarioId().getId()== loggedUser.getId() || p.getUsuarioCollection().contains(loggedUser) ){
+                    if(p.getUsuarioId().getId()== loggedUser.getId() || p.getUsuarioList().contains(loggedUser) ){
              
              %>     
          <tr>
