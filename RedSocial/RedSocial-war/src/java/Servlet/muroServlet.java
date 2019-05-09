@@ -59,8 +59,8 @@ public class muroServlet extends HttpServlet {
         request.setAttribute("GrupoList", grupos);
         request.setAttribute("PostList", posts);
         
-        String redirect = "/muro.jsp";
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(redirect);
+        //String redirect = "/muro.jsp";
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/muro.jsp");
         dispatcher.forward(request, response);
         
     }
