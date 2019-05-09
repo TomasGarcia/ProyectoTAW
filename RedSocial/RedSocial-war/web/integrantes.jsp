@@ -10,6 +10,7 @@
 <%@page import="Entities.Grupo"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
+    Usuario loggedUser = (Usuario)session.getAttribute("usuario");
     Grupo grupo = (Grupo)request.getAttribute("grupo");
     if(grupo == null){
         grupo = (Grupo)session.getAttribute("grupo");
@@ -23,6 +24,13 @@
         <title>Participantes</title>
     </head>
     <body>
+        <%
+          if(loggedUser.getId() == grupo.getUsuarioId().getId()){
+        %>
+        <form action="addIntegrante">
+            <p>Add Integrante <input name="user" placeholder="Introduce Username"><input type="submit" value="Enviar"></p>
+        </form>
+        <% } %>
         <table border ="1">
              <tr>
                  <th>
@@ -43,8 +51,17 @@
              <td>
                  <%= u.getEmail() %>
              </td>
+        <%
+          if(loggedUser.getId() == grupo.getUsuarioId().getId()){
+        %>             
+            <td>
+                 <a href="EliminarIntegranteServlet?idUser=<%= u.getId() %>">Eliminar</a>
+            </td>
+        <% } %>
          </tr>
              <% } %>
+             
+        </table>
              
              <p align ="center">                 
                     <button onclick="goBack()">Volver</button>
@@ -56,4 +73,5 @@
                     }
                     </script>
     </body>
+    
 </html>

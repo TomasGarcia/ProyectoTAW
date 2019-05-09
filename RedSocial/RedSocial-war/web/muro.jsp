@@ -39,7 +39,15 @@
         </form> 
         
         <button onclick="window.location.href='friendServlet?id=<%= loggedUser.getId() %>'">Amigos</button> 
-                
+        <h4 align="center">Nueva Publicacion</h4>
+            <p align="center">
+                <button class="btn btn-primary" role="link" onclick="window.location='newpost.jsp'">Crear nueva publicacion</button>
+            </p>
+
+        <h4 align="center">Crear grupo</h4>
+        <p align="center">
+            <button class="btn btn-primary" role="link" onclick="window.location='newgrupo.jsp'">Crear nuevo grupo</button>
+        </p>        
         <h4 align="left">Grupos</h4>
          <table border ="1">
              <tr>
@@ -178,14 +186,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </body>
-    <h4 align="center">Nueva Publicacion</h4>
-        <p align="center">
-            <button class="btn btn-primary" role="link" onclick="window.location='newpost.jsp'">Crear nueva publicacion</button>
-        </p>
-    
-    <h4 align="center">Crear grupo</h4>
-    <p align="center">
-        <button class="btn btn-primary" role="link" onclick="window.location='newgrupo.jsp'">Crear nuevo grupo</button>
-    </p>
+
   
 </html>

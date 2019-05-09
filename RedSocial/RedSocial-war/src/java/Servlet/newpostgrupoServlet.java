@@ -8,6 +8,7 @@ package Servlet;
 import Entities.Grupo;
 import Entities.Post;
 import Entities.Usuario;
+import ejb.GrupoFacade;
 import ejb.PostFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,6 +22,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -41,10 +43,14 @@ public class newpostgrupoServlet extends HttpServlet {
     
     @EJB
     private PostFacade postFacade;
+    
+    @EJB
+    private GrupoFacade grupoFacade;
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+        HttpSession session = request.getSession();
         String titulo = request.getParameter("titulo");
         System.out.println(titulo);
         String texto = request.getParameter("texto");
@@ -66,19 +72,23 @@ public class newpostgrupoServlet extends HttpServlet {
         post.setVideo(video);
         post.setTitulo(titulo);
         post.setTexto(texto);
+        Usuario loggedUser = (Usuario) session.getAttribute("usuario");
+        post.setUsuarioId(loggedUser);
+        post.setUsuarioId1(loggedUser);
         
-        Grupo grupo=(Grupo)request.getAttribute("grupo");
+        Grupo grupo=(Grupo)session.getAttribute("grupo");
         
-        List<Post> posts=grupo.getPostList();
+        List<Post> posts= grupo.getPostList();
         if(posts == null){
             posts = new ArrayList<>();
         }
         posts.add(post);
         grupo.setPostList(posts);
-        this.postFacade.create(post);
         
+//        this.postFacade.create(post);
         
-
+        this.grupoFacade.edit(grupo);
+        request.setAttribute("id", grupo.getId());
         
         
         

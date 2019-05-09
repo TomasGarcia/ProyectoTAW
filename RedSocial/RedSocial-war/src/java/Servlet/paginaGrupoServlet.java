@@ -44,18 +44,23 @@ public class paginaGrupoServlet extends HttpServlet {
      
         HttpSession session = request.getSession();
         String strID = request.getParameter("id");
+        Integer id;
+        if(strID != null){
+           id = new Integer(strID);
+        }else{
+            id = (Integer)session.getAttribute("idGrupo");
+        }
         
-        Integer id = new Integer(strID);
         Grupo grupo = this.grupoFacade.find(id);
-        System.out.println(grupo.getNombre());
+//        System.out.println(grupo.getNombre());
         
         session.setAttribute("idGrupo", id);
-        request.setAttribute("grupo", grupo);
+        session.setAttribute("grupo", grupo);
         List<Grupo> grupos = this.grupoFacade.findAll();
         request.setAttribute("GrupoList", grupos);
         
         List<Post> posts=grupo.getPostList();
-        request.setAttribute("PostList", posts);
+        request.setAttribute("PostListGrupo", posts);
         
         RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/paginagrupo.jsp");
         rd.forward(request, response); 

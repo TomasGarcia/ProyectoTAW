@@ -15,7 +15,7 @@
     if(grupo == null){
         grupo = (Grupo)session.getAttribute("grupo");
     }
-    List<Post> PostsList = (List<Post>)request.getAttribute("PostList");
+    List<Post> PostsList = (List<Post>)request.getAttribute("PostListGrupo");
     
 %>    
 <html>
@@ -82,7 +82,7 @@
          </tr>
              <% } %>
          </table>
-         <form action="newpostServlet"
+         <form action="newpostgrupoServlet"
          <h4 align="center">Nueva Publicacion en este Grupo</h4>
         
          </form>
