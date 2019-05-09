@@ -6,9 +6,12 @@
 package ejb;
 
 import Entities.Peticion;
+import Entities.Usuario;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +30,12 @@ public class PeticionFacade extends AbstractFacade<Peticion> {
 
     public PeticionFacade() {
         super(Peticion.class);
+    }
+    
+    public List<Peticion> misPeticiones(Integer id){
+        Query q;
+        q = this.em.createQuery("select p from  Peticion p where p.usuario1 =:id");
+        return q.getResultList();
     }
     
 }

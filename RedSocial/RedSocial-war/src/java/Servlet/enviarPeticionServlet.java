@@ -11,7 +11,7 @@ import ejb.PeticionFacade;
 import ejb.UsuarioFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -26,11 +26,12 @@ import javax.servlet.http.HttpSession;
  *
  * @author Hp
  */
-@WebServlet(name = "friendServlet", urlPatterns = {"/friendServlet"})
-public class friendServlet extends HttpServlet {
+@WebServlet(name = "enviarPeticionServlet", urlPatterns = {"/enviarPeticionServlet"})
+public class enviarPeticionServlet extends HttpServlet {
 @EJB private UsuarioFacade usuarioFacade;
 @EJB private PeticionFacade peticionFacade;
     /**
+     * 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
@@ -41,35 +42,25 @@ public class friendServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         HttpSession session = request.getSession();
+        Date fecha = new Date();
         
+        Usuario u = (Usuario) session.getAttribute("usuario");
         
-        String strId = request.getParameter("id");
-        Integer id = new Integer(strId);
-        Usuario usuario = this.usuarioFacade.find(id);
-        session.setAttribute("usuario", usuario);
+        String str = request.getParameter("nuevoamigo");
+        Integer id = new Integer(str);
+        Usuario u1 = this.usuarioFacade.find(id);
         
-        //Esto...
-        List<Usuario> listaUsuario = usuario.getUsuarioList();
-        if(listaUsuario==null){
-            listaUsuario = new ArrayList<>();
-        }
-        listaUsuario.add(usuario);
+        Peticion p = new Peticion();
+        p.setFecha(fecha);
+        //p.setConfirmada(Character.MIN_VALUE);
+        p.setUsuario(u);
+        p.setUsuario1(u1);
+        this.peticionFacade.create(p);
         
-        //Lista de todos los usuarios
-        List<Usuario> listaUsuarios = this.usuarioFacade.findAll();
-        request.setAttribute("listaUsuarios", listaUsuarios);
-        
-        //Lista con tus amigos
-        List<Usuario> listaAmigos = usuario.getUsuarioList1();
-        session.setAttribute("listaAmigos", listaAmigos);
-        
-        List<Peticion> listaPeticiones = this.peticionFacade.misPeticiones(usuario.getId());
-        request.setAttribute("listaPeticiones", listaPeticiones);
-        
-        RequestDispatcher rd = request.getRequestDispatcher("/amigos.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/friendServlet");
         rd.forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -53,9 +53,7 @@
                     <input type="text" name="video">
                 </div>
                 
-                <%--
-                A ver si aclaramos que coño va a destinario y como lo vamos a poner
-                --%>              
+                              
                 <div class="mx-auto d-block">
                     <label>Destinatario</label>
                     <select name="destinatario">
