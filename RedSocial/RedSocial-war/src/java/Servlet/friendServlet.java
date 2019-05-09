@@ -65,6 +65,7 @@ public class friendServlet extends HttpServlet {
         List<Usuario> listaAmigos = usuario.getUsuarioList1();
         session.setAttribute("listaAmigos", listaAmigos);
         
+        //Lista con tus peticiones
         List<Peticion> listaPeticiones = this.peticionFacade.misPeticiones(usuario.getId());
         request.setAttribute("listaPeticiones", listaPeticiones);
         
