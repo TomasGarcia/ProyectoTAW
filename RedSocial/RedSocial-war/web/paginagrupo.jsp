@@ -15,7 +15,7 @@
     if(grupo == null){
         grupo = (Grupo)session.getAttribute("grupo");
     }
-    Collection<Post> PostsList = (Collection<Post>)request.getAttribute("PostList");
+    List<Post> PostsList = (List<Post>)request.getAttribute("PostList");
     
 %>    
 <html>
@@ -90,7 +90,7 @@
         <div>
             
             <p align="center">
-            <button class="btn btn-primary" role="link" onclick="window.location='newpost.jsp'">Crear nueva publicacion</button>
+            <button class="btn btn-primary" role="link" onclick="window.location='newpostgrupo.jsp'">Crear nueva publicacion</button>
         </p>
                 <br>
                 <button class="btn btn-primary" onclick="goBack()">Volver</button>
