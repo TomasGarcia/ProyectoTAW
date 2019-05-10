@@ -12,7 +12,6 @@ import ejb.PeticionFacade;
 import ejb.UsuarioFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -25,44 +24,45 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Hp
+ * @author tmgrm
  */
-@WebServlet(name = "enviarPeticionServlet", urlPatterns = {"/enviarPeticionServlet"})
-public class enviarPeticionServlet extends HttpServlet {
-@EJB private UsuarioFacade usuarioFacade;
-@EJB private PeticionFacade peticionFacade;
-    /**
-     * 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+@WebServlet(name = "AceptarSolicitudServlet", urlPatterns = {"/AceptarSolicitudServlet"})
+public class AceptarSolicitudServlet extends HttpServlet {
+
+    @EJB
+    private PeticionFacade peticionFacade;
+    
+    @EJB
+    private UsuarioFacade usuarioFacade;
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Date fecha = new Date();
         
-        Usuario u = (Usuario) session.getAttribute("usuario");
+        Integer id = new Integer(request.getParameter("id"));
+        Integer id1 = new Integer(request.getParameter("id1"));
         
-        String str = request.getParameter("nuevoamigo");
-        Integer id = new Integer(str);
-        Usuario u1 = this.usuarioFacade.find(id);
+        PeticionPK peticionPK = new PeticionPK(id,id1);
+        Peticion peticion = this.peticionFacade.find(peticionPK);
         
-        Peticion p = new Peticion();
-        p.setFecha(fecha);
-        p.setConfirmada(false);
-        p.setUsuario(u);
-        p.setUsuario1(u1);
-        p.setPeticionPK(new PeticionPK(u.getId(),u1.getId()));
-        this.peticionFacade.create(p);
+        peticion.setConfirmada(true);
+        this.peticionFacade.edit(peticion);
+        
+        Usuario usuario = this.usuarioFacade.find(id);
+        Usuario usuario1 = this.usuarioFacade.find(id1);
+        
+        List<Usuario> usuarios = usuario.getUsuarioList();
+        usuarios.add(usuario1);
+        usuario.setUsuarioList1(usuarios);
+        this.usuarioFacade.edit(usuario);
+        
+        usuarios = usuario1.getUsuarioList();
+        usuarios.add(usuario);
+        usuario1.setUsuarioList1(usuarios);
+        this.usuarioFacade.edit(usuario1);
         
         RequestDispatcher rd = request.getRequestDispatcher("/friendServlet");
         rd.forward(request, response);
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

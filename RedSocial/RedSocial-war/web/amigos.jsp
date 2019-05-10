@@ -28,16 +28,13 @@
     <div class="mx-auto d-block">
             <label>Usuarios</label>
             <select name="nuevoamigo">
-                <option name="nuevoamigo">
-                    Todos
-                </option>  
-
                 <% 
                     for(Usuario us : listaUsuarios){
+                        if(us.getId() != 1){
                 %>
                 <option name="nuevoamigo" value="<%= us.getId() %>"> <%= us.getUsername()%> </option>
                 <%     
-                    }
+                    }}
                 %>
 
             </select> 
@@ -96,7 +93,7 @@
         </table>
         
         <h3>Solicitudes de amistad </h3>
-        <table>
+        <table border="1">
             <tr>
                 <th>
                     USUARIO
@@ -110,20 +107,23 @@
             </tr>
             <%
                 for(Peticion p : listaPeticiones){
+                    if(!p.getConfirmada()){
                 %>
-            <tr>
+            
+                <tr>
+               
                 <td>
-                    <%= p.getUsuario()%>
+                    <%= p.getUsuario().getUsername() %>
                 </td>
                 <td>
                     <%= p.getFecha()%>
                 </td>
                 <td>
-                    
+                    <a href="AceptarSolicitudServlet?id=<%= p.getUsuario().getId() %>&id1=<%= p.getUsuario1().getId() %>">Aceptar</a>
                 </td>
             </tr>
             <%
-                }
+                }}
                 %>
         </table>
         

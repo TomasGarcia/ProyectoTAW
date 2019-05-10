@@ -46,23 +46,34 @@ public class friendServlet extends HttpServlet {
         
         
         String strId = request.getParameter("id");
-        Integer id = new Integer(strId);
-        Usuario usuario = this.usuarioFacade.find(id);
+        Usuario usuario;
+        
+        if(strId != null){
+            Integer id = new Integer(strId);
+            usuario= this.usuarioFacade.find(id);
+        }else{
+            usuario = (Usuario) session.getAttribute("usuario");
+        }
         session.setAttribute("usuario", usuario);
         
         //Esto...
-        List<Usuario> listaUsuario = usuario.getUsuarioList();
+        List<Usuario> listaUsuario = usuario.getUsuarioList1();
         if(listaUsuario==null){
             listaUsuario = new ArrayList<>();
+            listaUsuario.add(usuario);
+            usuario.setUsuarioList(listaUsuario);
         }
-        listaUsuario.add(usuario);
         
         //Lista de todos los usuarios
         List<Usuario> listaUsuarios = this.usuarioFacade.findAll();
         request.setAttribute("listaUsuarios", listaUsuarios);
         
         //Lista con tus amigos
-        List<Usuario> listaAmigos = usuario.getUsuarioList1();
+        List<Usuario> listaAmigos = usuario.getUsuarioList();
+        if(listaAmigos == null){
+            listaAmigos = new ArrayList<>();
+            usuario.setUsuarioList1(listaAmigos);
+        }
         session.setAttribute("listaAmigos", listaAmigos);
         
         //Lista con tus peticiones
