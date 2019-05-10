@@ -47,7 +47,7 @@ public class Peticion implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "confirmada")
-    private Character confirmada;
+    private boolean confirmada;
     @JoinColumn(name = "usuario_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Usuario usuario;
@@ -62,7 +62,7 @@ public class Peticion implements Serializable {
         this.peticionPK = peticionPK;
     }
 
-    public Peticion(PeticionPK peticionPK, Date fecha, Character confirmada) {
+    public Peticion(PeticionPK peticionPK, Date fecha, boolean confirmada) {
         this.peticionPK = peticionPK;
         this.fecha = fecha;
         this.confirmada = confirmada;
@@ -88,11 +88,11 @@ public class Peticion implements Serializable {
         this.fecha = fecha;
     }
 
-    public Character getConfirmada() {
+    public boolean getConfirmada() {
         return confirmada;
     }
 
-    public void setConfirmada(Character confirmada) {
+    public void setConfirmada(boolean confirmada) {
         this.confirmada = confirmada;
     }
 

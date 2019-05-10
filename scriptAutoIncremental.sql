@@ -99,7 +99,7 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `redsocial`.`peticion` (
   `fecha` DATE NOT NULL,
-  `confirmada` CHAR(1) NOT NULL,
+  `confirmada` BOOLEAN NOT NULL,
   `usuario_id` INT(11) NOT NULL,
   `usuario_id1` INT(11) NOT NULL,
   PRIMARY KEY (`usuario_id`, `usuario_id1`),
