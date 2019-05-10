@@ -42,6 +42,11 @@ public class EliminarAmigoServlet extends HttpServlet {
         usuario.setUsuarioList1(listaAmigos);
         this.usuarioFacade.edit(usuario);
         
+        List<Usuario>listaAmigos1 = amigo.getUsuarioList1();
+        listaAmigos.remove(usuario);
+        amigo.setUsuarioList1(listaAmigos1);
+        this.usuarioFacade.edit(amigo);
+        
         RequestDispatcher rd = request.getRequestDispatcher("friendServlet");
         rd.forward(request, response);
     }
