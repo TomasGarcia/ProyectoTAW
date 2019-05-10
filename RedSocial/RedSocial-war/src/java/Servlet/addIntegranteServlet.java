@@ -42,7 +42,7 @@ public class addIntegranteServlet extends HttpServlet {
         Grupo grupo = this.grupoFacade.find((Integer)session.getAttribute("idGrupo"));
         List<Usuario> usuarios = this.usuarioFacade.buscarUsuarioPorUsername(username);
         List<Usuario> usuariosGrupo = grupo.getUsuarioList();
-        String redirect = "/integrantesServlet?id=" + grupo.getId();
+        String redirect = "integrantesServlet?id=" + grupo.getId();
         if(usuarios == null || usuarios.isEmpty() || usuariosGrupo.contains(usuarios.get(0))){
              request.setAttribute("mensaje", "Usuario inexistente");
              request.setAttribute("url", redirect);

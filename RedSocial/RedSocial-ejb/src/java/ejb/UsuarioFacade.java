@@ -35,7 +35,7 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         Query q;
 //        q = this.em.createQuery("select u from Usuario u where u.username like '"+ nombre + "';");
         q = this.em.createQuery("select u from Usuario u where u.username like :username");
-        q.setParameter("username", "%"+nombre+"%");
+        q.setParameter("username", nombre);
         
         return q.getResultList();
     }
