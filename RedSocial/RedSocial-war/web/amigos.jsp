@@ -104,6 +104,9 @@
                 <th>
                     
                 </th>
+                <th>
+                    
+                </th>
             </tr>
             <%
                 for(Peticion p : listaPeticiones){
@@ -120,6 +123,9 @@
                 </td>
                 <td>
                     <a href="AceptarSolicitudServlet?id=<%= p.getUsuario().getId() %>&id1=<%= p.getUsuario1().getId() %>">Aceptar</a>
+                </td>
+                <td>
+                    <a href="RechazarSolicitudServlet?id=<%= p.getUsuario().getId() %>&id1=<%= p.getUsuario1().getId() %>">Rechazar</a>
                 </td>
             </tr>
             <%
