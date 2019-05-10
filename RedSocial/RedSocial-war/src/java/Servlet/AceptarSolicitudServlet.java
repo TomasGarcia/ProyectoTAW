@@ -53,14 +53,15 @@ public class AceptarSolicitudServlet extends HttpServlet {
         
         List<Usuario> usuarios = usuario.getUsuarioList();
         usuarios.add(usuario1);
-        usuario.setUsuarioList1(usuarios);
+        usuario.setUsuarioList(usuarios);
         this.usuarioFacade.edit(usuario);
         
         usuarios = usuario1.getUsuarioList();
         usuarios.add(usuario);
-        usuario1.setUsuarioList1(usuarios);
+        usuario1.setUsuarioList(usuarios);
         this.usuarioFacade.edit(usuario1);
         
+        session.setAttribute("usuario", usuario1);
         RequestDispatcher rd = request.getRequestDispatcher("/friendServlet");
         rd.forward(request, response);
     }

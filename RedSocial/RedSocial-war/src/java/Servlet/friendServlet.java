@@ -45,16 +45,15 @@ public class friendServlet extends HttpServlet {
         HttpSession session = request.getSession();
         
         
-        String strId = request.getParameter("id");
-        Usuario usuario;
-        
-        if(strId != null){
-            Integer id = new Integer(strId);
-            usuario= this.usuarioFacade.find(id);
-        }else{
-            usuario = (Usuario) session.getAttribute("usuario");
-        }
-        session.setAttribute("usuario", usuario);
+//        String strId = request.getParameter("id");
+//        Usuario usuario;
+//        
+//        if(strId != null){
+//            Integer id = new Integer(strId);
+//            usuario= this.usuarioFacade.find(id);
+//        }else{
+           Usuario usuario = (Usuario) session.getAttribute("usuario");
+//        }
         
         //Esto...
         List<Usuario> listaUsuario = usuario.getUsuarioList1();
@@ -74,6 +73,7 @@ public class friendServlet extends HttpServlet {
             listaAmigos = new ArrayList<>();
             usuario.setUsuarioList1(listaAmigos);
         }
+        session.setAttribute("usuario", usuario);
         session.setAttribute("listaAmigos", listaAmigos);
         
         //Lista con tus peticiones

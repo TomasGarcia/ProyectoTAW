@@ -43,8 +43,8 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
     public List<Usuario> buscarUsuarioPorEmail(String email){
         Query q;
 //        q = this.em.createQuery("select u from Usuario u where u.username like '"+ nombre + "';");
-        q = this.em.createQuery("select u from Usuario u where u.email like :email");
-        q.setParameter("email", "%"+email+"%");
+        q = this.em.createQuery("select u from Usuario u where u.email = :email");
+        q.setParameter("email", email);
         
         return q.getResultList();
     }
