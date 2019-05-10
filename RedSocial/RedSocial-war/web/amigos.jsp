@@ -62,7 +62,10 @@
                 </th> 
                 <th>
                     FECHA DE NACIMIENTO
-                </th> 
+                </th>
+                <th>
+                    
+                </th>
             </tr>
             <%
               for(Usuario u : listaAmigos){ 
@@ -85,6 +88,9 @@
                 </td>  
                 <td>
                     <%= u.getFechaNacimiento() %>
+                </td>
+                <td>
+                    <a href="EliminarAmigoServlet?id=<%= u.getId() %>">Eliminar</a>
                 </td>
             </tr>
             <%
