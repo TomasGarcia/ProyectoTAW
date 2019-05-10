@@ -66,7 +66,8 @@
                 </p>
     
                 <p align ="center">                 
-                    <button onclick="goBack()">Volver</button>
+                    <button onclick="${pageContext.request.contextPath}/">Volver</button>
+                    <a class="...." href="${pageContext.request.contextPath}/indexServlet">VOLVER</a>
                 </p>
 
                     <script>

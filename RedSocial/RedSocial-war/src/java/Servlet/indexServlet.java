@@ -42,11 +42,14 @@ public class indexServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        Boolean log = false;
-        int id = -1;
-        Usuario loggedUser = null;
-
         HttpSession session = request.getSession();
+        Boolean log =(Boolean) session.getAttribute("logged");
+        if(log == null){
+            log = false;
+        }
+        int id = -1;
+        Usuario loggedUser = (Usuario)session.getAttribute("usuario");
+
 
         String email = request.getParameter("email");//.getBytes("ISO-8559-1"), "UTF-8");
         String password =(request.getParameter("password"));//.getBytes("IS0-8559-1"), "utf-8");
@@ -74,6 +77,7 @@ public class indexServlet extends HttpServlet {
             session.setAttribute("usuario", loggedUser);
             usuarios = (List) this.userFacade.findAll();
             session.setAttribute("usuarios", usuarios);
+            session.setAttribute("logged",log);
         }
         
         RequestDispatcher dispatcher = request.getRequestDispatcher(redirect);
