@@ -31,6 +31,7 @@
         <title>Nuevo Post</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
+    
     <body>
         <h1 class="display-4" align="center">Nueva Publicación</h1>
         <div class="mx-auto" style="width: 400px;">

@@ -45,7 +45,7 @@ public class addIntegranteServlet extends HttpServlet {
         String redirect = "/integrantesServlet?id=" + grupo.getId();
         if(usuarios == null || usuarios.isEmpty() || usuariosGrupo.contains(usuarios.get(0))){
              redirect = "integrantesServlet?id=" + grupo.getId();
-             request.setAttribute("mensaje", "Usuario inexistente");
+             request.setAttribute("mensaje", "Usuario inexistente.El nombre introducido debe coincidir exactamente con el del usuario que se quiere introducir");
              request.setAttribute("url", redirect);
              redirect = "/errorManteniendoSession.jsp";
         }else{

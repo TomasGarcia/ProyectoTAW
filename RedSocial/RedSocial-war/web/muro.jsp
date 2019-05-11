@@ -144,7 +144,7 @@ a:link, a:visited {
                 
          </table>
         <br>      
-         <h4 align="left">Posts <img src="https://image.flaticon.com/icons/png/512/14/14489.png" height="42" width="42" alt="no" /></h4>
+         <h4 align="left">Posts Publicos<img src="https://image.flaticon.com/icons/png/512/14/14489.png" height="42" width="42" alt="no" /></h4>
          <table border ="1" >
              <tr>
                  <th>
