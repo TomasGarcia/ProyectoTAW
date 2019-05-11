@@ -21,6 +21,9 @@
     </head>
     <body>
          <div class="mx-auto" style="width: 400px;">
+             <p align="center">
+                 <img src="https://github.com/AlexCalvo/imagen/blob/master/logo.png?raw=true" />
+             </p>
              <form method="post" action="indexServlet" name="index" accept-charset="utf-8">
 			<div class="mx-auto d-block">
 				<label for="InputEmail1">Correo Electrónico</label>
@@ -28,7 +31,7 @@
 			</div>
 			<div class="mx-auto d-block">
 				<label for="Password1">Contraseña</label>
-                                <input type="text" class="form-control" name="password" placeholder="Escriba su contraseña">
+                                <input type="password" class="form-control" name="password" placeholder="Escriba su contraseña">
 			</div>
                     <br>
                     
