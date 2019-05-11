@@ -24,9 +24,40 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Menu Principal</title>
+        <style type="text/css">
+  body {
+      padding-left: 11em;
+    font-family: Georgia, "Times New Roman",
+          Times, serif;
+    font-weight: bold;
+    color: black;
+    background-color: white }
+  h1 {
+    font-family: Helvetica, Geneva, Arial,
+          SunSans-Regular, sans-serif }
+  
+  th, td {
+  padding: 15px;
+  text-align: left;
+  vertical-align: bottom;
+}
+
+a:link, a:visited {
+  background-color: darkcyan;
+  color: whitesmoke;
+  padding: 15px 25px;
+  text-align: center;
+  text-decoration: blink;
+  display: inline-block;
+}
+
+
+  
+  </style>
         
     </head>
     <body>
+        
         Bienvenido a nuestra Red Social @<%= loggedUser.getUsername() %>
         <br>
         <!--Perfil con datos personales-->
@@ -39,16 +70,17 @@
         </form> 
         
         <button onclick="window.location.href='friendServlet?id=<%= loggedUser.getId() %>'">Amigos</button> 
-        <h4 align="center">Nueva Publicacion</h4>
+        <h4 align="center">Nueva Publicacion <img src="https://img.icons8.com/ios/420/create-new.png" height="42" width="42" alt="no" /></h4>
             <p align="center">
+                
                 <button class="btn btn-primary" role="link" onclick="window.location='newpost.jsp'">Crear nueva publicacion</button>
             </p>
 
-        <h4 align="center">Crear grupo</h4>
+        <h4 align="center">Crear grupo <img src="https://image.flaticon.com/icons/png/512/47/47777.png" height="42" width="42" alt="no" /></h4>
         <p align="center">
             <button class="btn btn-primary" role="link" onclick="window.location='newgrupo.jsp'">Crear nuevo grupo</button>
         </p>        
-        <h4 align="left">Grupos</h4>
+        <h4 align="left">Grupos <img src="https://image.flaticon.com/icons/png/512/27/27825.png" height="42" width="42" alt="no" /></h4>
          <table border ="1">
              <tr>
                  <th>
@@ -86,7 +118,7 @@
                <% } %>
              </td>
              <td>
-               <a href="paginaGrupoServlet?id=<%= p.getId()%>">Pagina</a>
+               <a href="paginaGrupoServlet?id=<%= p.getId()%>">Página</a>
              </td>
              <td>
                <a href="integrantesServlet?id=<%= p.getId()%>">Integrantes</a>
@@ -99,7 +131,7 @@
                         eliminar = true;
                     }
                 %>
-                <button onclick="window.location.href='eliminarGrupo?id=<%= p.getId() %>'" 
+                <button class="alert-danger" onclick="window.location.href='eliminarGrupo?id=<%= p.getId() %>'" 
                 <% if(!eliminar){ %>
                         disabled
                 <%}%>>Eliminar</button>
@@ -108,8 +140,11 @@
        <%     }
                 
                 } %>
-         </table>      
-         <h4 align="left">Posts</h4>
+                
+                
+         </table>
+        <br>      
+         <h4 align="left">Posts <img src="https://image.flaticon.com/icons/png/512/14/14489.png" height="42" width="42" alt="no" /></h4>
          <table border ="1" >
              <tr>
                  <th>
@@ -145,7 +180,7 @@
              </td>
              
              <td>
-                 <img src="<%= g.getImagen()%>" alt="Sin Imagen" width="200" height="100">
+                 <img src="<%= g.getImagen()%>" alt="Sin Imagen" width="100" height="50">
              </td>
              <td>
                 
@@ -171,7 +206,7 @@
                         eliminar = true;
                     }
                 %>
-                <button onclick="window.location.href='eliminarPost?id=<%= g.getId() %>'" 
+                <button class="alert-danger" onclick="window.location.href='eliminarPost?id=<%= g.getId() %>'" 
                 <% if(!eliminar){ %>
                         disabled
                 <%}%>>Eliminar</button>
