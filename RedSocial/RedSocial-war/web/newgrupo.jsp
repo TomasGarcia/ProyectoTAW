@@ -30,8 +30,9 @@
                 <button class="btn btn-primary" role="link" onclick="window.location='muro.jsp'">Crear</button>
                 
             </form>
-            <p>                 
-                    <button onclick="goBack()">Volver</button>
+            <p align ="center">                 
+                    <%-- <button onclick="${pageContext.request.contextPath}/">Volver</button>--%>
+                    <a class="...." href="${pageContext.request.contextPath}/indexServlet">VOLVER</a>
                 </p>
 
                     <script>

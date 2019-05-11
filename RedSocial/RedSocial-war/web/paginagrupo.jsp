@@ -91,11 +91,12 @@
             
             <p align="center">
             <button class="btn btn-primary" role="link" onclick="window.location='newpostgrupo.jsp'">Crear nueva publicacion</button>
-        </p>
-                <br>
-                <button class="btn btn-primary" onclick="goBack()">Volver</button>
-                
-                <script>
+        <p align ="center">                 
+                    <%-- <button onclick="${pageContext.request.contextPath}/">Volver</button>--%>
+                    <a class="...." href="${pageContext.request.contextPath}/indexServlet">VOLVER</a>
+                </p>
+
+                    <script>
                     function goBack() {
                       window.history.back();
                     }

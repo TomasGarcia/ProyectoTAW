@@ -34,8 +34,9 @@
                 </div>
                  <input type="submit" value="Editar" />
          </form>
-              <p align ="center">                 
-                    <button onclick="goBack()">Volver</button>
+             <p align ="center">                 
+                    <%-- <button onclick="${pageContext.request.contextPath}/">Volver</button>--%>
+                    <a class="...." href="${pageContext.request.contextPath}/indexServlet">VOLVER</a>
                 </p>
 
                     <script>
