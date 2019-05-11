@@ -51,17 +51,30 @@ public class enviarPeticionServlet extends HttpServlet {
         String str = request.getParameter("nuevoamigo");
         Integer id = new Integer(str);
         Usuario u1 = this.usuarioFacade.find(id);
-        
+        PeticionPK peticionPK1, peticionPK2;
         Peticion p = new Peticion();
         p.setFecha(fecha);
         p.setConfirmada(false);
         p.setUsuario(u);
         p.setUsuario1(u1);
-        p.setPeticionPK(new PeticionPK(u.getId(),u1.getId()));
-        this.peticionFacade.create(p);
+        peticionPK1 = new PeticionPK(u.getId(),u1.getId());
+        p.setPeticionPK(peticionPK1);
+        peticionPK2 = new PeticionPK(u1.getId(), u.getId());
         
-        RequestDispatcher rd = request.getRequestDispatcher("/friendServlet");
-        rd.forward(request, response);
+        if(this.peticionFacade.find(peticionPK1) == null && this.peticionFacade.find(peticionPK2) == null){
+            this.peticionFacade.create(p);
+        
+            RequestDispatcher rd = request.getRequestDispatcher("/friendServlet");
+            rd.forward(request, response);
+        }else{
+            request.setAttribute("mensaje", "Ya has enviado esa solicitud pero aun no la ha aceptado");
+            request.setAttribute("url", "friendServlet");
+            
+            RequestDispatcher rd = request.getRequestDispatcher("/errorManteniendoSession.jsp");
+            rd.forward(request, response);
+        }
+        
+
         
     }
 

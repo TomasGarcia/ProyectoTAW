@@ -13,6 +13,7 @@
   List<Usuario> listaAmigos = (List)session.getAttribute("listaAmigos");
   List<Usuario> listaUsuarios = (List)request.getAttribute("listaUsuarios");
   List<Peticion> listaPeticiones = (List)request.getAttribute("listaPeticiones");
+  Usuario loggedUser = (Usuario)session.getAttribute("usuario");
 %>
 
 
@@ -33,8 +34,10 @@
             <label>Usuarios</label>
             <select name="nuevoamigo">
                 <% 
+                    String disabled = "disabled";
                     for(Usuario us : listaUsuarios){
-                        if(us.getId() != 1){
+                        if(us.getId() != 1 && us.getId() != loggedUser.getId() && !listaAmigos.contains(us)){
+                            disabled = "";
                 %>
                 <option name="nuevoamigo" value="<%= us.getId() %>"> <%= us.getUsername()%> </option>
                 <%     
@@ -43,7 +46,7 @@
 
             </select> 
         </div>
-                <button type="submit">Enviar Peticion</button>
+                <button type="submit" <%= disabled %>>Enviar Peticion</button>
         </form>
                 
         <h3>Mis Amigos</h3>

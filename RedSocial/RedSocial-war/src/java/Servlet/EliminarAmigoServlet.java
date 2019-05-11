@@ -5,7 +5,10 @@
  */
 package Servlet;
 
+import Entities.Peticion;
+import Entities.PeticionPK;
 import Entities.Usuario;
+import ejb.PeticionFacade;
 import ejb.UsuarioFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -27,6 +30,7 @@ import javax.servlet.http.HttpSession;
 public class EliminarAmigoServlet extends HttpServlet {
 
     @EJB private UsuarioFacade usuarioFacade;
+    @EJB private PeticionFacade peticionFacade;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -37,16 +41,24 @@ public class EliminarAmigoServlet extends HttpServlet {
         Integer id = new Integer(strId);
         Usuario amigo = this.usuarioFacade.find(id);
         
-        List<Usuario>listaAmigos = usuario.getUsuarioList1();
+        List<Usuario>listaAmigos = usuario.getUsuarioList();
         listaAmigos.remove(amigo);
-        usuario.setUsuarioList1(listaAmigos);
+        usuario.setUsuarioList(listaAmigos);
         this.usuarioFacade.edit(usuario);
         
-        List<Usuario>listaAmigos1 = amigo.getUsuarioList1();
-        listaAmigos.remove(usuario);
-        amigo.setUsuarioList1(listaAmigos1);
+        List<Usuario>listaAmigos1 = amigo.getUsuarioList();
+        listaAmigos1.remove(usuario);
+        amigo.setUsuarioList(listaAmigos1);
         this.usuarioFacade.edit(amigo);
         
+        PeticionPK peticionPK = new PeticionPK(usuario.getId(), amigo.getId());
+        Peticion peticion = this.peticionFacade.find(peticionPK);
+        if(peticion == null){
+            peticionPK = new PeticionPK(amigo.getId(), usuario.getId());
+            peticion = this.peticionFacade.find(peticionPK);
+        }
+        
+        this.peticionFacade.remove(peticion);
         RequestDispatcher rd = request.getRequestDispatcher("friendServlet");
         rd.forward(request, response);
     }
