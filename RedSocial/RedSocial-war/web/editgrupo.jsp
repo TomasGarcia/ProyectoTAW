@@ -24,7 +24,6 @@
     </head>
     <body>
          <h1 class="display-4" align="center">Modifique los datos del grupo</h1>
-        <h5  align="center">Esto solo será posible si es el creador del grupo,abstenerse de intentarlos hackers, o sereis destruidos</h5>
         <div class="mx-auto" style="width: 400px;">
          <form method="get" action="saveGrupo" name="editar" accept-charset="utf-8">
                  <div class="mx-auto d-block">
@@ -32,14 +31,14 @@
                     <input class="form-control" name="nombre" value = "<%=grupo.getNombre()%>" >
                 </div>   
                 <div class="mx-auto d-block">
-                    <label>Descripcion</label>
+                    <label style="margin-top: 20px" >Descripcion</label>
                     <input class="form-control" name="descripcion" value = "<%=grupo.getDescripcion()%>">
                 </div>
                 <p align="center">
-                    <input class="btn btn-primary" type="submit" value="Editar" />
+                    <input style="margin-top: 20px" class="btn btn-primary" type="submit" value="Editar" />
                 </p>
          </form>
-             <p align ="center">                 
+             <p  align ="center">                 
                     <%-- <button onclick="${pageContext.request.contextPath}/">Volver</button>--%>
                     <a class="...." href="${pageContext.request.contextPath}/indexServlet">VOLVER</a>
                 </p>

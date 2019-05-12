@@ -64,13 +64,13 @@ a:link, a:visited {
         <!--Perfil con datos personales-->
         <img src=https://www.soporte.ipn.mx/assets/images/cau-profile-default.png alt="usuario" style="width:100px;height:100px;"> 
         <br>
-        <button class="btn btn-primary" role="link" onclick="window.location='profile.jsp'">Mi perfil</button>
+        <button style="margin: 10px"class="btn btn-primary" role="link" onclick="window.location='profile.jsp'">Mi perfil</button>
         <br>
         <form action="cerrarSesion">
-            <button class="btn btn-danger" role="link" >Desconectar</button>
+            <button style="margin: 10px" class="btn btn-danger" role="link" >Desconectar</button>
         </form> 
         
-        <button onclick="window.location.href='friendServlet?id=<%= loggedUser.getId() %>'">Amigos</button> 
+        <button style="margin: 10px" onclick="window.location.href='friendServlet?id=<%= loggedUser.getId() %>'">Amigos</button> 
         <h4 align="center">Nueva Publicacion <img src="https://img.icons8.com/ios/420/create-new.png" height="42" width="42" alt="no" /></h4>
             <p align="center">
                 
@@ -147,7 +147,7 @@ a:link, a:visited {
                 
          </table>
         <br>      
-         <h4 align="left">Posts Publicos<img src="https://image.flaticon.com/icons/png/512/14/14489.png" height="42" width="42" alt="no" /></h4>
+         <h4 align="left">Posts<img src="https://image.flaticon.com/icons/png/512/14/14489.png" height="42" width="42" alt="no" /></h4>
          <table border ="1" >
              <tr>
                  <th>
@@ -220,7 +220,7 @@ a:link, a:visited {
                 } %>
          </table>
          
-        <address>
+        <address style="margin: 20px">
             
             Web creada por Alejandro Calvo,Tomás García y Jose Angel Guillén<br>
             

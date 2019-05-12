@@ -49,8 +49,8 @@
                 <button type="submit" <%= disabled %>>Enviar Peticion</button>
         </form>
                 
-        <h3>Mis Amigos</h3>
-        <table border ="1">
+        <h3 style="margin-top: 20px" >Mis Amigos</h3>
+        <table style="margin-top: 5px" border ="1">
             <tr>
                 <th>
                    ID 
@@ -105,7 +105,7 @@
             %>
         </table>
         
-        <h3>Solicitudes de amistad </h3>
+        <h3 style="margin-top: 20px">Solicitudes de amistad </h3>
         <table border="1">
             <tr>
                 <th>

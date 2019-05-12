@@ -45,7 +45,7 @@
         
         
         </table>      
-         <h4 align="left">Posts</h4>
+         <h4 style="margin-top: 20px" align="left">Posts</h4>
          <table border ="1" >
              <tr>
                  <th>
@@ -87,14 +87,14 @@
              <% } %>
          </table>
          <form action="newpostgrupoServlet"
-         <h4 align="center">Nueva Publicacion en este Grupo</h4>
+         <h4 style="margin-top: 20px" align="center">Nueva Publicacion en este Grupo</h4>
         
          </form>
          
         <div>
             
             <p align="center">
-            <button class="btn btn-primary" role="link" onclick="window.location='newpostgrupo.jsp'">Crear nueva publicacion</button>
+            <button style="margin-top: 20px" class="btn btn-primary" role="link" onclick="window.location='newpostgrupo.jsp'">Crear nueva publicacion</button>
         <p align ="center">                 
                     <%-- <button onclick="${pageContext.request.contextPath}/">Volver</button>--%>
                     <a class="...." href="${pageContext.request.contextPath}/indexServlet">VOLVER</a>
