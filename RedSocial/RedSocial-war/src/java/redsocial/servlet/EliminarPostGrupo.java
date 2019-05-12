@@ -5,7 +5,9 @@
  */
 package redsocial.servlet;
 
+import Entities.Grupo;
 import Entities.Post;
+import ejb.GrupoFacade;
 import ejb.PostFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,37 +19,35 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author tmgrm
  */
-@WebServlet(name = "eliminarPost", urlPatterns = {"/eliminarPost"})
-public class EliminarPost extends HttpServlet {
+@WebServlet(name = "EliminarPostGrupo", urlPatterns = {"/EliminarPostGrupo"})
+public class EliminarPostGrupo extends HttpServlet {
+
     @EJB private PostFacade postFacade;
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    @EJB private GrupoFacade grupoFacade;
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-          String strID = request.getParameter("id");
-          Integer id = new Integer(strID);
-          
-          Post post = (Post)this.postFacade.buscarPostPorID(id);
-          
-        this.postFacade.remove(post);
-          
-        List<Post> posts = this.postFacade.getPostList();
-        request.setAttribute("PostList", posts);
+        HttpSession session = request.getSession();
         
-//        response.sendRedirect("MuroServlet");
-        RequestDispatcher dispatcher = request.getRequestDispatcher("MuroServlet");
+        String strID = request.getParameter("idPost");
+        Integer id = new Integer(strID);
+          
+        Post post = (Post)this.postFacade.buscarPostPorID(id);
+        Grupo grupo = (Grupo) session.getAttribute("grupo");
+        List<Post> postsGrupo = grupo.getPostList();
+        postsGrupo.remove(post);
+        post.setGrupoList(null);
+        
+        this.grupoFacade.edit(grupo);
+        this.postFacade.remove(post);
+        
+        RequestDispatcher dispatcher = request.getRequestDispatcher("paginaGrupoServlet");
         dispatcher.forward(request, response);
           
     }

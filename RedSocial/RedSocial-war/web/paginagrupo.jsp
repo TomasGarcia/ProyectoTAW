@@ -3,6 +3,7 @@
     Created on : 01-may-2019, 19:46:46
     Author     : Hp
 --%>
+<%@page import="Entities.Usuario"%>
 <%@page import="java.util.Collection"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
@@ -16,7 +17,7 @@
         grupo = (Grupo)session.getAttribute("grupo");
     }
     List<Post> PostsList = (List<Post>)request.getAttribute("PostListGrupo");
-    
+    Usuario loggedUser = (Usuario) session.getAttribute("usuario");
 %>    
 <html>
     
@@ -60,9 +61,6 @@
                  <th>
                     VIDEO
                  </th>
-                 <th>
-                    DESTINATARIO
-                 </th>
              </tr>
 
              <% for(Post g: PostsList){ %>
@@ -78,13 +76,15 @@
              </td>
              <td>
                  <%= g.getVideo()%>
-             </td>
+             </td>             
              <td>
-                 <%= g.getDestinatario()%>
+                 <%
+                     if(loggedUser.getId() == grupo.getUsuarioId().getId() || g.getUsuarioId().getId() == loggedUser.getId()){
+                 %>
+                 <a href="EliminarPostGrupo?idPost=<%= g.getId() %>">Eliminar</a>
              </td>
-             
          </tr>
-             <% } %>
+             <% }} %>
          </table>
          <form action="newpostgrupoServlet"
          <h4 style="margin-top: 20px" align="center">Nueva Publicacion en este Grupo</h4>
