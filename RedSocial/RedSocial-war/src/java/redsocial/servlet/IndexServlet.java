@@ -64,6 +64,10 @@ public class IndexServlet extends HttpServlet {
             }                                
         }
         
+        if(id == 1){
+            log = false;
+        }
+        
         String redirect = "/MuroServlet";
         if (!log) {
             request.setAttribute("mensaje", "Email o clave incorrecta");

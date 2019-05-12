@@ -25,14 +25,14 @@ USE `redsocial` ;
 -- Table `redsocial`.`usuario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `redsocial`.`usuario` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `username` VARCHAR(10) NOT NULL,
+  `id` INT(25) NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(25) NOT NULL,
   `email` VARCHAR(30) NOT NULL,
   `password` VARCHAR(30) NOT NULL,
   `nombre` VARCHAR(40) NULL DEFAULT NULL,
   `apellido` VARCHAR(30) NULL DEFAULT NULL,
   `fecha_nacimiento` DATE NOT NULL,
-  `pais` VARCHAR(10) NULL DEFAULT NULL,
+  `pais` VARCHAR(25) NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `usuario_username_un` (`username` ASC) VISIBLE,
   UNIQUE INDEX `usuario_email_un` (`email` ASC) VISIBLE)
@@ -44,8 +44,8 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `redsocial`.`amistad`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `redsocial`.`amistad` (
-  `usuario_id` INT(11) NOT NULL,
-  `usuario_id1` INT(11) NOT NULL,
+  `usuario_id` INT(25) NOT NULL,
+  `usuario_id1` INT(25) NOT NULL,
   PRIMARY KEY (`usuario_id`, `usuario_id1`),
   INDEX `amistad_usuario_fkv1` (`usuario_id1` ASC) VISIBLE,
   CONSTRAINT `amistad_usuario_fk`
@@ -62,11 +62,11 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `redsocial`.`grupo`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `redsocial`.`grupo` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `id` INT(25) NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(15) NOT NULL,
   `descripcion` VARCHAR(50) NULL DEFAULT NULL,
   `fecha_creacion` DATE NOT NULL,
-  `usuario_id` INT(11) NOT NULL,
+  `usuario_id` INT(25) NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `grupo_usuario_fk` (`usuario_id` ASC) VISIBLE,
   CONSTRAINT `grupo_usuario_fk`
@@ -80,8 +80,8 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `redsocial`.`pertenece`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `redsocial`.`pertenece` (
-  `usuario_id` INT(11) NOT NULL,
-  `grupo_id` INT(11) NOT NULL,
+  `usuario_id` INT(25) NOT NULL,
+  `grupo_id` INT(25) NOT NULL,
   PRIMARY KEY (`usuario_id`, `grupo_id`),
   INDEX `pertenece_grupo_fk` (`grupo_id` ASC) VISIBLE,
   CONSTRAINT `pertenece_grupo_fk`
@@ -100,8 +100,8 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS `redsocial`.`peticion` (
   `fecha` DATE NOT NULL,
   `confirmada` BOOLEAN NOT NULL,
-  `usuario_id` INT(11) NOT NULL,
-  `usuario_id1` INT(11) NOT NULL,
+  `usuario_id` INT(25) NOT NULL,
+  `usuario_id1` INT(25) NOT NULL,
   PRIMARY KEY (`usuario_id`, `usuario_id1`),
   INDEX `peticion_usuario_fkv2` (`usuario_id1` ASC) VISIBLE,
   CONSTRAINT `peticion_usuario_fk`
@@ -118,15 +118,15 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `redsocial`.`post`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `redsocial`.`post` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `id` INT(25) NOT NULL AUTO_INCREMENT,
   `titulo` VARCHAR(25) NOT NULL,
   `texto` VARCHAR(250) NOT NULL,
   `imagen` VARCHAR(1000) NULL DEFAULT NULL,
   `video` VARCHAR(1000) NULL DEFAULT NULL,
-  `destinatario` INT(11) NOT NULL,
+  `destinatario` INT(25) NOT NULL,
   `fecha` DATE NOT NULL,
-  `usuario_id1` INT(11) NOT NULL,
-  `usuario_id` INT(11) NOT NULL,
+  `usuario_id1` INT(25) NOT NULL,
+  `usuario_id` INT(25) NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `post_usuario_fk` (`usuario_id` ASC) VISIBLE,
   INDEX `post_usuario_fkv2` (`usuario_id1` ASC) VISIBLE,
@@ -144,8 +144,8 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `redsocial`.`publicaciones`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `redsocial`.`publicaciones` (
-  `post_id` INT(11) NOT NULL,
-  `grupo_id` INT(11) NOT NULL,
+  `post_id` INT(25) NOT NULL,
+  `grupo_id` INT(25) NOT NULL,
   PRIMARY KEY (`post_id`, `grupo_id`),
   INDEX `publicaciones_grupo_fk` (`grupo_id` ASC) VISIBLE,
   CONSTRAINT `publicaciones_grupo_fk`
