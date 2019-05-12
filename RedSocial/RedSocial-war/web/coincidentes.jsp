@@ -76,4 +76,14 @@ a:link, a:visited {
              %>
         </table>
     </body>
+    <p align ="center">                 
+                    <%-- <button onclick="${pageContext.request.contextPath}/">Volver</button>--%>
+                    <a class="...." href="${pageContext.request.contextPath}/friendServlet">VOLVER</a>
+                </p>
+
+                    <script>
+                    function goBack() {
+                      window.history.back();
+                    }
+                    </script>
 </html>

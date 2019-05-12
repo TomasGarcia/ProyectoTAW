@@ -67,9 +67,9 @@
                     <input class="form-control" name="pais" value = "<%=usuario.getPais()%>">
                 </div> 
                 <p align="center">
-                    <input type="submit" value="Editar" />
+                    <input style="margin-top: 20px" type="submit" value="Editar" />
                 </p>
-        
+                
         </div>
         </form>        
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
