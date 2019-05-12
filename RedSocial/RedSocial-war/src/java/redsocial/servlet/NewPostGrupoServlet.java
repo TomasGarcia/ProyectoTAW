@@ -3,13 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servlet;
+package redsocial.servlet;
 
-import Entities.Peticion;
-import Entities.PeticionPK;
-import ejb.PeticionFacade;
+import Entities.Grupo;
+import Entities.Post;
+import Entities.Usuario;
+import ejb.GrupoFacade;
+import ejb.PostFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -22,12 +26,11 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Hp
+ * @author Jose
  */
-@WebServlet(name = "RechazarSolicitudServlet", urlPatterns = {"/RechazarSolicitudServlet"})
-public class RechazarSolicitudServlet extends HttpServlet {
+@WebServlet(name = "newpostgrupoServlet", urlPatterns = {"/newpostgrupoServlet"})
+public class NewPostGrupoServlet extends HttpServlet {
 
-    @EJB private PeticionFacade peticionFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,21 +40,60 @@ public class RechazarSolicitudServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    @EJB
+    private PostFacade postFacade;
+    
+    @EJB
+    private GrupoFacade grupoFacade;
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-      
+        response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
+        String titulo = request.getParameter("titulo");
+        System.out.println(titulo);
+        String texto = request.getParameter("texto");
+        System.out.println(texto);
+        String imagen = request.getParameter("imagen");
+        System.out.println(imagen);
+        String video = request.getParameter("video");
+        System.out.println(video);
+        Date fecha = new Date();
         
-        Integer id = new Integer(request.getParameter("id"));
-        Integer id1 = new Integer(request.getParameter("id1"));
+        String strDestinatario = request.getParameter("destinatario");
+        Integer idDest = new Integer(strDestinatario);
         
-        PeticionPK peticionPK = new PeticionPK(id,id1);
-        Peticion peticion = this.peticionFacade.find(peticionPK);
+        Post post = new Post();
+        post.setId(0);
         
-        this.peticionFacade.remove(peticion);
+        post.setFecha(fecha);
+        post.setImagen(imagen);
+        post.setVideo(video);
+        post.setTitulo(titulo);
+        post.setTexto(texto);
+        Usuario loggedUser = (Usuario) session.getAttribute("usuario");
+        post.setUsuarioId(loggedUser);
+        post.setUsuarioId1(loggedUser);
         
-        RequestDispatcher rd = request.getRequestDispatcher("friendServlet");
-        rd.forward(request, response);
+        Grupo grupo=(Grupo)session.getAttribute("grupo");
+        post.setDestinatario(0);
+        List<Post> posts= grupo.getPostList();
+        if(posts == null){
+            posts = new ArrayList<>();
+        }
+        posts.add(post);
+        grupo.setPostList(posts);
+        
+//        this.postFacade.create(post);
+        
+        this.grupoFacade.edit(grupo);
+        request.setAttribute("id", grupo.getId());
+        
+        
+        
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/paginaGrupoServlet");
+        dispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

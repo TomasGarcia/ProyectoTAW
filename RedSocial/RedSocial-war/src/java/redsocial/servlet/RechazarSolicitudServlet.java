@@ -3,11 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servlet;
+package redsocial.servlet;
 
-import ejb.PostFacade;
+import Entities.Peticion;
+import Entities.PeticionPK;
+import ejb.PeticionFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,25 +18,39 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Hp
  */
-@WebServlet(name = "infogrupo", urlPatterns = {"/infogrupo"})
-public class infogrupo extends HttpServlet {
+@WebServlet(name = "RechazarSolicitudServlet", urlPatterns = {"/RechazarSolicitudServlet"})
+public class RechazarSolicitudServlet extends HttpServlet {
 
-    @EJB
-    private PostFacade postFacade;
-    
+    @EJB private PeticionFacade peticionFacade;
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-       
+      
+        HttpSession session = request.getSession();
         
+        Integer id = new Integer(request.getParameter("id"));
+        Integer id1 = new Integer(request.getParameter("id1"));
         
+        PeticionPK peticionPK = new PeticionPK(id,id1);
+        Peticion peticion = this.peticionFacade.find(peticionPK);
         
-        RequestDispatcher rd = request.getRequestDispatcher("/paginagrupo.jsp");
+        this.peticionFacade.remove(peticion);
+        
+        RequestDispatcher rd = request.getRequestDispatcher("friendServlet");
         rd.forward(request, response);
     }
 

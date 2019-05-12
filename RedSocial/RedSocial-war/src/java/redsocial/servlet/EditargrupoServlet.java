@@ -3,16 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servlet;
+package redsocial.servlet;
 
 import Entities.Grupo;
-import Entities.Post;
 import Entities.Usuario;
 import ejb.GrupoFacade;
-import ejb.PostFacade;
-import ejb.UsuarioFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -25,44 +24,39 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Jose
+ * @author Hp
  */
-@WebServlet(name = "MuroServlet", urlPatterns = {"/MuroServlet"})
-public class muroServlet extends HttpServlet {
+@WebServlet(name = "editargrupoServlet", urlPatterns = {"/editargrupoServlet"})
+public class EditargrupoServlet extends HttpServlet {
 
+    @EJB
+    private GrupoFacade grupoFacade;
+   
     
-    @EJB private PostFacade postFacade;
-    @EJB private GrupoFacade grupoFacade;
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        response.setContentType("text/html;charset=UTF-8");
-        Boolean log = true;
-        
+       HttpSession session = request.getSession();
+       String strId;
+       
+       strId = request.getParameter("id");
+       Integer id = new Integer(strId);
+       System.out.println(id);
+       Grupo grupo = this.grupoFacade.find(id);
 
-        HttpSession session = request.getSession();
+       session.setAttribute("idGrupo", id);
+       request.setAttribute("grupo", grupo);
+       List<Grupo> grupos = this.grupoFacade.findAll();
+       request.setAttribute("GrupoList", grupos);
 
-
-        List<Post> posts = this.postFacade.getPostList();
-        List<Grupo> grupos = this.grupoFacade.findAll();
-        
-        
-        request.setAttribute("GrupoList", grupos);
-        request.setAttribute("PostList", posts);
-        
-        //String redirect = "/muro.jsp";
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/muro.jsp");
-        dispatcher.forward(request, response);
-        
+//         String str = request.getParameter("id");
+//         Integer idCustomer = new Integer(str);
+//         Usuario usuario = this.usuarioFacade.find(idCustomer);
+//         request.setAttribute("usuario", usuario);
+                  
+       
+       RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/editgrupo.jsp");
+       rd.forward(request, response);   
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

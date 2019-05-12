@@ -3,16 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servlet;
-import ejb.UsuarioFacade;
+package redsocial.servlet;
+
+import Entities.Grupo;
 import Entities.Usuario;
+import ejb.GrupoFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,16 +22,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.jboss.weld.servlet.SessionHolder;
 
 /**
  *
  * @author Hp
  */
-@WebServlet(name = "editProfileServlet", urlPatterns = {"/editProfileServlet"})
-public class editProfileServlet extends HttpServlet {
-    
-    @EJB
-    private UsuarioFacade usuarioFacade;
+@WebServlet(name = "newgrupoServlet", urlPatterns = {"/newgrupoServlet"})
+public class NewGrupoServlet extends HttpServlet {
+
+    @EJB private GrupoFacade grupoFacade;
+            
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,42 +43,42 @@ public class editProfileServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ParseException {
-       String str;
-       Date date;
-       HttpSession session = request.getSession();
-       
-       str = request.getParameter("id");
-       Usuario usuario = this.usuarioFacade.find(new Integer(str));
-       str = request.getParameter("username");
-       usuario.setUsername(str);
-       str = request.getParameter("email");
-       usuario.setEmail(str);
-       str = request.getParameter("password");
-       usuario.setPassword(str);
-       str = request.getParameter("nombre");
-       usuario.setNombre(str);
-       str = request.getParameter("apellido");
-       usuario.setApellido(str);
-       date = new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("fecha_nacimiento"));
-       usuario.setFechaNacimiento(date);
-       str = request.getParameter("pais");
-       usuario.setPais(str);
- 
-       this.usuarioFacade.edit(usuario);
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        Usuario usuario = (Usuario)session.getAttribute("usuario");
+        
+        String nombre = request.getParameter("nombre");
+        String descripcion =(request.getParameter("descripcion"));
+        Date date = new Date();
+        
+        
+        Grupo grupo = new Grupo();
+        grupo.setNombre(nombre);
+        grupo.setDescripcion(descripcion);
+        grupo.setFechaCreacion(date);
+        grupo.setId(0);
+        grupo.setUsuarioId(usuario);
+        
+        
+        List<Usuario> lista = grupo.getUsuarioList();
+        if(lista == null){
+            lista = new ArrayList<>();
+        }
+        lista.add(usuario);
+        grupo.setUsuarioList(lista);
+        
 
-       session.setAttribute("usuario", usuario);
-
-//         String str = request.getParameter("id");
-//         Integer idCustomer = new Integer(str);
-//         Usuario usuario = this.usuarioFacade.find(idCustomer);
-//         request.setAttribute("usuario", usuario);
-                  
+        this.grupoFacade.create(grupo);
+        
+        
        
-       RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/profile.jsp");
-       rd.forward(request, response);
-    
-    
+        List<Grupo> grupos = this.grupoFacade.findAll();
+        
+        
+
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/MuroServlet");
+        dispatcher.forward(request, response); 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -91,11 +93,7 @@ public class editProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ParseException ex) {
-            Logger.getLogger(editProfileServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -109,11 +107,7 @@ public class editProfileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ParseException ex) {
-            Logger.getLogger(editProfileServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

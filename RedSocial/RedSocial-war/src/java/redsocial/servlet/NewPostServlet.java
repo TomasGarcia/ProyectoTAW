@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servlet;
+package redsocial.servlet;
 
 import ejb.PostFacade;
 import Entities.Post;
@@ -30,7 +30,7 @@ import javax.xml.bind.ParseConversionEvent;
  * @author Hp
  */
 @WebServlet(name = "newpostServlet", urlPatterns = {"/newpostServlet"})
-public class newpostServlet extends HttpServlet {
+public class NewPostServlet extends HttpServlet {
 
     @EJB
     private PostFacade postFacade;

@@ -3,25 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servlet;
+package redsocial.servlet;
 
+import Entities.Post;
+import ejb.PostFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author tmgrm
  */
-@WebServlet(name = "cerrarSesion", urlPatterns = {"/cerrarSesion"})
-public class cerrarSesion extends HttpServlet {
-
+@WebServlet(name = "eliminarPost", urlPatterns = {"/eliminarPost"})
+public class EliminarPost extends HttpServlet {
+    @EJB private PostFacade postFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,11 +36,26 @@ public class cerrarSesion extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
+          String strID = request.getParameter("id");
+          System.out.println(strID);
+          Integer id = new Integer(strID);
+          
+          Post post = (Post)this.postFacade.buscarPostPorID(id);
+          if(post == null){
+              System.out.println("POST NULO");
+          }else{
+              System.out.println(post.getTexto());
+          }
+          
+        this.postFacade.remove(post);
+          
+        List<Post> posts = this.postFacade.getPostList();
+        request.setAttribute("PostList", posts);
         
-        session.invalidate();
-        RequestDispatcher dp = getServletContext().getRequestDispatcher("/index.jsp");
-        dp.forward(request, response);
+//        response.sendRedirect("MuroServlet");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("MuroServlet");
+        dispatcher.forward(request, response);
+          
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

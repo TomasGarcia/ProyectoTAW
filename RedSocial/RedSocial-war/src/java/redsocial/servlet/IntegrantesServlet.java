@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servlet;
+package redsocial.servlet;
 
-import Entities.Peticion;
-import Entities.PeticionPK;
+import Entities.Grupo;
 import Entities.Usuario;
-import ejb.PeticionFacade;
+import ejb.GrupoFacade;
 import ejb.UsuarioFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -24,46 +24,44 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author tmgrm
+ * @author Jose
  */
-@WebServlet(name = "AceptarSolicitudServlet", urlPatterns = {"/AceptarSolicitudServlet"})
-public class AceptarSolicitudServlet extends HttpServlet {
-
-    @EJB
-    private PeticionFacade peticionFacade;
+@WebServlet(name = "integrantesServlet", urlPatterns = {"/integrantesServlet"})
+public class IntegrantesServlet extends HttpServlet {
     
-    @EJB
-    private UsuarioFacade usuarioFacade;
+    @EJB private GrupoFacade grupoFacade;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
+        response.setContentType("text/html;charset=UTF-8");
         
-        Integer id = new Integer(request.getParameter("id"));
-        Integer id1 = new Integer(request.getParameter("id1"));
-        
-        PeticionPK peticionPK = new PeticionPK(id,id1);
-        Peticion peticion = this.peticionFacade.find(peticionPK);
-        
-        peticion.setConfirmada(true);
-        this.peticionFacade.edit(peticion);
-        
-        Usuario usuario = this.usuarioFacade.find(id);
-        Usuario usuario1 = this.usuarioFacade.find(id1);
-        
-        List<Usuario> usuarios = usuario.getUsuarioList();
-        usuarios.add(usuario1);
-        usuario.setUsuarioList(usuarios);
-        this.usuarioFacade.edit(usuario);
-        
-        usuarios = usuario1.getUsuarioList();
-        usuarios.add(usuario);
-        usuario1.setUsuarioList(usuarios);
-        this.usuarioFacade.edit(usuario1);
-        
-        session.setAttribute("usuario", usuario1);
-        RequestDispatcher rd = request.getRequestDispatcher("/friendServlet");
-        rd.forward(request, response);
+       String strId;
+       HttpSession session = request.getSession();
+       strId = request.getParameter("id");
+       Integer id;
+       if(strId != null){
+           id = new Integer(strId);
+       }else{
+           id = (Integer) session.getAttribute("idGrupo");
+       }
+       System.out.println(id);
+       Grupo grupo = this.grupoFacade.find(id);
+
+       session.setAttribute("idGrupo", id);
+       request.setAttribute("grupo", grupo);
+       List<Grupo> grupos = this.grupoFacade.findAll();
+       request.setAttribute("GrupoList", grupos);
+       
+
+       List<Usuario> participantes=grupo.getUsuarioList();
+       request.setAttribute("Participantes",participantes);
+
+//       Collection<Usuario> participantes=grupo.getUsuarioCollection();
+//       request.setAttribute("Participantes",participantes);
+
+       
+       RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/integrantes.jsp");
+       rd.forward(request, response);  
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

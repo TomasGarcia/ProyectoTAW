@@ -3,15 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servlet;
+package redsocial.servlet;
 
-import Entities.Peticion;
+import Entities.Grupo;
 import Entities.Usuario;
-import ejb.PeticionFacade;
+import ejb.GrupoFacade;
 import ejb.UsuarioFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -24,65 +23,35 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Hp
+ * @author tmgrm
  */
-@WebServlet(name = "friendServlet", urlPatterns = {"/friendServlet"})
-public class friendServlet extends HttpServlet {
-@EJB private UsuarioFacade usuarioFacade;
-@EJB private PeticionFacade peticionFacade;
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+@WebServlet(name = "EliminarIntegranteServlet", urlPatterns = {"/EliminarIntegranteServlet"})
+public class EliminarIntegranteServlet extends HttpServlet {
+
+    @EJB
+    private UsuarioFacade usuarioFacade;
+    
+    @EJB
+    private GrupoFacade grupoFacade;
+    
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         HttpSession session = request.getSession();
         
+        Integer id = new Integer(request.getParameter("idUser"));
         
-//        String strId = request.getParameter("id");
-//        Usuario usuario;
-//        
-//        if(strId != null){
-//            Integer id = new Integer(strId);
-//            usuario= this.usuarioFacade.find(id);
-//        }else{
-           Usuario usuario = (Usuario) session.getAttribute("usuario");
-//        }
+        Usuario user = this.usuarioFacade.find(id);
+        Grupo grupo = this.grupoFacade.find((Integer)session.getAttribute("idGrupo"));
         
-        //Esto...
-        List<Usuario> listaUsuario = usuario.getUsuarioList1();
-        if(listaUsuario==null){
-            listaUsuario = new ArrayList<>();
-            listaUsuario.add(usuario);
-            usuario.setUsuarioList(listaUsuario);
-        }
+        List<Usuario> usuariosGrupo = grupo.getUsuarioList();
+        usuariosGrupo.remove(user);
+        grupo.setUsuarioList(usuariosGrupo);
         
-        //Lista de todos los usuarios
-        List<Usuario> listaUsuarios = this.usuarioFacade.findAll();
-        request.setAttribute("listaUsuarios", listaUsuarios);
+        this.grupoFacade.edit(grupo);
         
-        //Lista con tus amigos
-        List<Usuario> listaAmigos = usuario.getUsuarioList();
-        if(listaAmigos == null){
-            listaAmigos = new ArrayList<>();
-            usuario.setUsuarioList1(listaAmigos);
-        }
-        session.setAttribute("usuario", usuario);
-        session.setAttribute("listaAmigos", listaAmigos);
-        
-        //Lista con tus peticiones
-        List<Peticion> listaPeticiones = this.peticionFacade.misPeticiones(usuario.getId());
-        request.setAttribute("listaPeticiones", listaPeticiones);
-        
-        RequestDispatcher rd = request.getRequestDispatcher("/amigos.jsp");
-        rd.forward(request, response);
-    }
+        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/integrantesServlet");
+        rd.forward(request, response);      }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

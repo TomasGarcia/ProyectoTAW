@@ -3,34 +3,33 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servlet;
+package redsocial.servlet;
 
-import Entities.Grupo;
-import Entities.Post;
-import Entities.Usuario;
-import ejb.GrupoFacade;
-import ejb.PostFacade;
+import ejb.UsuarioFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import javax.ejb.EJB;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import Entities.Usuario;
+import java.util.ArrayList;
+import java.util.List;
+import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.jsp.PageContext;
 
 /**
  *
- * @author Jose
+ * @author Hp
  */
-@WebServlet(name = "newpostgrupoServlet", urlPatterns = {"/newpostgrupoServlet"})
-public class newpostgrupoServlet extends HttpServlet {
+@WebServlet(name = "indexServlet", urlPatterns = {"/indexServlet"})
+public class IndexServlet extends HttpServlet {
 
+
+        @EJB private UsuarioFacade userFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,59 +39,48 @@ public class newpostgrupoServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
-    @EJB
-    private PostFacade postFacade;
-    
-    @EJB
-    private GrupoFacade grupoFacade;
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        String titulo = request.getParameter("titulo");
-        System.out.println(titulo);
-        String texto = request.getParameter("texto");
-        System.out.println(texto);
-        String imagen = request.getParameter("imagen");
-        System.out.println(imagen);
-        String video = request.getParameter("video");
-        System.out.println(video);
-        Date fecha = new Date();
-        
-        String strDestinatario = request.getParameter("destinatario");
-        Integer idDest = new Integer(strDestinatario);
-        
-        Post post = new Post();
-        post.setId(0);
-        
-        post.setFecha(fecha);
-        post.setImagen(imagen);
-        post.setVideo(video);
-        post.setTitulo(titulo);
-        post.setTexto(texto);
-        Usuario loggedUser = (Usuario) session.getAttribute("usuario");
-        post.setUsuarioId(loggedUser);
-        post.setUsuarioId1(loggedUser);
-        
-        Grupo grupo=(Grupo)session.getAttribute("grupo");
-        post.setDestinatario(0);
-        List<Post> posts= grupo.getPostList();
-        if(posts == null){
-            posts = new ArrayList<>();
+        Boolean log =(Boolean) session.getAttribute("logged");
+        if(log == null){
+            log = false;
         }
-        posts.add(post);
-        grupo.setPostList(posts);
+        int id = -1;
+        Usuario loggedUser = (Usuario)session.getAttribute("usuario");
+
+
+        String email = request.getParameter("email");//.getBytes("ISO-8559-1"), "UTF-8");
+        String password =(request.getParameter("password"));//.getBytes("IS0-8559-1"), "utf-8");
+
+        List<Usuario> usuarios = this.userFacade.buscarUsuarioPorEmail(email);
+            
+        if(!usuarios.isEmpty()){
+                loggedUser = usuarios.get(0);
+            if(loggedUser.getPassword().equals(password)){
+              id = loggedUser.getId();
+              log = true;    
+            }                                
+        }
         
-//        this.postFacade.create(post);
+        String redirect = "/MuroServlet";
+        if (!log) {
+            request.setAttribute("mensaje", "Email o clave incorrecta");
+            request.setAttribute("url", "index.jsp");
+            redirect = "/error.jsp";
+            session.invalidate();
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(redirect);
+            dispatcher.forward(request, response); 
+        }else{
+//            request.setAttribute("usuario", loggedUser);
+            session.setAttribute("usuario", loggedUser);
+            usuarios = (List) this.userFacade.findAll();
+            session.setAttribute("usuarios", usuarios);
+            session.setAttribute("logged",log);
+        }
         
-        this.grupoFacade.edit(grupo);
-        request.setAttribute("id", grupo.getId());
-        
-        
-        
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/paginaGrupoServlet");
+        RequestDispatcher dispatcher = request.getRequestDispatcher(redirect);
         dispatcher.forward(request, response);
     }
 

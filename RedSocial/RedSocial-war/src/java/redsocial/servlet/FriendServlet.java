@@ -3,16 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servlet;
+package redsocial.servlet;
 
-import Entities.Grupo;
+import Entities.Peticion;
 import Entities.Usuario;
-import ejb.GrupoFacade;
+import ejb.PeticionFacade;
+import ejb.UsuarioFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -22,17 +21,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.jboss.weld.servlet.SessionHolder;
 
 /**
  *
  * @author Hp
  */
-@WebServlet(name = "newgrupoServlet", urlPatterns = {"/newgrupoServlet"})
-public class newgrupoServlet extends HttpServlet {
-
-    @EJB private GrupoFacade grupoFacade;
-            
+@WebServlet(name = "friendServlet", urlPatterns = {"/friendServlet"})
+public class FriendServlet extends HttpServlet {
+@EJB private UsuarioFacade usuarioFacade;
+@EJB private PeticionFacade peticionFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,41 +41,47 @@ public class newgrupoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        
         HttpSession session = request.getSession();
-        Usuario usuario = (Usuario)session.getAttribute("usuario");
-        
-        String nombre = request.getParameter("nombre");
-        String descripcion =(request.getParameter("descripcion"));
-        Date date = new Date();
         
         
-        Grupo grupo = new Grupo();
-        grupo.setNombre(nombre);
-        grupo.setDescripcion(descripcion);
-        grupo.setFechaCreacion(date);
-        grupo.setId(0);
-        grupo.setUsuarioId(usuario);
+//        String strId = request.getParameter("id");
+//        Usuario usuario;
+//        
+//        if(strId != null){
+//            Integer id = new Integer(strId);
+//            usuario= this.usuarioFacade.find(id);
+//        }else{
+           Usuario usuario = (Usuario) session.getAttribute("usuario");
+//        }
         
-        
-        List<Usuario> lista = grupo.getUsuarioList();
-        if(lista == null){
-            lista = new ArrayList<>();
+        //Esto...
+        List<Usuario> listaUsuario = usuario.getUsuarioList1();
+        if(listaUsuario==null){
+            listaUsuario = new ArrayList<>();
+            listaUsuario.add(usuario);
+            usuario.setUsuarioList(listaUsuario);
         }
-        lista.add(usuario);
-        grupo.setUsuarioList(lista);
         
-
-        this.grupoFacade.create(grupo);
+        //Lista de todos los usuarios
+        List<Usuario> listaUsuarios = this.usuarioFacade.findAll();
+        request.setAttribute("listaUsuarios", listaUsuarios);
         
+        //Lista con tus amigos
+        List<Usuario> listaAmigos = usuario.getUsuarioList();
+        if(listaAmigos == null){
+            listaAmigos = new ArrayList<>();
+            usuario.setUsuarioList1(listaAmigos);
+        }
+        session.setAttribute("usuario", usuario);
+        session.setAttribute("listaAmigos", listaAmigos);
         
-       
-        List<Grupo> grupos = this.grupoFacade.findAll();
+        //Lista con tus peticiones
+        List<Peticion> listaPeticiones = this.peticionFacade.misPeticiones(usuario.getId());
+        request.setAttribute("listaPeticiones", listaPeticiones);
         
-        
-
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/MuroServlet");
-        dispatcher.forward(request, response); 
+        RequestDispatcher rd = request.getRequestDispatcher("/amigos.jsp");
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

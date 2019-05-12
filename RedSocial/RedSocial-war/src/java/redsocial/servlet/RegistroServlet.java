@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servlet;
+package redsocial.servlet;
 
 import Entities.Usuario;
-import Utils.AccountUtil;
+import redsocial.utils.AccountUtil;
 import ejb.UsuarioFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,7 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import static Utils.AccountUtil.usuarioDisponible;
+import static redsocial.utils.AccountUtil.usuarioDisponible;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -36,7 +36,7 @@ import javax.servlet.http.HttpSession;
  * @author Hp
  */
 @WebServlet(name = "registroServlet", urlPatterns = {"/registroServlet"})
-public class registroServlet extends HttpServlet {
+public class RegistroServlet extends HttpServlet {
 
     @EJB
     private UsuarioFacade UsuarioFacade;
@@ -148,9 +148,9 @@ public class registroServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(registroServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RegistroServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
-            Logger.getLogger(registroServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RegistroServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -168,9 +168,9 @@ public class registroServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(registroServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RegistroServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
-            Logger.getLogger(registroServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RegistroServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

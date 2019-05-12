@@ -3,13 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servlet;
+package redsocial.servlet;
 
-import Entities.Peticion;
-import Entities.PeticionPK;
-import Entities.Usuario;
-import ejb.PeticionFacade;
-import ejb.UsuarioFacade;
+import Entities.Grupo;
+import ejb.GrupoFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -20,47 +17,47 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Hp
+ * @author Jose
  */
-@WebServlet(name = "EliminarAmigoServlet", urlPatterns = {"/EliminarAmigoServlet"})
-public class EliminarAmigoServlet extends HttpServlet {
+@WebServlet(name = "eliminarGrupo", urlPatterns = {"/eliminarGrupo"})
+public class EliminarGrupo extends HttpServlet {
+    @EJB private GrupoFacade GrupoFacade;
 
-    @EJB private UsuarioFacade usuarioFacade;
-    @EJB private PeticionFacade peticionFacade;
-    
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Usuario usuario = (Usuario)session.getAttribute("usuario");
+        response.setContentType("text/html;charset=UTF-8");
         
-        String strId = request.getParameter("id");
-        Integer id = new Integer(strId);
-        Usuario amigo = this.usuarioFacade.find(id);
+        String strID = request.getParameter("id");
+          System.out.println(strID);
+          Integer id = new Integer(strID);
+          
+          Grupo group = (Grupo)this.GrupoFacade.buscarGrupoPorID(id);
+          if(group == null){
+              System.out.println("GRUPO NULO");
+          }else{
+              System.out.println(group.getDescripcion());
+          }
+          
+        this.GrupoFacade.remove(group);
+          
+        List<Grupo> grupos = this.GrupoFacade.getGruposList();
+        request.setAttribute("GruposList", grupos);
         
-        List<Usuario>listaAmigos = usuario.getUsuarioList();
-        listaAmigos.remove(amigo);
-        usuario.setUsuarioList(listaAmigos);
-        this.usuarioFacade.edit(usuario);
-        
-        List<Usuario>listaAmigos1 = amigo.getUsuarioList();
-        listaAmigos1.remove(usuario);
-        amigo.setUsuarioList(listaAmigos1);
-        this.usuarioFacade.edit(amigo);
-        
-        PeticionPK peticionPK = new PeticionPK(usuario.getId(), amigo.getId());
-        Peticion peticion = this.peticionFacade.find(peticionPK);
-        if(peticion == null){
-            peticionPK = new PeticionPK(amigo.getId(), usuario.getId());
-            peticion = this.peticionFacade.find(peticionPK);
-        }
-        
-        this.peticionFacade.remove(peticion);
-        RequestDispatcher rd = request.getRequestDispatcher("friendServlet");
-        rd.forward(request, response);
+//        response.sendRedirect("MuroServlet");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("MuroServlet");
+        dispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

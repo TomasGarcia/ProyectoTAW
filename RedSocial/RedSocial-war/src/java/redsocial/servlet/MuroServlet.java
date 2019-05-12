@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servlet;
+package redsocial.servlet;
 
 import Entities.Grupo;
+import Entities.Post;
 import Entities.Usuario;
 import ejb.GrupoFacade;
+import ejb.PostFacade;
 import ejb.UsuarioFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,40 +25,44 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author tmgrm
+ * @author Jose
  */
-@WebServlet(name = "addIntegrante", urlPatterns = {"/addIntegrante"})
-public class addIntegranteServlet extends HttpServlet {
+@WebServlet(name = "MuroServlet", urlPatterns = {"/MuroServlet"})
+public class MuroServlet extends HttpServlet {
 
-    @EJB
-    private UsuarioFacade usuarioFacade;
     
-    @EJB
-    private GrupoFacade grupoFacade;
-    
+    @EJB private PostFacade postFacade;
+    @EJB private GrupoFacade grupoFacade;
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+        Boolean log = true;
+        
+
         HttpSession session = request.getSession();
+
+
+        List<Post> posts = this.postFacade.getPostList();
+        List<Grupo> grupos = this.grupoFacade.findAll();
         
-        String username = request.getParameter("user");
-        Grupo grupo = this.grupoFacade.find((Integer)session.getAttribute("idGrupo"));
-        List<Usuario> usuarios = this.usuarioFacade.buscarUsuarioPorUsername(username);
-        List<Usuario> usuariosGrupo = grupo.getUsuarioList();
-        String redirect = "/integrantesServlet?id=" + grupo.getId();
-        if(usuarios == null || usuarios.isEmpty() || usuariosGrupo.contains(usuarios.get(0))){
-             redirect = "integrantesServlet?id=" + grupo.getId();
-             request.setAttribute("mensaje", "Usuario inexistente.El nombre introducido debe coincidir exactamente con el del usuario que se quiere introducir");
-             request.setAttribute("url", redirect);
-             redirect = "/errorManteniendoSession.jsp";
-        }else{
-            Usuario usuario = usuarios.get(0);
-            usuariosGrupo.add(usuario);
-            grupo.setUsuarioList(usuariosGrupo);
-            this.grupoFacade.edit(grupo);
-        }
         
-        RequestDispatcher rd = this.getServletContext().getRequestDispatcher(redirect);
-        rd.forward(request, response);  
+        request.setAttribute("GrupoList", grupos);
+        request.setAttribute("PostList", posts);
+        
+        //String redirect = "/muro.jsp";
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/muro.jsp");
+        dispatcher.forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

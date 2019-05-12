@@ -3,14 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servlet;
+package redsocial.servlet;
 
-import Entities.Grupo;
-import Entities.Post;
-import ejb.GrupoFacade;
+import Entities.Peticion;
+import Entities.PeticionPK;
+import Entities.Usuario;
+import ejb.PeticionFacade;
+import ejb.UsuarioFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -25,11 +27,12 @@ import javax.servlet.http.HttpSession;
  *
  * @author Hp
  */
-@WebServlet(name = "paginaGrupoServlet", urlPatterns = {"/paginaGrupoServlet"})
-public class paginaGrupoServlet extends HttpServlet {
-
-    @EJB private GrupoFacade grupoFacade;
+@WebServlet(name = "enviarPeticionServlet", urlPatterns = {"/enviarPeticionServlet"})
+public class EnviarPeticionServlet extends HttpServlet {
+@EJB private UsuarioFacade usuarioFacade;
+@EJB private PeticionFacade peticionFacade;
     /**
+     * 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
@@ -40,31 +43,38 @@ public class paginaGrupoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-     
         HttpSession session = request.getSession();
-        String strID = request.getParameter("id");
-        Integer id;
-        if(strID != null){
-           id = new Integer(strID);
+        Date fecha = new Date();
+        
+        Usuario u = (Usuario) session.getAttribute("usuario");
+        
+        String str = request.getParameter("nuevoamigo");
+        Integer id = new Integer(str);
+        Usuario u1 = this.usuarioFacade.find(id);
+        PeticionPK peticionPK1, peticionPK2;
+        Peticion p = new Peticion();
+        p.setFecha(fecha);
+        p.setConfirmada(false);
+        p.setUsuario(u);
+        p.setUsuario1(u1);
+        peticionPK1 = new PeticionPK(u.getId(),u1.getId());
+        p.setPeticionPK(peticionPK1);
+        peticionPK2 = new PeticionPK(u1.getId(), u.getId());
+        
+        if(this.peticionFacade.find(peticionPK1) == null && this.peticionFacade.find(peticionPK2) == null){
+            this.peticionFacade.create(p);
+        
+            RequestDispatcher rd = request.getRequestDispatcher("/friendServlet");
+            rd.forward(request, response);
         }else{
-            id = (Integer)session.getAttribute("idGrupo");
+            request.setAttribute("mensaje", "Ya has enviado esa solicitud pero aun no la ha aceptado");
+            request.setAttribute("url", "friendServlet");
+            
+            RequestDispatcher rd = request.getRequestDispatcher("/errorManteniendoSession.jsp");
+            rd.forward(request, response);
         }
         
-        Grupo grupo = this.grupoFacade.find(id);
-//        System.out.println(grupo.getNombre());
-        
-        session.setAttribute("idGrupo", id);
-        session.setAttribute("grupo", grupo);
-        List<Grupo> grupos = this.grupoFacade.findAll();
-        request.setAttribute("GrupoList", grupos);
-        
-        List<Post> posts=grupo.getPostList();
-        request.setAttribute("PostListGrupo", posts);
-        
-        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/paginagrupo.jsp");
-        rd.forward(request, response); 
-        //response.sendRedirect("paginagrupo.jsp");
+
         
     }
 
