@@ -77,6 +77,7 @@ public class IndexServlet extends HttpServlet {
             session.setAttribute("usuario", loggedUser);
             usuarios = (List) this.userFacade.findAll();
             session.setAttribute("usuarios", usuarios);
+            session.setAttribute("amigos", loggedUser.getUsuarioList());
             session.setAttribute("logged",log);
         }
         

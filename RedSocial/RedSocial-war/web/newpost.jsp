@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 
 <%
-    List<Usuario> usuarios = (List)session.getAttribute("usuarios");
+    List<Usuario> usuarios = (List)session.getAttribute("amigos");
     Usuario loggedUser = (Usuario) session.getAttribute("usuario");
     String strDestinatario = request.getParameter("destinatario");
     Integer destinatario;
