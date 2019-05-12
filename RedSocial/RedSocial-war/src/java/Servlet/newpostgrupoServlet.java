@@ -66,7 +66,7 @@ public class newpostgrupoServlet extends HttpServlet {
         
         Post post = new Post();
         post.setId(0);
-        post.setDestinatario(idDest);
+        
         post.setFecha(fecha);
         post.setImagen(imagen);
         post.setVideo(video);
@@ -77,7 +77,7 @@ public class newpostgrupoServlet extends HttpServlet {
         post.setUsuarioId1(loggedUser);
         
         Grupo grupo=(Grupo)session.getAttribute("grupo");
-        
+        post.setDestinatario(0);
         List<Post> posts= grupo.getPostList();
         if(posts == null){
             posts = new ArrayList<>();

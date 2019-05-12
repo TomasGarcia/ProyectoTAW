@@ -40,6 +40,7 @@
   padding: 15px;
   text-align: left;
   vertical-align: bottom;
+   
 }
 
 a:link, a:visited {
@@ -93,10 +94,12 @@ a:link, a:visited {
                     ADMINISTRADOR
                  </th>
                  
+                 
+                 
              </tr>
 
              <% for(Grupo p: GruposList){ 
-                    if(p.getUsuarioId().getId()== loggedUser.getId() || p.getUsuarioList().contains(loggedUser) ){
+                    if(p.getUsuarioId().getId()== loggedUser.getId() || p.getUsuarioList().contains(loggedUser)  ){
              
              %>     
          <tr>
@@ -168,7 +171,7 @@ a:link, a:visited {
              </tr>
 
              <% for(Post g: PostsList){ 
-                    if(g.getUsuarioId().getId()== loggedUser.getId() || g.getUsuarioId1().getId()== loggedUser.getId() || g.getDestinatario() == 1){
+                    if((g.getUsuarioId().getId()== loggedUser.getId() || g.getUsuarioId1().getId()== loggedUser.getId() || g.getDestinatario() == 1) && g.getDestinatario()!=0  ){
              
              %>
          <tr>
