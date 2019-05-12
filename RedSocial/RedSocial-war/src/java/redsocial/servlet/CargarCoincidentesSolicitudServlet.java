@@ -5,15 +5,10 @@
  */
 package redsocial.servlet;
 
-import ejb.PostFacade;
-import Entities.Post;
 import Entities.Usuario;
 import ejb.UsuarioFacade;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -22,72 +17,27 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.RequestDispatcher;
-import javax.xml.bind.ParseConversionEvent;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Hp
+ * @author tmgrm
  */
-@WebServlet(name = "newpostServlet", urlPatterns = {"/newpostServlet"})
-public class NewPostServlet extends HttpServlet {
+@WebServlet(name = "CargarCoincidentesSolicitudServlet", urlPatterns = {"/CargarCoincidentesSolicitudServlet"})
+public class CargarCoincidentesSolicitudServlet extends HttpServlet {
 
-    @EJB
-    private PostFacade postFacade;
-    @EJB
-    private UsuarioFacade usuarioFacade;
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    @EJB private UsuarioFacade usuarioFacade;
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-      
         HttpSession session = request.getSession();
-        Usuario user = (Usuario)session.getAttribute("usuario");
-        if(user == null){
-                System.out.println("USUARIO NULL OUIDESUIOFJÑEUU");
-
-        }
         
-        String titulo = request.getParameter("titulo");
-        System.out.println(titulo);
-        String texto = request.getParameter("texto");
-        System.out.println(texto);
-        String imagen = request.getParameter("imagen");
-        System.out.println(imagen);
-        String video = request.getParameter("video");
-        System.out.println(video);
-        Date fecha = new Date();
+        String buscar = request.getParameter("cadenaBuscar");
+        List<Usuario> coincidentes = this.usuarioFacade.buscarUsuarioPorUsernameCoincidente(buscar);
         
-        String strDestinatario = request.getParameter("destinatario");
-        Integer idDest = new Integer(strDestinatario);
+        session.setAttribute("coincidentes", coincidentes);
         
-        Post post = new Post();
-        post.setId(0);
-        post.setUsuarioId(user);
-        post.setDestinatario(idDest);
-        post.setFecha(fecha);
-        post.setImagen(imagen);
-        post.setVideo(video);
-        post.setTitulo(titulo);
-        Usuario usuarioDest = (Usuario) this.usuarioFacade.buscarPorID(idDest);
-        post.setUsuarioId1(usuarioDest);
-        post.setTexto(texto);
-        
-        this.postFacade.create(post);
-
-        List<Post> posts = this.postFacade.findAll();
-        request.setAttribute("PostList", posts);
-        
-        
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/MuroServlet");
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/coincidentes.jsp");
         dispatcher.forward(request, response); 
     }
 

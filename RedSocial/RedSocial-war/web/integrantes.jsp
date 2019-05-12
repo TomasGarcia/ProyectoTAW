@@ -30,7 +30,7 @@
         <%
           if(loggedUser.getId() == grupo.getUsuarioId().getId()){
         %>
-        <form action="addIntegrante">
+        <form action="CargarCoincidentesIntegrantesServlet">
             <p>Añadir Integrante <input name="user" placeholder="Introduce Username"><input type="submit" value="Enviar"></p>
         </form>
         <% } %>

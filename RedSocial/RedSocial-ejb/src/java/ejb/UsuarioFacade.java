@@ -40,6 +40,15 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         return q.getResultList();
     }
     
+        public List<Usuario> buscarUsuarioPorUsernameCoincidente(String nombre){
+        Query q;
+//        q = this.em.createQuery("select u from Usuario u where u.username like '"+ nombre + "';");
+        q = this.em.createQuery("select u from Usuario u where u.username like :username");
+        q.setParameter("username", nombre+"%");
+        
+        return q.getResultList();
+    }
+    
     public List<Usuario> buscarUsuarioPorEmail(String email){
         Query q;
 //        q = this.em.createQuery("select u from Usuario u where u.username like '"+ nombre + "';");

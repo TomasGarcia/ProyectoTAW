@@ -5,15 +5,11 @@
  */
 package redsocial.servlet;
 
-import ejb.PostFacade;
-import Entities.Post;
+import Entities.Grupo;
 import Entities.Usuario;
 import ejb.UsuarioFacade;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -22,20 +18,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.RequestDispatcher;
-import javax.xml.bind.ParseConversionEvent;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Hp
+ * @author tmgrm
  */
-@WebServlet(name = "newpostServlet", urlPatterns = {"/newpostServlet"})
-public class NewPostServlet extends HttpServlet {
+@WebServlet(name = "CargarCoincidentesIntegrantesServlet", urlPatterns = {"/CargarCoincidentesIntegrantesServlet"})
+public class CargarCoincidentesIntegrantesServlet extends HttpServlet {
 
-    @EJB
-    private PostFacade postFacade;
-    @EJB
-    private UsuarioFacade usuarioFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -45,50 +36,29 @@ public class NewPostServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-      
+
+    @EJB  UsuarioFacade usuarioFacade;
+    
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Usuario user = (Usuario)session.getAttribute("usuario");
-        if(user == null){
-                System.out.println("USUARIO NULL OUIDESUIOFJÑEUU");
-
+        
+        String buscar = request.getParameter("user");
+        List<Usuario> coincidentes = this.usuarioFacade.buscarUsuarioPorUsernameCoincidente(buscar);
+        
+        if(!coincidentes.isEmpty()){
+        
+            session.setAttribute("coincidentes", coincidentes);
+        
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/coincidentesIntegrantes.jsp");
+            dispatcher.forward(request, response); 
+        }else{
+            Grupo grupo = (Grupo) session.getAttribute("grupo");
+             String redirect = "integrantesServlet?id=" + grupo.getId();
+             request.setAttribute("mensaje", "El usuario ya esta en el grupo o no existe");
+             request.setAttribute("url", redirect);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/errorManteniendoSession.jsp");
+            dispatcher.forward(request, response); 
         }
-        
-        String titulo = request.getParameter("titulo");
-        System.out.println(titulo);
-        String texto = request.getParameter("texto");
-        System.out.println(texto);
-        String imagen = request.getParameter("imagen");
-        System.out.println(imagen);
-        String video = request.getParameter("video");
-        System.out.println(video);
-        Date fecha = new Date();
-        
-        String strDestinatario = request.getParameter("destinatario");
-        Integer idDest = new Integer(strDestinatario);
-        
-        Post post = new Post();
-        post.setId(0);
-        post.setUsuarioId(user);
-        post.setDestinatario(idDest);
-        post.setFecha(fecha);
-        post.setImagen(imagen);
-        post.setVideo(video);
-        post.setTitulo(titulo);
-        Usuario usuarioDest = (Usuario) this.usuarioFacade.buscarPorID(idDest);
-        post.setUsuarioId1(usuarioDest);
-        post.setTexto(texto);
-        
-        this.postFacade.create(post);
-
-        List<Post> posts = this.postFacade.findAll();
-        request.setAttribute("PostList", posts);
-        
-        
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/MuroServlet");
-        dispatcher.forward(request, response); 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

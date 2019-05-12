@@ -49,6 +49,7 @@ public class IntegrantesServlet extends HttpServlet {
 
        session.setAttribute("idGrupo", id);
        request.setAttribute("grupo", grupo);
+       session.setAttribute("grupo", grupo);
        List<Grupo> grupos = this.grupoFacade.findAll();
        request.setAttribute("GrupoList", grupos);
        

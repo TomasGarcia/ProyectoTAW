@@ -29,25 +29,11 @@
         <h1 class="display-4" align="center">Amigos</h1>
         <div class="mx-auto" style="width: 400px;">
    
-        <form action="enviarPeticionServlet">
-    <div class="mx-auto d-block">
-            <label>Usuarios</label>
-            <select name="nuevoamigo">
-                <% 
-                    String disabled = "disabled";
-                    for(Usuario us : listaUsuarios){
-                        if(us.getId() != 1 && us.getId() != loggedUser.getId() && !listaAmigos.contains(us)){
-                            disabled = "";
-                %>
-                <option name="nuevoamigo" value="<%= us.getId() %>"> <%= us.getUsername()%> </option>
-                <%     
-                    }}
-                %>
-
-            </select> 
-        </div>
-                <button type="submit" <%= disabled %>>Enviar Peticion</button>
-        </form>
+            
+    <form action="CargarCoincidentesSolicitudServlet">
+            <p>Añadir amigo <input name="cadenaBuscar" placeholder="Introduce Username"><input type="submit" value="Enviar"></p>
+    </form>
+    
                 
         <h3 style="margin-top: 20px" >Mis Amigos</h3>
         <table style="margin-top: 5px" border ="1">

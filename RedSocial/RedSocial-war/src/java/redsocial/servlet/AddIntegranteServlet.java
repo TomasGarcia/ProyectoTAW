@@ -40,21 +40,22 @@ public class AddIntegranteServlet extends HttpServlet {
         
         String username = request.getParameter("user");
         Grupo grupo = this.grupoFacade.find((Integer)session.getAttribute("idGrupo"));
-        List<Usuario> usuarios = this.usuarioFacade.buscarUsuarioPorUsername(username);
+
         List<Usuario> usuariosGrupo = grupo.getUsuarioList();
+        Usuario usuario = this.usuarioFacade.buscarPorID(new Integer(username));
         String redirect = "/integrantesServlet?id=" + grupo.getId();
-        if(usuarios == null || usuarios.isEmpty() || usuariosGrupo.contains(usuarios.get(0))){
+        if(usuariosGrupo.contains(usuario)){
              redirect = "integrantesServlet?id=" + grupo.getId();
-             request.setAttribute("mensaje", "Usuario inexistente.El nombre introducido debe coincidir exactamente con el del usuario que se quiere introducir");
+             request.setAttribute("mensaje", "El usuario ya esta en el grupo o no existe");
              request.setAttribute("url", redirect);
              redirect = "/errorManteniendoSession.jsp";
         }else{
-            Usuario usuario = usuarios.get(0);
             usuariosGrupo.add(usuario);
             grupo.setUsuarioList(usuariosGrupo);
             this.grupoFacade.edit(grupo);
         }
-        
+        Usuario loggedUser = (Usuario) session.getAttribute("usuario");
+        session.setAttribute("usuario", loggedUser);
         RequestDispatcher rd = this.getServletContext().getRequestDispatcher(redirect);
         rd.forward(request, response);  
     }
