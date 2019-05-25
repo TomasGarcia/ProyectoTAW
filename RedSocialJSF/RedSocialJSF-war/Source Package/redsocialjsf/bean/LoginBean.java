@@ -19,14 +19,18 @@ import redsocialjsf.entity.Usuario;
  */
 @Named(value = "loginBean")
 @Dependent
-public class loginBean {
+public class LoginBean {
 
     @EJB private UsuarioFacade usuarioFacade;
     
     protected List<Usuario> listaUsuarios;
     protected Usuario usuario;
+    protected String email;
+    protected String password;
+    protected boolean login;
     
-    public loginBean() {
+    public LoginBean() {
+        login = true;
     }
 
     public Usuario getUsuario() {
@@ -44,12 +48,38 @@ public class loginBean {
     public void setUserFacade(UsuarioFacade userFacade) {
         this.usuarioFacade = userFacade;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
     
     @PostConstruct
     public void init(){
         listaUsuarios = this.usuarioFacade.findAll();
     }
     
-    
+    public String doLogin(){
+        Usuario user = this.usuarioFacade.buscarPorEmailYPassword(email);
+        if(usuario != null && usuario.getEmail().equals(email) && usuario.getPassword().equals(password)){
+            login = true;
+            user = usuario;
+            return "muro";
+        }else{
+            login= false;
+            return "index";
+        }
+    }
     
 }

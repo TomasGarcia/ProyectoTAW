@@ -8,8 +8,13 @@
     <h:body>
         <h1>Introduzca sus datos de usuario</h1>
         <h:form>
-            Email: <h:inputText value="#{loginBean.}"
-            
+            <p align="center">
+                Email: <h:inputText value="#{loginBean.email}" /> <br/>
+                Contraseña: <h:inputSecret value="#{loginBean.password}" /> <br/> 
+                <br/>
+                <h:commandButton value="Entrar" action="#{loginBean.doLogin()}" /> <br/>
+            </p>
+        
         </h:form>
     </h:body>
 </html>
