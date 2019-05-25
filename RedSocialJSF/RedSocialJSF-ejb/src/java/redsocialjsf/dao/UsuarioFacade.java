@@ -5,6 +5,7 @@
  */
 package redsocialjsf.dao;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -37,5 +38,16 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         
         return (Usuario)q.getResultList().get(0);
     }
+
+    public Object buscarUsuarioPorUsername(String username) {
+        Query q;
+//        q = this.em.createQuery("select u from Usuario u where u.username like '"+ nombre + "';");
+        q = this.em.createQuery("select u from Usuario u where u.username like :username");
+       // q.setParameter("username", nombre);
+        
+        return q.getResultList();
+    }
+
+   
     
 }

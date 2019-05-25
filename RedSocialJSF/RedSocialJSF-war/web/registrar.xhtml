@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Registrar</title>
+    </h:head>
+    <h:body>
+        <h1>Rellene el formulario con sus datos:</h1>
+        <h:form>
+            <div align="center">
+                Nombre de Usuario: <h:inputText value="#{registrarBean.username}"/><br/>
+                Email:<h:inputText value="#{registrarBean.email}"/><br/>
+                Contraseña:<h:inputSecret value="#{registrarBean.password}"/><br/>
+                Nombre:<h:inputText value="#{registrarBean.nombre}"/><br/>
+                Apellido:<h:inputText value="#{registrarBean.apellido}"/><br/>
+                Fecha de nacimiento:<h:inputText value="#{registrarBean.fecha_nacimiento}"/><br/>
+                Pais:<h:inputText value="#{registrarBean.pais}"/><br/>
+                
+                <h:commandButton value="Registrarse" action="#{registrarBean.doRegister()}" />
+            </div>
+        </h:form>
+    </h:body>
+</html>
+

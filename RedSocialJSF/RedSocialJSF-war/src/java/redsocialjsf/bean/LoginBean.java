@@ -82,4 +82,8 @@ public class LoginBean {
         }
     }
     
+    public String doRegister(){
+        return "registrar";
+    }
+    
 }
