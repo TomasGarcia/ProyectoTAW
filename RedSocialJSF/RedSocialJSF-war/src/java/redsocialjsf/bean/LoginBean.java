@@ -86,4 +86,8 @@ public class LoginBean {
         return "registrar";
     }
     
+    public String doDesconectar(){
+        return "index";
+    }
+    
 }
