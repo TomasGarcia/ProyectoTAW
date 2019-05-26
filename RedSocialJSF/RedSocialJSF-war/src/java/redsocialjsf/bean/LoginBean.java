@@ -71,10 +71,10 @@ public class LoginBean {
     }
     
     public String doLogin(){
-        Usuario user = this.usuarioFacade.buscarPorEmailYPassword(email);
-        if(usuario != null && usuario.getEmail().equals(email) && usuario.getPassword().equals(password)){
+        Usuario user = this.usuarioFacade.buscarPorEmailYPassword(email,password);
+        if(user != null && user.getEmail().equals(email) && user.getPassword().equals(password)){
             login = true;
-            user = usuario;
+            usuario = user;
             return "muro";
         }else{
             login= false;

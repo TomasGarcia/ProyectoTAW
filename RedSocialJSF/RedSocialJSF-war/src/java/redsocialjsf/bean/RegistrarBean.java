@@ -25,7 +25,7 @@ public class RegistrarBean {
     @EJB private UsuarioFacade usuarioFacade;
     
     protected String username, email, password, nombre, apellido, pais;
-    protected Date fecha_nacimiento;
+    protected String fecha_nacimiento;
     
     /**
      * Creates a new instance of RegistrarBean
@@ -74,11 +74,11 @@ public class RegistrarBean {
         this.pais = pais;
     }
 
-    public Date getFecha_nacimiento() {
+    public String getFecha_nacimiento() {
         return fecha_nacimiento;
     }
 
-    public void setFecha_nacimiento(Date fecha_nacimiento) {
+    public void setFecha_nacimiento(String fecha_nacimiento) {
         this.fecha_nacimiento = fecha_nacimiento;
     }
 
@@ -97,10 +97,14 @@ public class RegistrarBean {
         usuario.setId(0);
         usuario.setNombre(nombre);
         usuario.setPassword(password);
-        usuario.setNombre(nombre);
         usuario.setApellido(apellido);
         usuario.setPais(pais);
-        usuario.setFechaNacimiento(fecha_nacimiento);
+        //usuario.setFechaNacimiento(fecha_nacimiento);
+        
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+        Date date = format.parse(fecha_nacimiento);
+        usuario.setFechaNacimiento(new Date(date.getTime()+24*60*60*1000) );
+        
 //        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 //        
 //        Date date = format.parse(fecha_nacimiento);

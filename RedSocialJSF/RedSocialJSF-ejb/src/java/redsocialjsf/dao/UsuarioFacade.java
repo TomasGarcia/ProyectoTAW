@@ -8,6 +8,7 @@ package redsocialjsf.dao;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import redsocialjsf.entity.Usuario;
@@ -31,12 +32,20 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         super(Usuario.class);
     }
 
-    public Usuario buscarPorEmailYPassword(String email) {
-        Query q;
-        q = this.em.createQuery("select u from Usuario u where u.email = :email");
-        q.setParameter("email", email);
-        
-        return (Usuario)q.getResultList().get(0);
+    public Usuario buscarPorEmailYPassword(String email,String password) {
+//        Query q;
+//        q = this.em.createQuery("select u from Usuario u where u.email =:email and u.password =:password");
+//        //q.setParameter("email", email);
+//        
+//        return (Usuario)q.getResultList().get(0);
+ try {
+            return (Usuario) em.createNamedQuery("Usuario.buscarPorEmailYPassword")
+                .setParameter("email",  email )
+                .setParameter("password", password )
+                .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     public Object buscarUsuarioPorUsername(String username) {
