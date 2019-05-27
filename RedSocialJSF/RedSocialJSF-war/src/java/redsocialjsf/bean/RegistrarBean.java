@@ -8,9 +8,11 @@ package redsocialjsf.bean;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
 import redsocialjsf.dao.UsuarioFacade;
 import redsocialjsf.entity.Usuario;
 
@@ -19,19 +21,37 @@ import redsocialjsf.entity.Usuario;
  * @author Hp
  */
 @Named(value = "registrarBean")
-@Dependent
+@RequestScoped
 public class RegistrarBean {
 
     @EJB private UsuarioFacade usuarioFacade;
     
+    protected Usuario usuario;
     protected String username, email, password, nombre, apellido, pais;
     protected String fecha_nacimiento;
+    protected Date fecha_nac;
     
     /**
      * Creates a new instance of RegistrarBean
      */
     public RegistrarBean() {
         
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Date getFecha_nac() {
+        return fecha_nac;
+    }
+
+    public void setFecha_nac(Date fecha_nac) {
+        this.fecha_nac = fecha_nac;
     }
 
     public String getEmail() {
@@ -90,33 +110,22 @@ public class RegistrarBean {
         this.username = username;
     }
     
-    
-    
     public String doRegister() throws ParseException{
-        Usuario usuario = new Usuario();
-        usuario.setId(0);
-        usuario.setNombre(nombre);
-        usuario.setPassword(password);
-        usuario.setApellido(apellido);
-        usuario.setPais(pais);
-        //usuario.setFechaNacimiento(fecha_nacimiento);
-        
-        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
-        Date date = format.parse(fecha_nacimiento);
-        usuario.setFechaNacimiento(new Date(date.getTime()+24*60*60*1000) );
-        
-//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-//        
-//        Date date = format.parse(fecha_nacimiento);
-//        usuario.setFechaNacimiento( new Date(date.getTime()+24*60*60*1000));
+        this.usuario = new Usuario();
+        this.usuario.setId(0);
+        this.usuario.setNombre(nombre);
+        this.usuario.setPassword(password);
+        this.usuario.setApellido(apellido);       
+        this.usuario.setPais(pais);
+        this.usuario.setFechaNacimiento(fecha_nac);
         
         //FALTARIA COMPROBAR QUE NO EXISTE YA UN USUARIO CON ESE EMAIL Y USERNAME
-        usuario.setUsername(username);
-        usuario.setEmail(email);
-        
+        this.usuario.setUsername(username);
+        this.usuario.setEmail(email);        
+      
         this.usuarioFacade.create(usuario);
-        
-        return "login";
+      
+        return "index";
         
     }
 

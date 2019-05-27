@@ -33,19 +33,13 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
     }
 
     public Usuario buscarPorEmailYPassword(String email,String password) {
-//        Query q;
-//        q = this.em.createQuery("select u from Usuario u where u.email =:email and u.password =:password");
-//        //q.setParameter("email", email);
-//        
-//        return (Usuario)q.getResultList().get(0);
- try {
-            return (Usuario) em.createNamedQuery("Usuario.buscarPorEmailYPassword")
-                .setParameter("email",  email )
-                .setParameter("password", password )
-                .getSingleResult();
-        } catch (NoResultException e) {
-            return null;
-        }
+        Query q;
+        q = this.em.createQuery("select u from Usuario u where u.email =:email and u.password =:password");
+        q.setParameter("email", email);
+        q.setParameter("password", password);
+        
+        return (Usuario)q.getResultList().get(0);
+
     }
 
     public Object buscarUsuarioPorUsername(String username) {

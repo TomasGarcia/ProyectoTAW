@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
 import redsocialjsf.dao.UsuarioFacade;
 import redsocialjsf.entity.Usuario;
 
@@ -18,7 +19,7 @@ import redsocialjsf.entity.Usuario;
  * @author Hp
  */
 @Named(value = "loginBean")
-@Dependent
+@RequestScoped
 public class LoginBean {
 
     @EJB private UsuarioFacade usuarioFacade;
