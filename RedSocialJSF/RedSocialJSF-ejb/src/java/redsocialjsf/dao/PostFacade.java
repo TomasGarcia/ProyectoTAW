@@ -5,9 +5,12 @@
  */
 package redsocialjsf.dao;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import org.hibernate.validator.constraints.SafeHtml;
 import redsocialjsf.entity.Post;
 
 /**
@@ -29,4 +32,11 @@ public class PostFacade extends AbstractFacade<Post> {
         super(Post.class);
     }
     
+    
+    public List<Post> buscarPorPosts(int id){
+        Query q;
+        q = this.em.createQuery("select p from Post p join p.usuario u join p.usuario1 u1 where u.id = :id or u1.id = :id or u1.id = 1");
+        q.setParameter("id", id);
+        return q.getResultList();
+    }
 }

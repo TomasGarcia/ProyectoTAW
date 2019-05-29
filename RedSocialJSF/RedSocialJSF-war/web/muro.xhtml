@@ -1,14 +1,38 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Muro</title>
     </h:head>
     <h:body>
-        Bienvenido a nuestra Red Social #{loginBean.email}
-        <h:commandButton value="Perfil" action="#{perfilBean.doLogin()}" /> <br/>
-        <h:commandButton value="Desconectar" action="#{LoginBean.doDesconectar()}" /> <br/>
+        Bienvenido a nuestra Red Social #{loginBean.usuario.username}
+        <h:form>
+            <h:commandButton value="Perfil" action="#{postBean.doPerfil()}" /> <br/>
+        </h:form>
+        <h:form>
+            <h:commandButton value="Desconectar" action="#{loginBean.doDesconectar()}" /> <br/>
+        </h:form>
+        
+        <h:dataTable border="1" value="#{postBean.listaPosts}" var="post">
+            <h:column>  
+                <f:facet name="header">Título</f:facet>              
+                #{post.titulo}
+            </h:column>
+            <h:column>  
+              <f:facet name="header">Texto</f:facet>              
+              #{post.texto}
+            </h:column>   
+            <h:column>  
+              <f:facet name="header">Autor</f:facet>              
+              #{post.usuario.username}
+            </h:column> 
+            <h:column>  
+              <f:facet name="header">Destinatario</f:facet>              
+              #{post.usuario1.username}
+            </h:column>            
+        </h:dataTable>
     </h:body>
 </html>
 

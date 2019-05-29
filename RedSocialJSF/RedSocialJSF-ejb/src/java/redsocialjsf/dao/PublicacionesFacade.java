@@ -28,5 +28,4 @@ public class PublicacionesFacade extends AbstractFacade<Publicaciones> {
     public PublicacionesFacade() {
         super(Publicaciones.class);
     }
-    
 }

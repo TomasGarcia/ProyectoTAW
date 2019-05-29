@@ -5,12 +5,14 @@
  */
 package redsocialjsf.bean;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import redsocialjsf.dao.UsuarioFacade;
 import redsocialjsf.entity.Usuario;
 
@@ -19,8 +21,8 @@ import redsocialjsf.entity.Usuario;
  * @author Hp
  */
 @Named(value = "loginBean")
-@RequestScoped
-public class LoginBean {
+@SessionScoped
+public class LoginBean implements Serializable{
 
     @EJB private UsuarioFacade usuarioFacade;
     
@@ -72,13 +74,13 @@ public class LoginBean {
     }
     
     public String doLogin(){
-        Usuario user = this.usuarioFacade.buscarPorEmailYPassword(email,password);
-        if(user != null && user.getEmail().equals(email) && user.getPassword().equals(password)){
-            login = true;
-            usuario = user;
+        this.usuario = this.usuarioFacade.buscarPorEmailYPassword(email,password);
+        if(usuario != null && usuario.getEmail().equals(email) && usuario.getPassword().equals(password)){
+            this.login = true;
             return "muro";
         }else{
-            login= false;
+            this.usuario = null;
+            this.login= false;
             return "index";
         }
     }
@@ -88,6 +90,10 @@ public class LoginBean {
     }
     
     public String doDesconectar(){
+        this.usuario = null;
+        this.email = null;
+        this.password = null;
+        this.login = false;
         return "index";
     }
     

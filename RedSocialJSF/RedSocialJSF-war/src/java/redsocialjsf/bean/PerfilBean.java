@@ -5,34 +5,65 @@
  */
 package redsocialjsf.bean;
 
-import javax.inject.Named;
-import javax.enterprise.context.Dependent;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.io.Serializable;
 import java.util.Date;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import redsocialjsf.dao.UsuarioFacade;
 import redsocialjsf.entity.Usuario;
 
 /**
  *
- * @author Jose
+ * @author tmgrm
  */
 @Named(value = "perfilBean")
-@Dependent
-public class perfilBean {
-    
-    @EJB private UsuarioFacade usuarioFacade;
-    
-    protected String username, email, password, nombre, apellido, pais;
-    protected Date fecha_nacimiento;
+@RequestScoped
+public class PerfilBean{
 
-   
-    public perfilBean() {
+    @EJB private UsuarioFacade usuarioFacade;
+    @Inject PostBean postBean;
+    
+    protected Usuario usuario;
+    protected String username, email, password, nombre, apellido, pais;
+    protected Date fecha_nac;
+
+
+    public PerfilBean(UsuarioFacade usuarioFacade, PostBean postBean) {
+        this.usuarioFacade = usuarioFacade;
+        this.postBean = postBean;
     }
     
+    public PerfilBean() {
+    }
+
+    public PostBean getPostBean() {
+        return postBean;
+    }
+
+    public void setPostBean(PostBean postBean) {
+        this.postBean = postBean;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -73,22 +104,21 @@ public class perfilBean {
         this.pais = pais;
     }
 
-    public Date getFecha_nacimiento() {
-        return fecha_nacimiento;
+    public Date getFecha_nac() {
+        return fecha_nac;
     }
 
-    public void setFecha_nacimiento(Date fecha_nacimiento) {
-        this.fecha_nacimiento = fecha_nacimiento;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setFecha_nac(Date fecha_nac) {
+        this.fecha_nac = fecha_nac;
     }
     
+    @PostConstruct
+    public void init(){
+        this.usuario = this.postBean.getUsuario();
+    }
     
-    
+    public String doGuardar(){
+        this.usuarioFacade.edit(this.usuario);
+        return "perfil";
+    }
 }
