@@ -27,6 +27,25 @@ public class GruposBean {
     @Inject LoginBean loginBean;
     protected Usuario usuario;
     protected List<Grupo> listaGrupos;
+    protected String nombreIntroducido;
+
+    public GrupoFacade getGrupoFacade() {
+        return grupoFacade;
+    }
+
+    public void setGrupoFacade(GrupoFacade grupoFacade) {
+        this.grupoFacade = grupoFacade;
+    }
+    
+    
+
+    public String getNombreIntroducido() {
+        return nombreIntroducido;
+    }
+
+    public void setNombreIntroducido(String nombreIntroducido) {
+        this.nombreIntroducido = nombreIntroducido;
+    }
 
     public LoginBean getLoginBean() {
         return loginBean;
@@ -54,6 +73,12 @@ public class GruposBean {
     }
     
     public GruposBean() {
+    }
+    
+    public String doFiltrarPorNombre(){
+   
+        listaGrupos=grupoFacade.buscarPorNombre(nombreIntroducido);
+        return null;
     }
     
     @PostConstruct

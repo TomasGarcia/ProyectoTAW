@@ -33,13 +33,31 @@
               #{post.usuario1.username}
             </h:column>            
         </h:dataTable>
+   
+        
+        <h:form>
+            <h:outputLabel value="Filtrar por Nombre de Grupo "></h:outputLabel>
+            <h:inputText  id="nombregrupo"  value="#{gruposBean.nombreIntroducido}">
+            
+                <f:ajax event="keyup" render="grupos" listener="#{gruposBean.doFiltrarPorNombre()}" />
+            
+            </h:inputText>
         
         
-        <h:dataTable id="grupos" value="#{gruposBean.listaGrupos}" var="grupo" border="3">
+        
+        
+        
+        <h:dataTable id="grupos" value="#{gruposBean.listaGrupos}" var="grupo" border="1">
+            
             
             <h:column>  
               <f:facet name="header">Creador</f:facet>              
               #{grupo.usuario.username}
+            </h:column> 
+            
+            <h:column>  
+              <f:facet name="header">Nombre</f:facet>              
+              #{grupo.nombre}
             </h:column> 
             
             <h:column>  
@@ -48,7 +66,9 @@
             </h:column> 
         
         </h:dataTable>
-    
+        
+        
+    </h:form>
     
     </h:body>
 </html>
