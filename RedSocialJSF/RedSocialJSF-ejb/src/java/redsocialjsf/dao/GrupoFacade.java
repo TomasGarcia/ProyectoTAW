@@ -5,9 +5,11 @@
  */
 package redsocialjsf.dao;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import redsocialjsf.entity.Grupo;
 
 /**
@@ -27,6 +29,15 @@ public class GrupoFacade extends AbstractFacade<Grupo> {
 
     public GrupoFacade() {
         super(Grupo.class);
+    }
+    
+    public List<Grupo> buscarPorCreador(int id){
+        
+        Query q;
+        q=this.em.createQuery("select g from Grupo g where g.usuario.id = :id ");
+        q.setParameter("id", id);
+        return q.getResultList();
+        
     }
     
 }

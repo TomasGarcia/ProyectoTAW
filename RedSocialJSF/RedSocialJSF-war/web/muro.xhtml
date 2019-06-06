@@ -33,6 +33,23 @@
               #{post.usuario1.username}
             </h:column>            
         </h:dataTable>
+        
+        
+        <h:dataTable id="grupos" value="#{gruposBean.listaGrupos}" var="grupo" border="3">
+            
+            <h:column>  
+              <f:facet name="header">Creador</f:facet>              
+              #{grupo.usuario.username}
+            </h:column> 
+            
+            <h:column>  
+              <f:facet name="header">Descripcion</f:facet>              
+              #{grupo.descripcion}
+            </h:column> 
+        
+        </h:dataTable>
+    
+    
     </h:body>
 </html>
 
