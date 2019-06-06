@@ -35,40 +35,34 @@
         </h:dataTable>
    
         
-        <h:form>
-            <h:outputLabel value="Filtrar por Nombre de Grupo "></h:outputLabel>
-            <h:inputText  id="nombregrupo"  value="#{gruposBean.nombreIntroducido}">
-            
-                <f:ajax event="keyup" render="grupos" listener="#{gruposBean.doFiltrarPorNombre()}" />
-            
-            </h:inputText>
+        <h:form id="filtroGrupos">
+            Filtrar por Nombre Grupo: 
+            <h:inputText value="#{gruposBean.nombreIntroducido}"/>
+            <h:commandButton action="#{gruposBean.doFiltrarPorNombre()}" value="Filtrar"/>
+        </h:form>
         
         
         
-        
-        
-        <h:dataTable id="grupos" value="#{gruposBean.listaGrupos}" var="grupo" border="1">
-            
-            
-            <h:column>  
-              <f:facet name="header">Creador</f:facet>              
-              #{grupo.usuario.username}
-            </h:column> 
-            
-            <h:column>  
-              <f:facet name="header">Nombre</f:facet>              
-              #{grupo.nombre}
-            </h:column> 
-            
-            <h:column>  
-              <f:facet name="header">Descripcion</f:facet>              
-              #{grupo.descripcion}
-            </h:column> 
-        
-        </h:dataTable>
-        
-        
-    </h:form>
+        <h:form id="grupos">
+            <h:dataTable id="tGrupos" value="#{gruposBean.listaGrupos}" var="grupo" border="1">   
+
+                <h:column>  
+                  <f:facet name="header">Creador</f:facet>              
+                  #{grupo.usuario.username}
+                </h:column> 
+
+                <h:column>  
+                  <f:facet name="header">Nombre</f:facet>              
+                  #{grupo.nombre}
+                </h:column> 
+
+                <h:column>  
+                  <f:facet name="header">Descripcion</f:facet>              
+                  #{grupo.descripcion}
+                </h:column> 
+
+            </h:dataTable>
+        </h:form>
     
     </h:body>
 </html>

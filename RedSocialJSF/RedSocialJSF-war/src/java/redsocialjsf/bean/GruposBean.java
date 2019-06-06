@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import redsocialjsf.dao.GrupoFacade;
 import redsocialjsf.entity.Grupo;
@@ -20,7 +21,7 @@ import redsocialjsf.entity.Usuario;
  * @author Jose
  */
 @Named(value = "gruposBean")
-@Dependent
+@RequestScoped
 public class GruposBean {
 
     @EJB protected GrupoFacade grupoFacade;
@@ -28,23 +29,25 @@ public class GruposBean {
     protected Usuario usuario;
     protected List<Grupo> listaGrupos;
     protected String nombreIntroducido;
-
-    public GrupoFacade getGrupoFacade() {
-        return grupoFacade;
-    }
-
-    public void setGrupoFacade(GrupoFacade grupoFacade) {
-        this.grupoFacade = grupoFacade;
-    }
     
     
-
-    public String getNombreIntroducido() {
-        return nombreIntroducido;
+    public GruposBean() {
     }
-
-    public void setNombreIntroducido(String nombreIntroducido) {
-        this.nombreIntroducido = nombreIntroducido;
+    
+    public String doFiltrarPorNombre(){
+        if(!nombreIntroducido.equals(""))
+            listaGrupos=grupoFacade.buscarPorNombre(nombreIntroducido);
+        else
+            listaGrupos =this.grupoFacade.buscarPorCreador(this.usuario.getId());
+        return null;
+    }
+    
+    @PostConstruct
+    public void init(){
+        this.nombreIntroducido = "";
+        this.usuario=loginBean.getUsuario();
+        this.listaGrupos=grupoFacade.buscarPorCreador(usuario.getId());
+        
     }
 
     public LoginBean getLoginBean() {
@@ -63,7 +66,6 @@ public class GruposBean {
         this.usuario = usuario;
     }
 
-    
     public List<Grupo> getListaGrupos() {
         return listaGrupos;
     }
@@ -71,22 +73,15 @@ public class GruposBean {
     public void setListaGrupos(List<Grupo> listaGrupos) {
         this.listaGrupos = listaGrupos;
     }
-    
-    public GruposBean() {
+
+    public String getNombreIntroducido() {
+        return nombreIntroducido;
+    }
+
+    public void setNombreIntroducido(String nombreIntroducido) {
+        this.nombreIntroducido = nombreIntroducido;
     }
     
-    public String doFiltrarPorNombre(){
-   
-        listaGrupos=grupoFacade.buscarPorNombre(nombreIntroducido);
-        return null;
-    }
     
-    @PostConstruct
-    public void init(){
-        
-        this.usuario=loginBean.getUsuario();
-        this.listaGrupos=grupoFacade.buscarPorCreador(usuario.getId());
-        
-    }
     
 }
