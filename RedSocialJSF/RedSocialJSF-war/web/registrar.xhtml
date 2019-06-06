@@ -16,11 +16,11 @@
                 Nombre:<h:inputText value="#{registrarBean.nombre}"/><br/>
                 Apellido:<h:inputText value="#{registrarBean.apellido}"/><br/>
                 <div class="littleText">
-                  * aaaa/mm/dd *
+                  * dd-mm-yyyy *
                  </div>
                 Fecha de nacimiento:
                 <h:inputText value="#{registrarBean.fecha_nac}">
-                    <f:convertDateTime pattern = "dd-mm-yyyy" />
+                    <f:convertDateTime pattern = "dd-MM-yyyy" />
                 </h:inputText><br/>
                 Pais:<h:inputText value="#{registrarBean.pais}"/><br/>
                 
