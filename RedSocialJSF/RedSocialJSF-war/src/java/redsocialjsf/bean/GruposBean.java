@@ -13,6 +13,7 @@ import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import redsocialjsf.dao.GrupoFacade;
+import redsocialjsf.dao.UsuarioFacade;
 import redsocialjsf.entity.Grupo;
 import redsocialjsf.entity.Usuario;
 
@@ -25,10 +26,30 @@ import redsocialjsf.entity.Usuario;
 public class GruposBean {
 
     @EJB protected GrupoFacade grupoFacade;
+    @EJB protected UsuarioFacade usuarioFacade;
     @Inject LoginBean loginBean;
     protected Usuario usuario;
     protected List<Grupo> listaGrupos;
     protected String nombreIntroducido;
+    protected List<Integer> listaCodigoCreadores;
+    protected List<Usuario> listaCreadores;
+
+    public List<Integer> getListaCodigoCreadores() {
+        return listaCodigoCreadores;
+    }
+
+    public void setListaCodigoCreadores(List<Integer> listaCodigoCreadores) {
+        this.listaCodigoCreadores = listaCodigoCreadores;
+    }
+
+    public List<Usuario> getListaCreadores() {
+        return listaCreadores;
+    }
+
+    public void setListaCreadores(List<Usuario> listaCreadores) {
+        this.listaCreadores = listaCreadores;
+    }
+    
     
     
     public GruposBean() {
@@ -38,15 +59,22 @@ public class GruposBean {
         if(!nombreIntroducido.equals(""))
             listaGrupos=grupoFacade.buscarPorNombre(nombreIntroducido);
         else
-            listaGrupos =this.grupoFacade.buscarPorCreador(this.usuario.getId());
+            listaGrupos =this.grupoFacade.buscarPorCreadorYMiembro(this.usuario.getId());
         return null;
+    }
+    
+    public String doFiltrarPorCreador(){
+        listaGrupos=grupoFacade.doFiltrarPorCreador(listaCodigoCreadores);
+        return null;
+        
     }
     
     @PostConstruct
     public void init(){
         this.nombreIntroducido = "";
         this.usuario=loginBean.getUsuario();
-        this.listaGrupos=grupoFacade.buscarPorCreador(usuario.getId());
+        this.listaGrupos=grupoFacade.buscarPorCreadorYMiembro(usuario.getId());
+        this.listaCreadores=usuarioFacade.findAll();
         
     }
 

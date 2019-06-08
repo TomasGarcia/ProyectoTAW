@@ -8,7 +8,7 @@
 
     <h:head>
         <title>Muro</title>
-        
+
     </h:head>
     <h:body>
 
@@ -44,8 +44,8 @@
                     #{post.usuario1.username}
             </h:column>            
         </h:dataTable>
-        
-         <br>
+
+        <br>
 
         </br>
 
@@ -64,13 +64,25 @@
         <br>
 
         </br>
+        <h:form>
+        <h:selectOneMenu value="#{gruposBean.listaCodigoCreadores}">
 
+                        <f:selectItems value="#{gruposBean.listaCreadores}" var="creador" itemLabel="#{creador.username}" itemValue="#{creador.id}">
+                            <h:commandButton value="Filtrar por Creador" action="#{gruposBean.doFiltrarPorCreador()}"></h:commandButton>
+
+                        </f:selectItems>
+
+                    </h:selectOneMenu>
+            </h:form>
 
 
         <h:form id="grupos">
-            <h:dataTable id="tGrupos" value="#{gruposBean.listaGrupos}" var="grupo" border="1">   
+            <h:dataTable id="tGrupos" value="#{gruposBean.listaGrupos}" var="grupo" border="1">
 
-                <h:column >  
+
+
+                <h:column >
+                    
                     <f:facet name="header">Creador</f:facet>              
                         #{grupo.usuario.username}
                 </h:column> 
