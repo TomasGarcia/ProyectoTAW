@@ -69,6 +69,10 @@ public class GruposBean {
         
     }
     
+    public String doCrearGrupo(){
+        return "crearGrupo";
+    }
+    
     @PostConstruct
     public void init(){
         this.nombreIntroducido = "";
