@@ -68,6 +68,16 @@ public class PostBean {
         return "perfil";
     }
     
+    public String doBorrar(Post post){
+        this.listaPosts.remove(post);
+        this.postFacade.remove(post);
+        return null;
+    }
+    
+    public Boolean puedeBorrar(int id){
+        return this.getUsuario().getId().equals(id);
+    }
+    
     @PostConstruct
     public void init(){
         this.usuario = this.loginBean.getUsuario();

@@ -25,26 +25,29 @@
         <h:form>
             <h:commandButton value="Desconectar" action="#{loginBean.doDesconectar()}" /> <br/>
         </h:form>
-
-        <h:dataTable border="1" value="#{postBean.listaPosts}" var="post">
-            <h:column>  
-                <f:facet name="header">Título</f:facet>              
-                    #{post.titulo}
-            </h:column>
-            <h:column>  
-                <f:facet name="header">Texto</f:facet>              
-                    #{post.texto}
-            </h:column>   
-            <h:column>  
-                <f:facet name="header">Autor</f:facet>              
-                    #{post.usuario.username}
-            </h:column> 
-            <h:column>  
-                <f:facet name="header">Destinatario</f:facet>              
-                    #{post.usuario1.username}
-            </h:column>            
-        </h:dataTable>
-
+        <h:form>
+            <h:dataTable border="1" value="#{postBean.listaPosts}" var="post">
+                <h:column>  
+                    <f:facet name="header">Título</f:facet>              
+                        #{post.titulo}
+                </h:column>
+                <h:column>  
+                    <f:facet name="header">Texto</f:facet>              
+                        #{post.texto}
+                </h:column>   
+                <h:column>  
+                    <f:facet name="header">Autor</f:facet>              
+                        #{post.usuario.username}
+                </h:column> 
+                <h:column>  
+                    <f:facet name="header">Destinatario</f:facet>              
+                        #{post.usuario1.username}
+                </h:column>    
+                <h:column>  
+                    <h:commandButton value="Borrar" action="#{postBean.doBorrar(post)}" rendered="#{postBean.puedeBorrar(post.usuario.id) eq true}"/>
+                </h:column>    
+            </h:dataTable>
+        </h:form>
         <br>
 
         </br>
