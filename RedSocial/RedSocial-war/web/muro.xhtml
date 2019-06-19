@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <h:head>
+        <title>Muro</title>
+
+    </h:head>
+    <h:body>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous"/>
+        <!-- Tema opcional -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous"/>
+        <!-- JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+        Bienvenido a nuestra Red Social #{loginBean.usuario.username}
+        <h:form>
+            <h:commandButton value="Perfil" action="#{postBean.doPerfil()}" /> <br/>
+        </h:form>
+        <h:form>
+            <h:commandButton value="Desconectar" action="#{loginBean.doDesconectar()}" /> <br/>
+        </h:form>
+        <h:form>
+            <h:commandButton value="Amigos" action ="#{loginBean.doAmigos()}"/><br/>
+        </h:form>
+        <h:form>
+            <h:dataTable border="1" value="#{postBean.listaPosts}" var="post">
+                <h:column>  
+                    <f:facet name="header">Título</f:facet>              
+                        #{post.titulo}
+                </h:column>
+                <h:column>  
+                    <f:facet name="header">Texto</f:facet>              
+                        #{post.texto}
+                </h:column>   
+                <h:column>  
+                    <f:facet name="header">Autor</f:facet>              
+                        #{post.usuario.username}
+                </h:column> 
+                <h:column>  
+                    <f:facet name="header">Destinatario</f:facet>              
+                        #{post.usuario1.username}
+                </h:column>    
+                <h:column>  
+                    <h:commandButton value="Borrar" action="#{postBean.doBorrar(post)}" rendered="#{postBean.puedeBorrar(post.usuario.id) eq true}"/>
+                </h:column>    
+            </h:dataTable>
+        </h:form>
+        <br>
+
+        </br>
+
+
+        <h:form id="filtroGrupos">
+            Filtrar por Nombre Grupo: 
+            <h:inputText value="#{gruposBean.nombreIntroducido}">
+
+                <f:ajax event="keyup" render="grupos:tGrupos" listener="#{gruposBean.doFiltrarPorNombre()}" />
+
+            </h:inputText>
+
+        </h:form>
+
+
+        <br>
+
+        </br>
+          
+        
+        <h:form>
+        <h:selectOneMenu value="#{gruposBean.listaCodigoCreadores}">
+
+                        <f:selectItems value="#{gruposBean.listaCreadores}" var="creador" itemLabel="#{creador.username}" itemValue="#{creador.id}">
+                            <h:commandButton value="Filtrar por Creador" action="#{gruposBean.doFiltrarPorCreador()}"></h:commandButton>
+
+                        </f:selectItems>
+
+                    </h:selectOneMenu>
+            </h:form>
+
+
+        <h:form id="grupos">
+            <h:dataTable id="tGrupos" value="#{gruposBean.listaGrupos}" var="grupo" border="1">
+
+
+
+                <h:column >
+                    
+                    <f:facet name="header">Creador</f:facet>              
+                        #{grupo.usuario.username}
+                </h:column> 
+
+                <h:column>  
+                    <f:facet name="header">Nombre</f:facet>              
+                        #{grupo.nombre}
+                </h:column> 
+
+                <h:column>  
+                    <f:facet name="header">Descripcion</f:facet>              
+                        #{grupo.descripcion}
+                </h:column> 
+
+            </h:dataTable>
+            
+            <h:commandButton value="Crear Grupo" action="#{gruposBean.doCrearGrupo()}"/>
+        </h:form>
+
+    </h:body>
+</html>
+

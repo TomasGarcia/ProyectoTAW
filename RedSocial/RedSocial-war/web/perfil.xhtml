@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Perfil</title>
+    </h:head>
+    <h:body>
+        <h1 align="center">PERFIL</h1>
+        <h:form>
+            <div align="center">
+                Nombre de Usuario: <h:inputText value="#{perfilBean.usuario.username}"/><br/>
+                Email:<h:inputText value="#{perfilBean.usuario.email}"/><br/>
+                Contraseña:<h:inputSecret value="#{perfilBean.password}"/><br/>
+                Nombre:<h:inputText value="#{perfilBean.usuario.nombre}"/><br/>
+                Apellido:<h:inputText value="#{perfilBean.usuario.apellido}"/><br/>
+                <div class="littleText">
+                  * aaaa/mm/dd *
+                 </div>
+                Fecha de nacimiento:
+                <h:inputText value="#{perfilBean.usuario.fechaNacimiento}">
+                    <f:convertDateTime pattern = "dd-MM-yyyy" />
+                </h:inputText><br/>
+                Pais:<h:inputText value="#{perfilBean.usuario.pais}"/><br/>
+                
+                <h:commandButton value="Modificar" action="#{perfilBean.doGuardar()}" />
+            </div>
+        </h:form>
+        <div align="center">
+            <h:form>
+                <h:commandButton value="Volver" action="#{loginBean.doLogin()}"/>
+            </h:form>
+        </div>
+    </h:body>
+</html>
+
