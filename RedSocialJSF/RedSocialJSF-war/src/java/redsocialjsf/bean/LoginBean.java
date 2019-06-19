@@ -89,6 +89,10 @@ public class LoginBean implements Serializable{
         return "registrar";
     }
     
+    public String doAmigos(){
+        return "amigos";
+    }
+    
     public String doDesconectar(){
         this.usuario = null;
         this.email = null;

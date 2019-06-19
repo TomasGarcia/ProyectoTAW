@@ -26,6 +26,9 @@
             <h:commandButton value="Desconectar" action="#{loginBean.doDesconectar()}" /> <br/>
         </h:form>
         <h:form>
+            <h:commandButton value="Amigos" action ="#{loginBean.doAmigos()}"/><br/>
+        </h:form>
+        <h:form>
             <h:dataTable border="1" value="#{postBean.listaPosts}" var="post">
                 <h:column>  
                     <f:facet name="header">Título</f:facet>              
