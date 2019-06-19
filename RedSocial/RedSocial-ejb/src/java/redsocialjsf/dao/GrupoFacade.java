@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ejb;
+package redsocialjsf.dao;
 
-import Entities.Grupo;
-import Entities.Post;
-import Entities.Usuario;
+import redsocialjsf.entity.Grupo;
+import redsocialjsf.entity.Post;
+import redsocialjsf.entity.Usuario;
 import java.util.Collection;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -51,7 +51,33 @@ public class GrupoFacade extends AbstractFacade<Grupo> {
         return (Grupo)q.getResultList().get(0);
     }
     
+    public List<Grupo> buscarPorCreadorYMiembro(int id){
+        Query q;
+        q=this.em.createQuery("select g from Grupo g where g.pertenece.usuario.id =:id  ");
+        q.setParameter("id", id);
+        return q.getResultList();
+        
+    }
     
+    public List<Grupo> buscarPorNombre(String n){
+        Query q;
+        q=this.em.createQuery("select g from Grupo g where g.nombre like :n");
+        q.setParameter("n",n + "%");
+        return q.getResultList();
+        
+    }
+    
+    public List<Grupo> doFiltrarPorCreador(List<Integer> list){
+        
+        Query q;
+        
+        q=this.em.createQuery("select g from Grupo g where g.usuario.id in :list");
+        q.setParameter("list",list);
+        
+        return q.getResultList();
+        
+    }
+       
     
     
 

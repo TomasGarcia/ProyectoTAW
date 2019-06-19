@@ -13,7 +13,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import redsocialjsf.dao.GrupoFacade;
 import redsocialjsf.entity.Grupo;
-import redsocialjsf.entity.Pertenece;
 import redsocialjsf.entity.Usuario;
 
 /**
@@ -83,8 +82,8 @@ public class CrearGrupoBean {
         this.nuevoGrupo.setNombre(nombre);
         this.nuevoGrupo.setDescripcion(descripcion);
         this.nuevoGrupo.setFechaCreacion(new Date());
-        this.nuevoGrupo.setUsuario(creador);
-        //this.nuevoGrupo.setPertenece(new Pertenece(nuevoGrupo.getId(),creador.getId()));
+//        this.nuevoGrupo.setUsuario(creador);
+//        this.nuevoGrupo.setPertenece(new Pertenece(nuevoGrupo.getId(),creador.getId()));
         this.grupoFacade.create(nuevoGrupo);
         return "muro";
     }

@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ejb;
+package redsocialjsf.dao;
 
-import Entities.Post;
+import redsocialjsf.entity.Post;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -31,21 +31,10 @@ public class PostFacade extends AbstractFacade<Post> {
         super(Post.class);
     }
     
-    //Get all the posts
-    public List<Post> getPostList(){
-        List<Post> list;
+    public List<Post> buscarPorPostsUsuario(int id){
         Query q;
-        q = this.em.createQuery("SELECT p FROM Post p");
-        
-        list = q.getResultList();
-        return list;
-    }
-    
-    public Post buscarPostPorID(int id){
-        Query q;
-        q = this.em.createQuery("select p from Post p where p.id = :id");
+        q = this.em.createQuery("select p from Post p where p.usuarioId.id = :id or p.usuarioId1.id = :id or p.usuarioId1.id = 1");
         q.setParameter("id", id);
-        
-        return (Post)q.getResultList().get(0);
+        return q.getResultList();
     }
 }

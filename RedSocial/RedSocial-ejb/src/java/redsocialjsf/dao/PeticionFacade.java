@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ejb;
+package redsocialjsf.dao;
 
-import Entities.Peticion;
+import redsocialjsf.entity.Peticion;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

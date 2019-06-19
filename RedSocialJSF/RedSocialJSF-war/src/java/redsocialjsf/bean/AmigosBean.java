@@ -29,6 +29,7 @@ public class AmigosBean {
     
      protected List<Amistad> listaAmigos;
      protected Usuario usuario;
+     protected Amistad amistad;
     
     public AmigosBean() {
     }
@@ -36,6 +37,7 @@ public class AmigosBean {
     @PostConstruct
     public void init(){
         this.usuario = this.loginBean.getUsuario();
+        this.amistad = this.usuario.getAmistad();
     }
     
 }

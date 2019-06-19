@@ -11,8 +11,6 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import redsocialjsf.dao.AmistadFacade;
-import redsocialjsf.entity.Amistad;
 import redsocialjsf.entity.Usuario;
 
 /**
@@ -24,18 +22,5 @@ import redsocialjsf.entity.Usuario;
 
 public class AmigosBean {
 
-     @Inject LoginBean loginBean;
-     @EJB private AmistadFacade amistadFacade;
-    
-     protected List<Amistad> listaAmigos;
-     protected Usuario usuario;
-    
-    public AmigosBean() {
-    }
-    
-    @PostConstruct
-    public void init(){
-        this.usuario = this.loginBean.getUsuario();
-    }
-    
+
 }

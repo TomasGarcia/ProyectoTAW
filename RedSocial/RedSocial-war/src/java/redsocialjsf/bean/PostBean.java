@@ -81,7 +81,7 @@ public class PostBean {
     @PostConstruct
     public void init(){
         this.usuario = this.loginBean.getUsuario();
-        this.listaPosts = this.postFacade.buscarPorPosts(this.usuario.getId());
+        this.listaPosts = this.postFacade.buscarPorPostsUsuario(this.usuario.getId());
     }
     
     

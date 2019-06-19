@@ -40,14 +40,14 @@
                 </h:column>   
                 <h:column>  
                     <f:facet name="header">Autor</f:facet>              
-                        #{post.usuario.username}
+                        #{post.usuarioId.username}
                 </h:column> 
                 <h:column>  
                     <f:facet name="header">Destinatario</f:facet>              
-                        #{post.usuario1.username}
+                        #{post.usuarioId1.username}
                 </h:column>    
                 <h:column>  
-                    <h:commandButton value="Borrar" action="#{postBean.doBorrar(post)}" rendered="#{postBean.puedeBorrar(post.usuario.id) eq true}"/>
+                    <h:commandButton value="Borrar" action="#{postBean.doBorrar(post)}" rendered="#{postBean.puedeBorrar(post.usuarioId.id) eq true}"/>
                 </h:column>    
             </h:dataTable>
         </h:form>

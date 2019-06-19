@@ -75,10 +75,10 @@ public class GruposBean {
     
     @PostConstruct
     public void init(){
-        this.nombreIntroducido = "";
-        this.usuario=loginBean.getUsuario();
-        this.listaGrupos=grupoFacade.buscarPorCreadorYMiembro(usuario.getId());
-        this.listaCreadores=usuarioFacade.findAll();
+//        this.nombreIntroducido = "";
+//        this.usuario=loginBean.getUsuario();
+//        this.listaGrupos=grupoFacade.buscarPorCreadorYMiembro(usuario.getId());
+//        this.listaCreadores=usuarioFacade.findAll();
         
     }
 

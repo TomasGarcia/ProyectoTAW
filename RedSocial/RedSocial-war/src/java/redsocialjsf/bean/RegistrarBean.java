@@ -126,7 +126,6 @@ public class RegistrarBean {
         this.usuarioFacade.create(usuario);
       
         return "index";
-        
     }
 
     

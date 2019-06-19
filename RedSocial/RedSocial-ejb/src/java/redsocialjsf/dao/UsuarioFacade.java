@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ejb;
+package redsocialjsf.dao;
 
-import Entities.Usuario;
+import redsocialjsf.entity.Usuario;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -65,4 +65,15 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         
         return (Usuario)q.getResultList().get(0);
     }
+    
+        public Usuario buscarPorEmailYPassword(String email,String password) {
+        Query q;
+        q = this.em.createQuery("select u from Usuario u where u.email =:email and u.password =:password");
+        q.setParameter("email", email);
+        q.setParameter("password", password);
+        
+        return (Usuario)q.getResultList().get(0);
+
+    }
+
 }
