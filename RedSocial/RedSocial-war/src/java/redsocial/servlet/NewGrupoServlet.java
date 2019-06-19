@@ -73,7 +73,7 @@ public class NewGrupoServlet extends HttpServlet {
         
         
        
-        List<Grupo> grupos = this.grupoFacade.findAll();
+        //List<Grupo> grupos = this.grupoFacade.findAll();
         
         
 
