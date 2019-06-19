@@ -28,8 +28,7 @@ public class PostBean {
     @EJB PostFacade postFacade;
     protected Usuario usuario;
     protected List<Post> listaPosts;
-    protected List<Usuario> amigos;
-    protected List<Usuario> amigos1;
+    
 
     public PostBean() {
     }
@@ -66,24 +65,6 @@ public class PostBean {
         this.listaPosts = listaPosts;
     }
 
-    public List<Usuario> getAmigos() {
-        return amigos;
-    }
-
-    public void setAmigos(List<Usuario> amigos) {
-        this.amigos = amigos;
-    }
-
-    public List<Usuario> getAmigos1() {
-        return amigos1;
-    }
-
-    public void setAmigos1(List<Usuario> amigos1) {
-        this.amigos1 = amigos1;
-    }
-    
-    
-    
     public String doPerfil(){
         return "perfil";
     }
@@ -102,8 +83,7 @@ public class PostBean {
     public void init(){
         this.usuario = this.loginBean.getUsuario();
         this.listaPosts = this.postFacade.buscarPorPostsUsuario(this.usuario.getId());
-        this.amigos = this.usuario.getUsuarioList();
-        this.amigos1 = this.usuario.getUsuarioList1();
+       
     }
     
     
