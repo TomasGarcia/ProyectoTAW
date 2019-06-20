@@ -100,6 +100,8 @@ public class AmigosBean implements Serializable{
         this.usuario = this.loginBean.getUsuario();
         this.amigos = this.usuario.getUsuarioList();
         this.amigos1 = this.usuario.getUsuarioList1();
+
+        this.filtroNombre = null;
         //this.listaUsuarios = this.usuarioFacade.findAll();//FILTRAR PARA K NO APAREZCAS NI TU NIS TUS AMIGOS
         this.listaPeticiones = this.peticionFacade.misPeticiones(usuario.getId());
     }
@@ -121,11 +123,12 @@ public class AmigosBean implements Serializable{
     public String enviarPeticion(Usuario u){
         PeticionPK peticionPK1, peticionPK2;
         Peticion p = new Peticion();
-        p.setUsuario(usuario);
+        p.setUsuario(this.getUsuario());
         p.setUsuario1(u);
+        p.setConfirmada(false);
         peticionPK1 = new PeticionPK(usuario.getId(),u.getId());
         p.setPeticionPK(peticionPK1);
-        peticionPK2 = new PeticionPK(usuario.getId(), u.getId());
+        peticionPK2 = new PeticionPK(u.getId(), usuario.getId());
         
         if(this.peticionFacade.find(peticionPK1) == null && this.peticionFacade.find(peticionPK2) == null){
             this.peticionFacade.create(p);
@@ -152,9 +155,8 @@ public class AmigosBean implements Serializable{
         usuario1.setUsuarioList(usuarios);
         this.usuarioFacade.edit(usuario1);
         this.peticionFacade.edit(peticion);
-        this.listaPeticiones.remove(peticion);
         
-        this.amigos = usuario0.getUsuarioList();
+        this.init();
         return null;
     }
     
@@ -172,6 +174,7 @@ public class AmigosBean implements Serializable{
     }
     
     public String doVolver(){
+        this.filtroNombre = null;
         return "muro";
     }
 }

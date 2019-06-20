@@ -13,6 +13,8 @@ import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import redsocialjsf.dao.UsuarioFacade;
 import redsocialjsf.entity.Usuario;
 
@@ -98,6 +100,9 @@ public class LoginBean implements Serializable{
         this.email = null;
         this.password = null;
         this.login = false;
+        this.listaUsuarios = null;
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        session.invalidate();
         return "index";
     }
     

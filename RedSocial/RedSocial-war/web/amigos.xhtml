@@ -14,7 +14,7 @@
         <h:form>
             Filtrar:
             <h:inputText value="#{amigosBean.filtroNombre}">
-                <f:ajax event="keyup" render="tableUsers" listener="#{amigosBean.doFiltrar()}" />
+                <f:ajax event="keyup" render="tableUsers" listener="#{amigosBean.doFiltrar()}"/>
             </h:inputText>
         </h:form>
         
@@ -33,8 +33,7 @@
                 </h:column>
                 <h:column>
                     <h:form>
-                        <h:commandButton value="Enviar Solicitud" />
-                        <f:ajax event="click" render="table" listener="#{amigosBean.enviarPeticion(amigo)}"/>
+                        <h:commandButton value="Enviar Solicitud" action="#{amigosBean.enviarPeticion(amigo)}"/>
                     </h:form>
                 </h:column>
         </h:dataTable>
@@ -59,7 +58,7 @@
                 <h:column>
                     <h:form>
                         <h:commandButton value="Eliminar" />
-                        <f:ajax event="click" render="table" listener="#{amigosBean.doEliminar(amigo)}"/>
+                        <f:ajax event="click" render="table" listener="#{amigosBean.doEliminar(amigo)}" />
                     </h:form>
                 </h:column>
         </h:dataTable>
@@ -82,7 +81,6 @@
                     </h:form>
                 </h:column>
         </h:dataTable>
-        
     </h:body>
 </html>
 
