@@ -69,8 +69,14 @@
                 </h:column>
                 <h:column>
                     <h:form>
-                        <h:commandButton value="Aceptar Solicitud" />
+                        <h:commandButton value="Aceptar" />
                         <f:ajax event="click" render="peticionesTable" listener="#{amigosBean.aceptarPeticion(peticion)}"/>
+                    </h:form>
+                </h:column>
+                 <h:column>
+                    <h:form>
+                        <h:commandButton value="Rechazar" />
+                        <f:ajax event="click" render="peticionesTable" listener="#{amigosBean.rechazarPeticion(peticion.usuario.id,peticion.usuario1.id)}"/>
                     </h:form>
                 </h:column>
         </h:dataTable>

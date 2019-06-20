@@ -48,6 +48,13 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         
         return q.getResultList();
     }
+        
+        public List<Usuario> findAllMenosYo(String cod) {
+        Query q;
+        q = this.em.createQuery("select e from Usuario e where e.username != :codigo");
+        q.setParameter("codigo", cod+"%");
+        return q.getResultList();
+    }
     
     public List<Usuario> buscarUsuarioPorEmail(String email){
         Query q;

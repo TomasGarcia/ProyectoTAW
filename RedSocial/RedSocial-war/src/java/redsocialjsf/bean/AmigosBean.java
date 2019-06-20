@@ -36,7 +36,6 @@ public class AmigosBean {
     protected List<Usuario> amigos;
     protected List<Usuario> amigos1;
     
-    protected PeticionPK peticionPK1, peticionPK2;
     protected List<Peticion> listaPeticiones;
     
     public AmigosBean(){
@@ -83,21 +82,7 @@ public class AmigosBean {
         this.amigos1 = amigos1;
     }
 
-    public PeticionPK getPeticionPK1() {
-        return peticionPK1;
-    }
-
-    public void setPeticionPK1(PeticionPK peticionPK1) {
-        this.peticionPK1 = peticionPK1;
-    }
-
-    public PeticionPK getPeticionPK2() {
-        return peticionPK2;
-    }
-
-    public void setPeticionPK2(PeticionPK peticionPK2) {
-        this.peticionPK2 = peticionPK2;
-    }
+    
 
     public List<Peticion> getListaPeticiones() {
         return listaPeticiones;
@@ -114,11 +99,11 @@ public class AmigosBean {
         this.usuario = this.loginBean.getUsuario();
         this.amigos = this.usuario.getUsuarioList();
         this.amigos1 = this.usuario.getUsuarioList1();
-        this.listaUsuarios = this.usuarioFacade.findAll();//FILTRAR PARA K NO APAREZCAS NI TU NIS TUS AMIGOS
+        //this.listaUsuarios = this.usuarioFacade.findAll();//FILTRAR PARA K NO APAREZCAS NI TU NIS TUS AMIGOS
         this.listaPeticiones = this.peticionFacade.misPeticiones(usuario.getId());
     }
 
-    public void doEliminar(Usuario u){
+    public String doEliminar(Usuario u){
         List<Usuario>listaAmigos = usuario.getUsuarioList();
         listaAmigos.remove(u);
         usuario.setUsuarioList(listaAmigos);
@@ -128,9 +113,12 @@ public class AmigosBean {
         listaAmigos1.remove(usuario);
         u.setUsuarioList(listaAmigos1);
         this.usuarioFacade.edit(u);
+        return null;
     }
     
-    public void enviarPeticion(Usuario u){
+    
+    public String enviarPeticion(Usuario u){
+        PeticionPK peticionPK1, peticionPK2;
         Peticion p = new Peticion();
         p.setUsuario(usuario);
         p.setUsuario1(u);
@@ -141,16 +129,17 @@ public class AmigosBean {
         if(this.peticionFacade.find(peticionPK1) == null && this.peticionFacade.find(peticionPK2) == null){
             this.peticionFacade.create(p);
         }
+        return null;
     }
     
-    public void aceptarPeticion(Peticion p){
-         Peticion peticion = this.peticionFacade.find(p);
+    public String aceptarPeticion(Peticion peticion){
+        //Peticion peticion = this.peticionFacade.find(p);
         
         peticion.setConfirmada(true);
         this.peticionFacade.edit(peticion);
         
-        Usuario usuario0 = this.usuarioFacade.find(p.getUsuario());
-        Usuario usuario1 = this.usuarioFacade.find(p.getUsuario1());
+        Usuario usuario0 = this.usuarioFacade.find(peticion.getUsuario());
+        Usuario usuario1 = this.usuarioFacade.find(peticion.getUsuario1());
         
         List<Usuario> usuarios = usuario0.getUsuarioList();
         usuarios.add(usuario1);
@@ -162,6 +151,15 @@ public class AmigosBean {
         usuario1.setUsuarioList(usuarios);
         this.usuarioFacade.edit(usuario1);
         
+        return null;
+    }
+    
+    public String rechazarPeticion(Integer id,Integer id1){
+        PeticionPK peticionPK = new PeticionPK(id,id1);
+        Peticion peticion = this.peticionFacade.find(peticionPK);
+        
+        this.peticionFacade.remove(peticion);
+        return null;
     }
     
     public String doFiltrar(){
