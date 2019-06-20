@@ -65,25 +65,7 @@
             </h:inputText>
 
         </h:form>
-
-
-        <br>
-
-        </br>
           
-        
-        <h:form>
-        <h:selectOneMenu value="#{gruposBean.listaCodigoCreadores}">
-
-                        <f:selectItems value="#{gruposBean.listaCreadores}" var="creador" itemLabel="#{creador.username}" itemValue="#{creador.id}">
-                            <h:commandButton value="Filtrar por Creador" action="#{gruposBean.doFiltrarPorCreador()}"></h:commandButton>
-
-                        </f:selectItems>
-
-                    </h:selectOneMenu>
-            </h:form>
-
-
         <h:form id="grupos">
             <h:dataTable id="tGrupos" value="#{gruposBean.listaGrupos}" var="grupo" border="1">
 
@@ -92,7 +74,7 @@
                 <h:column >
                     
                     <f:facet name="header">Creador</f:facet>              
-                        #{grupo.usuario.username}
+                        #{grupo.usuarioId.username}
                 </h:column> 
 
                 <h:column>  
@@ -104,6 +86,10 @@
                     <f:facet name="header">Descripcion</f:facet>              
                         #{grupo.descripcion}
                 </h:column> 
+                
+                <h:column>
+                    <h:commandButton value="Eliminar Grupo" action="#{gruposBean.doEliminarGrupo(grupo)}" rendered="#{gruposBean.puedeEliminar(grupo.usuarioId.id) eq true}"/>
+                </h:column>
 
             </h:dataTable>
             

@@ -5,7 +5,9 @@
  */
 package redsocialjsf.bean;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -82,8 +84,10 @@ public class CrearGrupoBean {
         this.nuevoGrupo.setNombre(nombre);
         this.nuevoGrupo.setDescripcion(descripcion);
         this.nuevoGrupo.setFechaCreacion(new Date());
-//        this.nuevoGrupo.setUsuario(creador);
-//        this.nuevoGrupo.setPertenece(new Pertenece(nuevoGrupo.getId(),creador.getId()));
+        this.nuevoGrupo.setUsuarioId(creador);
+        List<Usuario> participantes=new ArrayList();
+        participantes.add(creador);
+        this.nuevoGrupo.setUsuarioList(participantes);
         this.grupoFacade.create(nuevoGrupo);
         return "muro";
     }

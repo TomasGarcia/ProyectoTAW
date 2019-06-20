@@ -25,61 +25,69 @@ import redsocialjsf.entity.Usuario;
 @RequestScoped
 public class GruposBean {
 
-    @EJB protected GrupoFacade grupoFacade;
-    @EJB protected UsuarioFacade usuarioFacade;
-    @Inject LoginBean loginBean;
+    @EJB
+    protected GrupoFacade grupoFacade;
+    @EJB
+    protected UsuarioFacade usuarioFacade;
+    @Inject
+    LoginBean loginBean;
     protected Usuario usuario;
     protected List<Grupo> listaGrupos;
     protected String nombreIntroducido;
-    protected List<Integer> listaCodigoCreadores;
-    protected List<Usuario> listaCreadores;
 
-    public List<Integer> getListaCodigoCreadores() {
-        return listaCodigoCreadores;
+
+    public GrupoFacade getGrupoFacade() {
+        return grupoFacade;
     }
 
-    public void setListaCodigoCreadores(List<Integer> listaCodigoCreadores) {
-        this.listaCodigoCreadores = listaCodigoCreadores;
+    public void setGrupoFacade(GrupoFacade grupoFacade) {
+        this.grupoFacade = grupoFacade;
     }
 
-    public List<Usuario> getListaCreadores() {
-        return listaCreadores;
+    public UsuarioFacade getUsuarioFacade() {
+        return usuarioFacade;
     }
 
-    public void setListaCreadores(List<Usuario> listaCreadores) {
-        this.listaCreadores = listaCreadores;
+    public void setUsuarioFacade(UsuarioFacade usuarioFacade) {
+        this.usuarioFacade = usuarioFacade;
     }
     
-    
-    
+
     public GruposBean() {
     }
-    
-    public String doFiltrarPorNombre(){
-        if(!nombreIntroducido.equals(""))
-            listaGrupos=grupoFacade.buscarPorNombre(nombreIntroducido);
-        else
-            listaGrupos =this.grupoFacade.buscarPorCreadorYMiembro(this.usuario.getId());
+
+    public String doFiltrarPorNombre() {
+        if (!nombreIntroducido.equals("")) {
+            listaGrupos = grupoFacade.buscarPorNombre(nombreIntroducido);
+        } else {
+            listaGrupos = this.grupoFacade.buscarPorCreadorYMiembro(this.usuario.getId());
+        }
         return null;
     }
+
     
-    public String doFiltrarPorCreador(){
-        listaGrupos=grupoFacade.doFiltrarPorCreador(listaCodigoCreadores);
-        return null;
-        
-    }
-    
-    public String doCrearGrupo(){
+
+    public String doCrearGrupo() {
         return "crearGrupo";
     }
     
+    public String doEliminarGrupo(Grupo g){
+        this.listaGrupos.remove(g);
+        this.grupoFacade.remove(g);
+        return null;
+    }
+    
+    public Boolean puedeEliminar(int id){
+        return this.getUsuario().getId().equals(id);
+    }
+
     @PostConstruct
-    public void init(){
-//        this.nombreIntroducido = "";
-//        this.usuario=loginBean.getUsuario();
-//        this.listaGrupos=grupoFacade.buscarPorCreadorYMiembro(usuario.getId());
-//        this.listaCreadores=usuarioFacade.findAll();
+    public void init() {
+        this.nombreIntroducido = "";
+        this.usuario = loginBean.getUsuario();
+        this.listaGrupos = grupoFacade.buscarPorCreadorYMiembro(usuario.getId());
         
+
     }
 
     public LoginBean getLoginBean() {
@@ -113,7 +121,5 @@ public class GruposBean {
     public void setNombreIntroducido(String nombreIntroducido) {
         this.nombreIntroducido = nombreIntroducido;
     }
-    
-    
-    
+
 }
