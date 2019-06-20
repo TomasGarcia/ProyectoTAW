@@ -117,6 +117,17 @@ public class AmigosBean implements Serializable{
         listaAmigos1.remove(usuario);
         u.setUsuarioList(listaAmigos1);
         this.usuarioFacade.edit(u);
+        
+        PeticionPK pk1 = new PeticionPK(this.usuario.getId(), u.getId());
+        PeticionPK pk2 = new PeticionPK(u.getId(), this.usuario.getId());
+        Peticion p1 = this.peticionFacade.find(pk1);
+        Peticion p2 = this.peticionFacade.find(pk2);
+        
+        if(p1 != null){
+            this.peticionFacade.remove(p1);
+        }else{
+            this.peticionFacade.remove(p2);
+        }
         return null;
     }
     
@@ -157,8 +168,9 @@ public class AmigosBean implements Serializable{
         this.usuarioFacade.edit(usuario1);
         
         //this.peticionFacade.edit(peticion);
-        this.peticionFacade.remove(peticion);
-        this.init();
+//        this.peticionFacade.remove(peticion);
+        this.amigos.add(usuario0);
+        this.listaPeticiones.remove(peticion);
         return null;
     }
     
@@ -174,7 +186,7 @@ public class AmigosBean implements Serializable{
         if(filtroNombre.equals("")){
             this.listaUsuarios = new ArrayList<>();
         }else{
-            this.listaUsuarios = this.usuarioFacade.buscarUsuarioPorUsernameCoincidente(filtroNombre);
+            this.listaUsuarios = this.usuarioFacade.buscarUsuarioPorUsernameCoincidente(this.filtroNombre, this.amigos, this.usuario);
         }
         return null;
     }

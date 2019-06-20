@@ -14,8 +14,9 @@
         <h:form>
             Filtrar:
             <h:inputText value="#{amigosBean.filtroNombre}">
-                <f:ajax event="keyup" render="tableUsers" listener="#{amigosBean.doFiltrar()}"/>
+              <!--  <f:ajax event="keyup" render="tableUsers" listener="#{amigosBean.doFiltrar()}"/> !-->
             </h:inputText>
+            <h:commandButton value="filtra" action="#{amigosBean.doFiltrar()}"/>
         </h:form>
         
         <h:dataTable id="tableUsers" border="1" value="#{amigosBean.listaUsuarios}" var="amigo">
