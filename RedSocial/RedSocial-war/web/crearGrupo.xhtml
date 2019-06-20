@@ -16,7 +16,7 @@
         <h:form>
             <div align="center">
                 Nombre de Grupo: <h:inputText value="#{crearGrupoBean.nombre}"/><br/>
-                Descripcion:<h:inputText value="#{crearGrupoBean.descripcion}"/><br/>
+                Descripcion:<h:inputTextarea value="#{crearGrupoBean.descripcion}"/><br/>
                 <h:commandButton value="Crear" action="#{crearGrupoBean.doCrear()}" /><br></br>
                 <h:commandButton value="Atrás" action="#{crearGrupoBean.doVolver()}"/> <br></br>
             </div>

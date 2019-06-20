@@ -93,6 +93,10 @@
                 <h:column>
                     <h:commandButton value="Eliminar Grupo" action="#{gruposBean.doEliminarGrupo(grupo)}" rendered="#{gruposBean.puedeEliminar(grupo.usuarioId.id) eq true}"/>
                 </h:column>
+                
+                <h:column>
+                    <h:commandButton value="Editar Grupo" action="#{gruposBean.doEditarGrupo(grupo)}" rendered="#{gruposBean.puedeEliminar(grupo.usuarioId.id) eq true}"/>
+                </h:column>
 
             </h:dataTable>
             

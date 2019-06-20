@@ -53,7 +53,7 @@ public class GrupoFacade extends AbstractFacade<Grupo> {
     
     public List<Grupo> buscarPorCreadorYMiembro(int id){
         Query q;
-        q=this.em.createQuery("select g from Grupo g where g.usuarioId.id = :id");
+        q=this.em.createQuery("select g from Grupo g join g.usuarioList l where :id = l.id");
         q.setParameter("id", id);
         return q.getResultList();
         

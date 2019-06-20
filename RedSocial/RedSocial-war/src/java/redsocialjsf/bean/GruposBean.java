@@ -34,6 +34,16 @@ public class GruposBean {
     protected Usuario usuario;
     protected List<Grupo> listaGrupos;
     protected String nombreIntroducido;
+    protected Grupo gruposeleccionado;
+
+    public Grupo getGruposeleccionado() {
+        return gruposeleccionado;
+    }
+
+    public void setGruposeleccionado(Grupo gruposeleccionado) {
+        this.gruposeleccionado = gruposeleccionado;
+    }
+    
 
 
     public GrupoFacade getGrupoFacade() {
@@ -120,6 +130,11 @@ public class GruposBean {
 
     public void setNombreIntroducido(String nombreIntroducido) {
         this.nombreIntroducido = nombreIntroducido;
+    }
+    
+    public String doEditarGrupo(Grupo g){
+        this.gruposeleccionado=g;
+        return "editarGrupo";
     }
 
 }
