@@ -101,4 +101,8 @@ public class LoginBean implements Serializable{
         return "index";
     }
     
+    public String doCrearPost(){
+        return "crearPost";
+    }
+    
 }

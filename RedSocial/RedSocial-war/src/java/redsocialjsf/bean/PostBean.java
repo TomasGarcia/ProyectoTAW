@@ -13,6 +13,7 @@ import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import redsocialjsf.dao.PostFacade;
+import redsocialjsf.dao.UsuarioFacade;
 import redsocialjsf.entity.Post;
 import redsocialjsf.entity.Usuario;
 
@@ -26,7 +27,9 @@ public class PostBean {
 
     @Inject LoginBean loginBean;
     @EJB PostFacade postFacade;
+    @EJB UsuarioFacade usuarioFacade;
     protected Usuario usuario;
+    protected Usuario userPublic;
     protected List<Post> listaPosts;
     
 
@@ -65,6 +68,24 @@ public class PostBean {
         this.listaPosts = listaPosts;
     }
 
+    public UsuarioFacade getUsuarioFacade() {
+        return usuarioFacade;
+    }
+
+    public void setUsuarioFacade(UsuarioFacade usuarioFacade) {
+        this.usuarioFacade = usuarioFacade;
+    }
+
+    public Usuario getUserPublic() {
+        return userPublic;
+    }
+
+    public void setUserPublic(Usuario userPublic) {
+        this.userPublic = userPublic;
+    }
+
+    
+    
     public String doPerfil(){
         return "perfil";
     }
@@ -82,6 +103,7 @@ public class PostBean {
     @PostConstruct
     public void init(){
         this.usuario = this.loginBean.getUsuario();
+        this.userPublic = this.usuarioFacade.find(1);
         this.listaPosts = this.postFacade.buscarPorPostsUsuario(this.usuario.getId());
        
     }
