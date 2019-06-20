@@ -5,11 +5,12 @@
  */
 package redsocialjsf.bean;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import redsocialjsf.dao.PeticionFacade;
 import redsocialjsf.dao.UsuarioFacade;
@@ -22,9 +23,9 @@ import redsocialjsf.entity.Usuario;
  * @author Alejandro Calvo
  */
 @Named(value = "amigosBean")
-@RequestScoped
+@SessionScoped
 
-public class AmigosBean {
+public class AmigosBean implements Serializable{
 
     @Inject LoginBean loginBean;
     @EJB UsuarioFacade usuarioFacade;
@@ -136,10 +137,10 @@ public class AmigosBean {
         //Peticion peticion = this.peticionFacade.find(p);
         
         peticion.setConfirmada(true);
-        this.peticionFacade.edit(peticion);
         
-        Usuario usuario0 = this.usuarioFacade.find(peticion.getUsuario());
-        Usuario usuario1 = this.usuarioFacade.find(peticion.getUsuario1());
+        
+        Usuario usuario0 = peticion.getUsuario();
+        Usuario usuario1 = peticion.getUsuario1();
         
         List<Usuario> usuarios = usuario0.getUsuarioList();
         usuarios.add(usuario1);
@@ -150,7 +151,10 @@ public class AmigosBean {
         usuarios.add(usuario0);
         usuario1.setUsuarioList(usuarios);
         this.usuarioFacade.edit(usuario1);
+        this.peticionFacade.edit(peticion);
+        this.listaPeticiones.remove(peticion);
         
+        this.amigos = usuario0.getUsuarioList();
         return null;
     }
     
@@ -165,5 +169,9 @@ public class AmigosBean {
     public String doFiltrar(){
         this.listaUsuarios = this.usuarioFacade.buscarUsuarioPorUsernameCoincidente(filtroNombre);
         return null;
+    }
+    
+    public String doVolver(){
+        return "muro";
     }
 }

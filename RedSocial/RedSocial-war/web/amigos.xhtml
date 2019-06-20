@@ -9,6 +9,9 @@
     <h:body>
         <h1>Buscar Amigos</h1>
         <h:form>
+            <h:commandButton value="Volver" action="#{amigosBean.doVolver()}"/>
+        </h:form>
+        <h:form>
             Filtrar:
             <h:inputText value="#{amigosBean.filtroNombre}">
                 <f:ajax event="keyup" render="tableUsers" listener="#{amigosBean.doFiltrar()}" />
@@ -69,8 +72,7 @@
                 </h:column>
                 <h:column>
                     <h:form>
-                        <h:commandButton value="Aceptar" />
-                        <f:ajax event="click" render="peticionesTable" listener="#{amigosBean.aceptarPeticion(peticion)}"/>
+                        <h:commandButton value="Aceptar" action="#{amigosBean.aceptarPeticion(peticion)}"/>
                     </h:form>
                 </h:column>
                  <h:column>

@@ -33,7 +33,7 @@ public class PeticionFacade extends AbstractFacade<Peticion> {
     
     public List<Peticion> misPeticiones(Integer id){
         Query q;
-        q = this.em.createQuery("select p from Peticion p where p.usuario1.id = :id");
+        q = this.em.createQuery("select p from Peticion p where p.usuario1.id = :id and p.confirmada = 0");
         q.setParameter("id", id);
         
         return q.getResultList();
