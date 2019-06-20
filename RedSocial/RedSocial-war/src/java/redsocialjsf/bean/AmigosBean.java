@@ -6,6 +6,8 @@
 package redsocialjsf.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -102,7 +104,6 @@ public class AmigosBean implements Serializable{
         this.amigos1 = this.usuario.getUsuarioList1();
 
         this.filtroNombre = null;
-        //this.listaUsuarios = this.usuarioFacade.findAll();//FILTRAR PARA K NO APAREZCAS NI TU NIS TUS AMIGOS
         this.listaPeticiones = this.peticionFacade.misPeticiones(usuario.getId());
     }
 
@@ -121,26 +122,26 @@ public class AmigosBean implements Serializable{
     
     
     public String enviarPeticion(Usuario u){
+        Date fecha = new Date();
         PeticionPK peticionPK1, peticionPK2;
         Peticion p = new Peticion();
+        p.setFecha(fecha);
+        p.setConfirmada(false);
         p.setUsuario(this.getUsuario());
         p.setUsuario1(u);
-        p.setConfirmada(false);
-        peticionPK1 = new PeticionPK(usuario.getId(),u.getId());
+        peticionPK1 = new PeticionPK(this.getUsuario().getId(),u.getId());
         p.setPeticionPK(peticionPK1);
-        peticionPK2 = new PeticionPK(u.getId(), usuario.getId());
+        peticionPK2 = new PeticionPK(u.getId(), this.getUsuario().getId());
         
-        if(this.peticionFacade.find(peticionPK1) == null && this.peticionFacade.find(peticionPK2) == null){
-            this.peticionFacade.create(p);
-        }
+        //if(this.peticionFacade.find(peticionPK1) == null && this.peticionFacade.find(peticionPK2) == null){
+        this.peticionFacade.create(p);
+        //}
         return null;
     }
     
     public String aceptarPeticion(Peticion peticion){
-        //Peticion peticion = this.peticionFacade.find(p);
         
         peticion.setConfirmada(true);
-        
         
         Usuario usuario0 = peticion.getUsuario();
         Usuario usuario1 = peticion.getUsuario1();
@@ -154,8 +155,9 @@ public class AmigosBean implements Serializable{
         usuarios.add(usuario0);
         usuario1.setUsuarioList(usuarios);
         this.usuarioFacade.edit(usuario1);
-        this.peticionFacade.edit(peticion);
         
+        //this.peticionFacade.edit(peticion);
+        this.peticionFacade.remove(peticion);
         this.init();
         return null;
     }
@@ -169,7 +171,11 @@ public class AmigosBean implements Serializable{
     }
     
     public String doFiltrar(){
-        this.listaUsuarios = this.usuarioFacade.buscarUsuarioPorUsernameCoincidente(filtroNombre);
+        if(filtroNombre.equals("")){
+            this.listaUsuarios = new ArrayList<>();
+        }else{
+            this.listaUsuarios = this.usuarioFacade.buscarUsuarioPorUsernameCoincidente(filtroNombre);
+        }
         return null;
     }
     

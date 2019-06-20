@@ -69,6 +69,10 @@
                     <f:facet name="header">Usuario</f:facet>
                         #{peticion.usuario.username}
                 </h:column>
+                <h:column>  
+                    <f:facet name="header">Fecha</f:facet>
+                        #{peticion.fecha}
+                </h:column>
                 <h:column>
                     <h:form>
                         <h:commandButton value="Aceptar" action="#{amigosBean.aceptarPeticion(peticion)}"/>
@@ -77,7 +81,7 @@
                  <h:column>
                     <h:form>
                         <h:commandButton value="Rechazar" />
-                        <f:ajax event="click" render="peticionesTable" listener="#{amigosBean.rechazarPeticion(peticion.usuario.id,peticion.usuario1.id)}"/>
+                          <f:ajax event="click" listener="#{amigosBean.rechazarPeticion(peticion.usuario.id,peticion.usuario1.id)}" render="peticionesTable" />
                     </h:form>
                 </h:column>
         </h:dataTable>
