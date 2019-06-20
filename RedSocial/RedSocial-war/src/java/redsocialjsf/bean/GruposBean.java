@@ -136,5 +136,10 @@ public class GruposBean {
         this.gruposeleccionado=g;
         return "editarGrupo";
     }
+    
+    public String verMiembros(Grupo g){
+        this.gruposeleccionado=g;
+        return "verMiembros";
+    }
 
 }

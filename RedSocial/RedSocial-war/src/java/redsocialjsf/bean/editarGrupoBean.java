@@ -6,10 +6,14 @@
 package redsocialjsf.bean;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
+
+
 import javax.inject.Inject;
+import redsocialjsf.dao.GrupoFacade;
 import redsocialjsf.entity.Grupo;
 
 /**
@@ -22,6 +26,7 @@ public class editarGrupoBean {
 @Inject GruposBean gruposBean;
 private String nombre;
 private String descripcion;
+@EJB GrupoFacade grupoFacade;
 
     public GruposBean getGruposBean() {
         return gruposBean;
@@ -61,7 +66,11 @@ private String descripcion;
     }
     
     public String doEditar(){
-        return null;
+        Grupo grupo=gruposBean.getGruposeleccionado();
+        grupo.setNombre(nombre);
+        grupo.setDescripcion(descripcion);
+        grupoFacade.edit(grupo);
+        return "muro";
     }
     
     public String doVolver(){
