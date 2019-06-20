@@ -186,6 +186,10 @@ public class AmigosBean implements Serializable{
         if(filtroNombre.equals("")){
             this.listaUsuarios = new ArrayList<>();
         }else{
+            List<Integer> l = this.usuarioFacade.pruebasQuery(usuario, amigos);
+            
+            boolean cosas = usuario == usuario;
+//            this.listaUsuarios = this.usuarioFacade.pruebasQuery(usuario, amigos);
             this.listaUsuarios = this.usuarioFacade.buscarUsuarioPorUsernameCoincidente(this.filtroNombre, this.amigos, this.usuario);
         }
         return null;
