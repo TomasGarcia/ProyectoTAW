@@ -175,4 +175,8 @@ public class PerfilBean{
         this.loginBean.setUsuario(usuario);
         return "perfil";
     }
+    
+    public String doVolver(){
+        return "muro";
+    }
 }

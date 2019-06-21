@@ -14,8 +14,8 @@
                                 <h:message for="user" style = "color:red"/><br/>
                                 Email:<h:inputText value="#{perfilBean.emailActual}" id="mail" binding="#{perfilBean.mail}"/>
                                 <h:message for="mail" style = "color:red"/><br/>
-                #{msgs.password}:<h:inputSecret value="#{perfilBean.passwordActual}"/><br/>
-                #{msgs.password}:<h:inputSecret value="#{perfilBean.passwordConfirm}" id="passConfirm" binding="#{perfilBean.pass}"/>
+                #{msgs.password}<h:inputSecret value="#{perfilBean.passwordActual}"/><br/>
+                #{msgs.passwordAgain}<h:inputSecret value="#{perfilBean.passwordConfirm}" id="passConfirm" binding="#{perfilBean.pass}"/>
                                 <h:message for="passConfirm" style = "color:red"/><br/>
                 #{msgs.nombre}:<h:inputText value="#{perfilBean.usuario.nombre}"/><br/>
                 #{msgs.apellido}:<h:inputText value="#{perfilBean.usuario.apellido}"/><br/>
@@ -33,7 +33,7 @@
         </h:form>
         <div align="center">
             <h:form>
-                <h:commandButton value="#{msgs.volver}" action="#{loginBean.doLogin()}"/>
+                <h:commandButton value="#{msgs.volver}" action="#{perfilBean.doVolver()}"/>
             </h:form>
         </div>
     </h:body>
