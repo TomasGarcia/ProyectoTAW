@@ -4,37 +4,37 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Amigos</title>
+        <title>#{msgs.amigos}</title>
     </h:head>
     <h:body>
-        <h1>Buscar Amigos</h1>
+        <h1>#{msgs.listaAmigos}</h1>
         <h:form>
-            <h:commandButton value="Volver" action="#{amigosBean.doVolver()}"/>
+            <h:commandButton value="#{msgs.volver}" action="#{amigosBean.doVolver()}"/>
         </h:form>
         <h:form>
-            Filtrar:
+            #{msgs.filtrar}:
             <h:inputText value="#{amigosBean.filtroNombre}">
               <!--  <f:ajax event="keyup" render="tableUsers" listener="#{amigosBean.doFiltrar()}"/> !-->
             </h:inputText>
-            <h:commandButton value="filtra" action="#{amigosBean.doFiltrar()}"/>
+            <h:commandButton value="#{msgs.filtra}" action="#{amigosBean.doFiltrar()}"/>
         </h:form>
         
         <h:dataTable id="tableUsers" border="1" value="#{amigosBean.listaUsuarios}" var="amigo">
                 <h:column>  
-                    <f:facet name="header">Usuario</f:facet>
+                    <f:facet name="header">#{msgs.usuario}</f:facet>
                         #{amigo.username}
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Nombre</f:facet>
+                    <f:facet name="header">#{msgs.nombre}</f:facet>
                         #{amigo.nombre}
                 </h:column>
                 <h:column>  
-                    <f:facet name="header">Apellido</f:facet>
+                    <f:facet name="header">#{msgs.apellido}</f:facet>
                         #{amigo.apellido}
                 </h:column>
                 <h:column>
                     <h:form>
-                        <h:commandButton value="Enviar Solicitud" action="#{amigosBean.enviarPeticion(amigo)}"/>
+                        <h:commandButton value="#{msgs.enviarSolicitud}" action="#{amigosBean.enviarPeticion(amigo)}"/>
                     </h:form>
                 </h:column>
         </h:dataTable>
@@ -42,46 +42,46 @@
         
         
         
-        <h1>Lista de amigos</h1>
+        <h1>#{msgs.listaAmigos}</h1>
         <h:dataTable id="table" border="1" value="#{amigosBean.amigos}" var="amigo">
                 <h:column>  
-                    <f:facet name="header">Usuario</f:facet>
+                    <f:facet name="header">#{msgs.usuario}</f:facet>
                         #{amigo.username}
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Nombre</f:facet>
+                    <f:facet name="header">#{msgs.nombre}</f:facet>
                         #{amigo.nombre}
                 </h:column>
                 <h:column>  
-                    <f:facet name="header">Apellido</f:facet>
+                    <f:facet name="header">#{msgs.apellido}</f:facet>
                         #{amigo.apellido}
                 </h:column>
                 <h:column>
                     <h:form>
-                        <h:commandButton value="Eliminar" />
+                        <h:commandButton value="#{msgs.eliminar}" />
                         <f:ajax event="click" render="table" listener="#{amigosBean.doEliminar(amigo)}" />
                     </h:form>
                 </h:column>
         </h:dataTable>
         
-        <h1>Solicitudes de Amistad</h1>
+        <h1>#{msgs.solicitudesAmistad}</h1>
         <h:dataTable id="peticionesTable" border="1" value="#{amigosBean.listaPeticiones}" var="peticion">
                 <h:column>  
-                    <f:facet name="header">Usuario</f:facet>
+                    <f:facet name="header">#{msgs.usuario}</f:facet>
                         #{peticion.usuario.username}
                 </h:column>
                 <h:column>  
-                    <f:facet name="header">Fecha</f:facet>
+                    <f:facet name="header">#{msgs.fecha}</f:facet>
                         #{peticion.fecha}
                 </h:column>
                 <h:column>
                     <h:form>
-                        <h:commandButton value="Aceptar" action="#{amigosBean.aceptarPeticion(peticion)}"/>
+                        <h:commandButton value="#{msgs.aceptar}" action="#{amigosBean.aceptarPeticion(peticion)}"/>
                     </h:form>
                 </h:column>
                  <h:column>
                     <h:form>
-                        <h:commandButton value="Rechazar" />
+                        <h:commandButton value="#{msgs.rechazar}" />
                           <f:ajax event="click" listener="#{amigosBean.rechazarPeticion(peticion.usuario.id,peticion.usuario1.id)}" render="peticionesTable" />
                     </h:form>
                 </h:column>

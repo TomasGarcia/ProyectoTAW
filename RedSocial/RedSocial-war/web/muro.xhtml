@@ -7,7 +7,7 @@
 
 
     <h:head>
-        <title>Muro</title>
+        <title>#{msgs.muro}</title>
 
     </h:head>
     <h:body>
@@ -113,8 +113,7 @@
 
                 <h:column>
 
-                    <h:commandButton value="#{msgs.editarGrupo}" action="#{gruposBean.doEditarGrupo(grupo)}" rendered="#{gruposBean.puedeEliminar(grupo.usuarioId.id) eq true}"/>
-
+                    <h:commandButton value="#{msgs.editarGrupo}" action="#{postBean.doEditarGrupo(grupo)}" rendered="#{gruposBean.puedeEliminar(grupo.usuarioId.id) eq true}"/>
                 </h:column>
 
                 <h:column>

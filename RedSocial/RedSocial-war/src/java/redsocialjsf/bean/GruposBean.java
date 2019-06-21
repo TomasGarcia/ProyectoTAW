@@ -33,6 +33,7 @@ public class GruposBean {
     protected UsuarioFacade usuarioFacade;
     @Inject
     LoginBean loginBean;
+    @Inject PostBean postBean;
     protected Usuario usuario;
     protected List<Grupo> listaGrupos;
     protected String nombreIntroducido;
@@ -46,8 +47,6 @@ public class GruposBean {
     public void setGruposeleccionado(Grupo gruposeleccionado) {
         this.gruposeleccionado = gruposeleccionado;
     }
-    
-
 
     public GrupoFacade getGrupoFacade() {
         return grupoFacade;
@@ -99,8 +98,7 @@ public class GruposBean {
         this.nombreIntroducido = "";
         this.usuario = loginBean.getUsuario();
         this.listaGrupos = grupoFacade.buscarPorCreadorYMiembro(usuario.getId());
-        
-
+        this.gruposeleccionado = this.postBean.getGrupoSeleccionado();
     }
 
     public LoginBean getLoginBean() {
@@ -135,12 +133,14 @@ public class GruposBean {
         this.nombreIntroducido = nombreIntroducido;
     }
     
-    public String doEditarGrupo(Grupo g){
-        //this.gruposeleccionado=g;
-        //return "editarGrupo";
-        grupoFacade.edit(g);
+    public String doEditarGrupo(){
+        this.grupoFacade.edit(this.gruposeleccionado);
+        this.init();
         return "muro";
-        
+    }
+    
+    public String doVolver(){
+        return "muro";
     }
     
     public String verMiembros(Grupo g){

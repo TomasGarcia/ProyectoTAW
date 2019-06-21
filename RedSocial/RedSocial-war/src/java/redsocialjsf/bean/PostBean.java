@@ -5,15 +5,18 @@
  */
 package redsocialjsf.bean;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import redsocialjsf.dao.PostFacade;
 import redsocialjsf.dao.UsuarioFacade;
+import redsocialjsf.entity.Grupo;
 import redsocialjsf.entity.Post;
 import redsocialjsf.entity.Usuario;
 
@@ -22,14 +25,16 @@ import redsocialjsf.entity.Usuario;
  * @author tmgrm
  */
 @Named(value = "postBean")
-@RequestScoped
-public class PostBean {
+@SessionScoped
+public class PostBean implements Serializable{
 
     @Inject LoginBean loginBean;
+    @Inject GruposBean gruposBean;
     @EJB PostFacade postFacade;
     @EJB UsuarioFacade usuarioFacade;
     protected Usuario usuario;
     protected Usuario userPublic;
+    protected Grupo grupoSeleccionado;
     protected List<Post> listaPosts;
     
 
@@ -84,7 +89,13 @@ public class PostBean {
         this.userPublic = userPublic;
     }
 
-    
+    public Grupo getGrupoSeleccionado() {
+        return grupoSeleccionado;
+    }
+
+    public void setGrupoSeleccionado(Grupo grupoSeleccionado) {
+        this.grupoSeleccionado = grupoSeleccionado;
+    }
     
     public String doPerfil(){
         return "perfil";
@@ -100,12 +111,17 @@ public class PostBean {
         return this.getUsuario().getId().equals(id);
     }
     
+    public String doEditarGrupo(Grupo g){
+        this.grupoSeleccionado = g;
+        this.gruposBean.init();
+        return "editarGrupo";
+    }
+    
     @PostConstruct
     public void init(){
         this.usuario = this.loginBean.getUsuario();
         this.userPublic = this.usuarioFacade.find(1);
         this.listaPosts = this.postFacade.buscarPorPostsUsuario(this.usuario.getId());
-       
     }
     
     
