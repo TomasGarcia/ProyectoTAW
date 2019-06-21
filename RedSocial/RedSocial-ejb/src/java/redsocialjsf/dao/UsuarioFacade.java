@@ -63,15 +63,6 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         return q.getResultList();
     }
     
-    public List<Integer> pruebasQuery(Usuario usuario, List<Usuario> amigos){
-        Query q;
-        q = this.em.createQuery("select u.id from Usuario u where u not in :amigos");
-        q.setParameter("amigos", amigos);
-//        q.setParameter("usuario", usuario);
-        
-        return q.getResultList();
-    }
-
         public List<Usuario> findAllMenosYo(String cod) {
         Query q;
         q = this.em.createQuery("select e from Usuario e where e.username != :codigo");

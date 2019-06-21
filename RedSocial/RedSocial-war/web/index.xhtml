@@ -12,23 +12,31 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous"/>
         <!-- JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
-        <h1 align="center">Introduzca sus datos de usuario</h1>
+        <h1 align="center">#{msgs.inputDatosLogin}</h1>
         <h:form>
             
             <p align="center">
                 <img src="https://raw.githubusercontent.com/TomasGarcia/ProyectoTAW/master/RedSocialJSF/RedSocialJSF-war/src/img/80e78244-64b3-4539-948a-5493a62aa976_200x200.png?token=AIXRKRWM7SAECVLDZG3WYRK5CSFF4" alt="logo" ></img>
                 <br></br>
                 Email: <h:inputText value="#{loginBean.email}" /> <br/>
-                Contraseña: <h:inputSecret value="#{loginBean.password}" /> <br/> 
+                #{msgs.password} <h:inputSecret value="#{loginBean.password}" /> <br/> 
                 <br/>
-                <h:commandButton  value="Entrar" action="#{loginBean.doLogin()}" /> <br/>
+                <h:commandButton  value="#{msgs.login}" action="#{loginBean.doLogin()}" /> <br/>
             </p>
         </h:form>
         <h:form>
-            <h2 align="center">Registrate en nuestra red social</h2>
+            <h2 align="center">#{msgs.unete}</h2>
             <p align="center">
-                <h:commandButton value="Registrarse" action="#{loginBean.doRegister()}" />
+                <h:commandButton value="#{msgs.registrate}" action="#{loginBean.doRegister()}" />
             </p>
+        </h:form>
+        <h:form>
+        <h:commandLink action="#{localeBean.setEnglish}" >
+        <img src="images/en_flag.png"/>
+        </h:commandLink>&nbsp;
+        <h:commandLink action="#{localeBean.setSpanish}">   
+            <img src="images/es_flag.png"/>
+        </h:commandLink>
         </h:form>
     </h:body>
 </html>

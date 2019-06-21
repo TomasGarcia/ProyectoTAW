@@ -13,24 +13,24 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous"/>
         <!-- JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
-        <h1>Rellene el formulario con sus datos:</h1>
+        <h1>#{msgs.relleneDatos}</h1>
         <h:form>
             <div align="center">
-                Nombre de Usuario: <h:inputText value="#{registrarBean.username}"/><br/>
+                #{msgs.usuario} <h:inputText value="#{registrarBean.username}"/><br/>
                 Email:<h:inputText value="#{registrarBean.email}"/><br/>
-                Contraseña:<h:inputSecret value="#{registrarBean.password}"/><br/>
-                Nombre:<h:inputText value="#{registrarBean.nombre}"/><br/>
-                Apellido:<h:inputText value="#{registrarBean.apellido}"/><br/>
+                #{msgs.password}<h:inputSecret value="#{registrarBean.password}"/><br/>
+                #{msgs.nombre}<h:inputText value="#{registrarBean.nombre}"/><br/>
+                #{msgs.apellido}<h:inputText value="#{registrarBean.apellido}"/><br/>
                 <div class="littleText">
                     * dd-mm-yyyy *
                 </div>
-                Fecha de nacimiento:
+                #{msgs.fechaNac}
                 <h:inputText value="#{registrarBean.fecha_nac}">
                     <f:convertDateTime pattern = "dd-MM-yyyy" />
                 </h:inputText><br/>
-                Pais:<h:inputText value="#{registrarBean.pais}"/><br/>
+                #{msgs.pais} <h:inputText value="#{registrarBean.pais}"/><br/>
 
-                <h:commandButton value="Registrarse" action="#{registrarBean.doRegister()}" />
+                <h:commandButton value="#{msgs.registrate}" action="#{registrarBean.doRegister()}" />
             </div>
         </h:form>
     </h:body>
