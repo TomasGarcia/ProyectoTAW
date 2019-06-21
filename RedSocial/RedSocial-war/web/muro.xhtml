@@ -33,7 +33,7 @@
         </h:form>
         <h:form>
             <h:commandLink action="#{localeBean.setEnglish}" >
-            <img src="images/en_flag.png"/>
+                <img src="images/en_flag.png"/>
             </h:commandLink>&nbsp;
             <h:commandLink action="#{localeBean.setSpanish}">   
                 <img src="images/es_flag.png"/>
@@ -76,43 +76,57 @@
             </h:inputText>
 
         </h:form>
-          
+        <!-- SI CREAMOS UN NUEVO GRUPO Y PULSAMOS EDITAR NO SE GUARDA, CON LOS GRUPOS QUE TENEMOS GUARDADOS DE ANTES SE ACTUALIZAN BIEN" -->
         <h:form id="grupos">
             <h:dataTable id="tGrupos" value="#{gruposBean.listaGrupos}" var="grupo" border="1">
 
 
 
                 <h:column >
-                    
+
                     <f:facet name="header">#{msgs.creador}</f:facet>              
                         #{grupo.usuarioId.username}
+
                 </h:column> 
 
                 <h:column>  
                     <f:facet name="header">#{msgs.nombreSin}</f:facet>              
-                        #{grupo.nombre}
+                    <h:form>
+                        <h:inputText value="#{grupo.nombre}"/>
+
+
+                    </h:form>
                 </h:column> 
 
                 <h:column>  
                     <f:facet name="header">#{msgs.descripcion}</f:facet>              
-                        #{grupo.descripcion}
+                    <h:form>
+                        <h:inputText value="#{grupo.descripcion}"/>
+
+
+                    </h:form>
                 </h:column> 
-                
+
                 <h:column>
                     <h:commandButton value="#{msgs.eliminarGrupo}" action="#{gruposBean.doEliminarGrupo(grupo)}" rendered="#{gruposBean.puedeEliminar(grupo.usuarioId.id) eq true}"/>
                 </h:column>
-                
+
                 <h:column>
+
                     <h:commandButton value="#{msgs.editarGrupo}" action="#{gruposBean.doEditarGrupo(grupo)}" rendered="#{gruposBean.puedeEliminar(grupo.usuarioId.id) eq true}"/>
+
                 </h:column>
-                
+
                 <h:column>
                     <h:commandButton value="#{msgs.miembros}" action="#{gruposBean.verMiembros(grupo)}" />
                 </h:column>
 
+
+
             </h:dataTable>
-            
+
             <h:commandButton value="#{msgs.crearGrupo}" action="#{gruposBean.doCrearGrupo()}"/>
+
         </h:form>
 
     </h:body>

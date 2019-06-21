@@ -5,12 +5,14 @@
  */
 package redsocialjsf.bean;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import redsocialjsf.dao.GrupoFacade;
 import redsocialjsf.dao.UsuarioFacade;
@@ -35,6 +37,7 @@ public class GruposBean {
     protected List<Grupo> listaGrupos;
     protected String nombreIntroducido;
     protected Grupo gruposeleccionado;
+    
 
     public Grupo getGruposeleccionado() {
         return gruposeleccionado;
@@ -133,8 +136,11 @@ public class GruposBean {
     }
     
     public String doEditarGrupo(Grupo g){
-        this.gruposeleccionado=g;
-        return "editarGrupo";
+        //this.gruposeleccionado=g;
+        //return "editarGrupo";
+        grupoFacade.edit(g);
+        return "muro";
+        
     }
     
     public String verMiembros(Grupo g){

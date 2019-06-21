@@ -18,7 +18,7 @@ import redsocialjsf.entity.Usuario;
  */
 @Named(value = "participantesBean")
 @RequestScoped
-public class participantesBean {
+public class ParticipantesBean {
 @Inject GruposBean gruposBean;
 private List<Usuario> participantes;
 
@@ -40,12 +40,16 @@ private List<Usuario> participantes;
     /**
      * Creates a new instance of participantesBean
      */
-    public participantesBean() {
+    public ParticipantesBean() {
     }
     
     @PostConstruct
     public void init(){
         participantes=gruposBean.getGruposeleccionado().getUsuarioList();
+    }
+    
+    public String volver(){
+        return "muro";
     }
     
 }

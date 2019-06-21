@@ -17,9 +17,14 @@
             <div align="center">
                 Nombre de Grupo: <h:inputText value="#{editarGrupoBean.nombre}"/><br/>
                 Descripcion:<h:inputText value="#{editarGrupoBean.descripcion}"/><br/>
+                
+                
+            </div>
+        </h:form>
+        
+        <h:form>
                 <h:commandButton value="Crear" action="#{editarGrupoBean.doEditar()}" /><br></br>
                 <h:commandButton value="Atrás" action="#{editarGrupoBean.doVolver()}"/> <br></br>
-            </div>
         </h:form>
     </h:body>
 </html>
