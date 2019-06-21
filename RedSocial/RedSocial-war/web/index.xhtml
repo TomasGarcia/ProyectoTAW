@@ -21,7 +21,9 @@
                 Email: <h:inputText value="#{loginBean.email}" /> <br/>
                 #{msgs.password} <h:inputSecret value="#{loginBean.password}" /> <br/> 
                 <br/>
-                <h:commandButton  value="#{msgs.login}" action="#{loginBean.doLogin()}" /> <br/>
+                <h:commandButton id="boton" value="#{msgs.login}" action="#{loginBean.doLogin()}" binding="#{loginBean.component}"/> <br/>
+                <h:message for="boton" style="color:red"/>
+
             </p>
         </h:form>
         <h:form>

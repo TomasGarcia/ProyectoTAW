@@ -16,21 +16,25 @@
         <h1>#{msgs.relleneDatos}</h1>
         <h:form>
             <div align="center">
-                #{msgs.usuario} <h:inputText value="#{registrarBean.username}"/><br/>
-                Email:<h:inputText value="#{registrarBean.email}"/><br/>
-                #{msgs.password}<h:inputSecret value="#{registrarBean.password}"/><br/>
-                #{msgs.nombre}<h:inputText value="#{registrarBean.nombre}"/><br/>
-                #{msgs.apellido}<h:inputText value="#{registrarBean.apellido}"/><br/>
+                #{msgs.usuario}: <h:inputText value="#{registrarBean.username}" id="user" binding="#{registrarBean.user}"/>
+                <h:message for="user" style = "color:red"/><br/>
+                Email:<h:inputText value="#{registrarBean.email}" id="mail" binding="#{registrarBean.mail}"/>
+                <h:message for="mail" style = "color:red"/><br/>
+                #{msgs.password}:<h:inputSecret value="#{registrarBean.password}"/><br/>
+                #{msgs.passwordAgain}:<h:inputSecret value="#{registrarBean.passwordConfirm}" id="passConfirm" binding="#{registrarBean.pass}"/>
+                <h:message for="passConfirm" style = "color:red"/><br/>
+                #{msgs.nombre}:<h:inputText value="#{registrarBean.nombre}"/><br/>
+                #{msgs.apellido}:<h:inputText value="#{registrarBean.apellido}"/><br/>
                 <div class="littleText">
                     * dd-mm-yyyy *
                 </div>
-                #{msgs.fechaNac}
+                #{msgs.fechaNac}:
                 <h:inputText value="#{registrarBean.fecha_nac}">
                     <f:convertDateTime pattern = "dd-MM-yyyy" />
                 </h:inputText><br/>
-                #{msgs.pais} <h:inputText value="#{registrarBean.pais}"/><br/>
+                #{msgs.pais}: <h:inputText value="#{registrarBean.pais}"/><br/>
 
-                <h:commandButton value="#{msgs.registrate}" action="#{registrarBean.doRegister()}" />
+                <h:commandButton value="#{msgs.registrate}" action="#{registrarBean.doRegister()}"/>
             </div>
         </h:form>
     </h:body>

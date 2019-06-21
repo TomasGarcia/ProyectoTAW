@@ -12,6 +12,9 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import redsocialjsf.dao.UsuarioFacade;
 import redsocialjsf.entity.Usuario;
@@ -26,10 +29,11 @@ public class PerfilBean{
 
     @EJB private UsuarioFacade usuarioFacade;
     @Inject PostBean postBean;
+    @Inject LoginBean loginBean;
     
     protected Usuario usuario;
-    protected String username, email, password, nombre, apellido, pais;
-    protected Date fecha_nac;
+    protected UIComponent pass,user,mail;
+    protected String passwordConfirm, usernameAnterior, emailAnterior, usernameActual,emailActual, passwordActual, passwordAnterior;
 
 
     public PerfilBean(UsuarioFacade usuarioFacade, PostBean postBean) {
@@ -56,69 +60,119 @@ public class PerfilBean{
         this.usuario = usuario;
     }
 
-    public String getUsername() {
-        return username;
+    public UIComponent getPass() {
+        return pass;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setPass(UIComponent pass) {
+        this.pass = pass;
     }
 
-    public String getEmail() {
-        return email;
+    public UIComponent getUser() {
+        return user;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUser(UIComponent user) {
+        this.user = user;
     }
 
-    public String getPassword() {
-        return password;
+    public UIComponent getMail() {
+        return mail;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setMail(UIComponent mail) {
+        this.mail = mail;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getPasswordConfirm() {
+        return passwordConfirm;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
     }
 
-    public String getApellido() {
-        return apellido;
+    public String getUsernameAnterior() {
+        return usernameAnterior;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setUsernameAnterior(String usernameAnterior) {
+        this.usernameAnterior = usernameAnterior;
     }
 
-    public String getPais() {
-        return pais;
+    public String getEmailAnterior() {
+        return emailAnterior;
     }
 
-    public void setPais(String pais) {
-        this.pais = pais;
+    public void setEmailAnterior(String emailAnterior) {
+        this.emailAnterior = emailAnterior;
     }
 
-    public Date getFecha_nac() {
-        return fecha_nac;
+    public String getUsernameActual() {
+        return usernameActual;
     }
 
-    public void setFecha_nac(Date fecha_nac) {
-        this.fecha_nac = fecha_nac;
+    public void setUsernameActual(String usernameActual) {
+        this.usernameActual = usernameActual;
+    }
+
+    public String getEmailActual() {
+        return emailActual;
+    }
+
+    public void setEmailActual(String emailActual) {
+        this.emailActual = emailActual;
+    }    
+
+    public String getPasswordActual() {
+        return passwordActual;
+    }
+
+    public void setPasswordActual(String passwordActual) {
+        this.passwordActual = passwordActual;
+    }
+
+    public String getPasswordAnterior() {
+        return passwordAnterior;
+    }
+
+    public void setPasswordAnterior(String passwordAnterior) {
+        this.passwordAnterior = passwordAnterior;
     }
     
     @PostConstruct
     public void init(){
         this.usuario = this.postBean.getUsuario();
+        this.usernameAnterior = this.usuario.getUsername();
+        this.emailAnterior = this.usuario.getEmail();
+        this.passwordConfirm = "";
+        this.emailActual = this.usuario.getEmail();
+        this.usernameActual = this.usuario.getUsername();
     }
     
     public String doGuardar(){
+            if(!this.usernameAnterior.equals(this.usernameActual) && !this.usuarioFacade.buscarUsuarioPorUsername(this.usuario.getUsername()).isEmpty()){
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Username ya existente", null);
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage(this.user.getClientId(), message);
+                return null;
+            }else if(!this.emailAnterior.equals(this.emailActual) && !this.usuarioFacade.buscarUsuarioPorEmail(this.usuario.getEmail()).isEmpty()){
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Email ya registrado", null);
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage(this.mail.getClientId(), message);
+                return null;
+            }else if(!this.passwordActual.equals(this.passwordConfirm)){
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Contraseñas no Coincidentes", null);
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage(this.pass.getClientId(), message);
+                return null;
+            }
+        this.usuario.setUsername(usernameActual);
+        this.usuario.setEmail(emailActual);
+        this.usuario.setPassword(passwordActual);
         this.usuarioFacade.edit(this.usuario);
+        this.postBean.setUsuario(usuario);
+        this.loginBean.setUsuario(usuario);
         return "perfil";
     }
 }

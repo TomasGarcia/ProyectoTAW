@@ -13,6 +13,8 @@ import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import redsocialjsf.dao.UsuarioFacade;
@@ -33,6 +35,7 @@ public class LoginBean implements Serializable{
     protected String email;
     protected String password;
     protected boolean login;
+    protected UIComponent component;
     
     public LoginBean() {
         login = true;
@@ -69,7 +72,15 @@ public class LoginBean implements Serializable{
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
+    public UIComponent getComponent() {
+        return component;
+    }
+
+    public void setComponent(UIComponent component) {
+        this.component = component;
+    }
+        
     @PostConstruct
     public void init(){
         listaUsuarios = this.usuarioFacade.findAll();
@@ -81,9 +92,10 @@ public class LoginBean implements Serializable{
             this.login = true;
             return "muro";
         }else{
-            this.usuario = null;
-            this.login= false;
-            return "index";
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Credenciales incorrectas", null);
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(this.component.getClientId(), message);
+            return null;
         }
     }
     

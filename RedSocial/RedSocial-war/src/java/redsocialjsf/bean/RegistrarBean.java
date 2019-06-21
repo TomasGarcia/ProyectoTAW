@@ -6,13 +6,13 @@
 package redsocialjsf.bean;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import redsocialjsf.dao.UsuarioFacade;
 import redsocialjsf.entity.Usuario;
 
@@ -27,9 +27,10 @@ public class RegistrarBean {
     @EJB private UsuarioFacade usuarioFacade;
     
     protected Usuario usuario;
-    protected String username, email, password, nombre, apellido, pais;
+    protected String username, email, password, passwordConfirm, nombre, apellido, pais;
     protected String fecha_nacimiento;
     protected Date fecha_nac;
+    protected UIComponent pass,user,mail;
     
     /**
      * Creates a new instance of RegistrarBean
@@ -109,8 +110,56 @@ public class RegistrarBean {
     public void setUsername(String username) {
         this.username = username;
     }
-    
+
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
+    }
+
+    public UIComponent getPass() {
+        return pass;
+    }
+
+    public void setPass(UIComponent pass) {
+        this.pass = pass;
+    }
+
+    public UIComponent getUser() {
+        return user;
+    }
+
+    public void setUser(UIComponent user) {
+        this.user = user;
+    }
+
+    public UIComponent getMail() {
+        return mail;
+    }
+
+    public void setMail(UIComponent mail) {
+        this.mail = mail;
+    }
+        
     public String doRegister() throws ParseException{
+        if(!this.usuarioFacade.buscarUsuarioPorUsername(this.username).isEmpty()){
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Username ya existente", null);
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(this.user.getClientId(), message);
+            return null;
+        }else if(!this.usuarioFacade.buscarUsuarioPorEmail(this.email).isEmpty()){
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Email ya registrado", null);
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(this.mail.getClientId(), message);
+            return null;
+        }else if(!this.password.equals(this.passwordConfirm)){
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Contraseñas no Coincidentes", null);
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(this.pass.getClientId(), message);
+            return null;
+        }
         this.usuario = new Usuario();
         this.usuario.setId(0);
         this.usuario.setNombre(nombre);

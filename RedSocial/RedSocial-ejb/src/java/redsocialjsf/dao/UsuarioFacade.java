@@ -93,9 +93,11 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         q = this.em.createQuery("select u from Usuario u where u.email =:email and u.password =:password");
         q.setParameter("email", email);
         q.setParameter("password", password);
-        
-        return (Usuario)q.getResultList().get(0);
-
+        if(q.getResultList().isEmpty()){
+            return null;
+        }else{
+            return (Usuario)q.getResultList().get(0);
+        }
     }
 
 }
