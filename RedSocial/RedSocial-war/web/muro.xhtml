@@ -118,7 +118,7 @@
 
                 <h:column>
 
-                    <h:commandButton value="Añadir Miembros" action="#{postBean.doEditarGrupo(grupo)}" rendered="#{gruposBean.puedeEliminar(grupo.usuarioId.id) eq true}"/>
+                    <h:commandButton value="Añadir Miembros" action="#{gruposBean.doAddMiembros(grupo)}" rendered="#{gruposBean.puedeEliminar(grupo.usuarioId.id) eq true}"/>
                 </h:column>
 
             </h:dataTable>
