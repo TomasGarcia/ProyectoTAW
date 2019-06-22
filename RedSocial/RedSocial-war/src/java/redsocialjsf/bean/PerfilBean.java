@@ -151,20 +151,23 @@ public class PerfilBean{
     }
     
     public String doGuardar(){
-            if(!this.usernameAnterior.equals(this.usernameActual) && !this.usuarioFacade.buscarUsuarioPorUsername(this.usuario.getUsername()).isEmpty()){
+            if(!this.usernameAnterior.equals(this.usernameActual) && !this.usuarioFacade.buscarUsuarioPorUsername(this.usernameActual).isEmpty()){
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Username ya existente", null);
                 FacesContext context = FacesContext.getCurrentInstance();
                 context.addMessage(this.user.getClientId(), message);
+                this.init();
                 return null;
-            }else if(!this.emailAnterior.equals(this.emailActual) && !this.usuarioFacade.buscarUsuarioPorEmail(this.usuario.getEmail()).isEmpty()){
+            }else if(!this.emailAnterior.equals(this.emailActual) && !this.usuarioFacade.buscarUsuarioPorEmail(this.emailActual).isEmpty()){
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Email ya registrado", null);
                 FacesContext context = FacesContext.getCurrentInstance();
                 context.addMessage(this.mail.getClientId(), message);
+                this.init();
                 return null;
             }else if(!this.passwordActual.equals(this.passwordConfirm)){
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Contraseñas no Coincidentes", null);
                 FacesContext context = FacesContext.getCurrentInstance();
                 context.addMessage(this.pass.getClientId(), message);
+                this.init();
                 return null;
             }
         this.usuario.setUsername(usernameActual);
