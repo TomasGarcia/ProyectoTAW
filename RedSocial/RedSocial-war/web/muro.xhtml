@@ -76,7 +76,7 @@
             </h:inputText>
 
         </h:form>
-        <!-- SI CREAMOS UN NUEVO GRUPO Y PULSAMOS EDITAR NO SE GUARDA, CON LOS GRUPOS QUE TENEMOS GUARDADOS DE ANTES SE ACTUALIZAN BIEN" -->
+
         <h:form id="grupos">
             <h:dataTable id="tGrupos" value="#{gruposBean.listaGrupos}" var="grupo" border="1">
 
@@ -91,20 +91,16 @@
 
                 <h:column>  
                     <f:facet name="header">#{msgs.nombreSin}</f:facet>              
-                    <h:form>
-                        <h:inputText value="#{grupo.nombre}"/>
+
+                    #{grupo.nombre}
 
 
-                    </h:form>
+
                 </h:column> 
 
                 <h:column>  
                     <f:facet name="header">#{msgs.descripcion}</f:facet>              
-                    <h:form>
-                        <h:inputText value="#{grupo.descripcion}"/>
-
-
-                    </h:form>
+                        #{grupo.descripcion}
                 </h:column> 
 
                 <h:column>
@@ -120,7 +116,10 @@
                     <h:commandButton value="#{msgs.miembros}" action="#{gruposBean.verMiembros(grupo)}" />
                 </h:column>
 
+                <h:column>
 
+                    <h:commandButton value="Añadir Miembros" action="#{postBean.doEditarGrupo(grupo)}" rendered="#{gruposBean.puedeEliminar(grupo.usuarioId.id) eq true}"/>
+                </h:column>
 
             </h:dataTable>
 

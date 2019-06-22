@@ -147,5 +147,10 @@ public class GruposBean {
         this.gruposeleccionado=g;
         return "verMiembros";
     }
+    
+    public String doAddMiembros(Grupo g){
+        this.gruposeleccionado=g;
+        return "addParticipantes";
+    }
 
 }
