@@ -152,5 +152,10 @@ public class GruposBean {
         this.gruposeleccionado=g;
         return "addParticipantes";
     }
+    
+     public String doVerMensajes(Grupo g){
+        this.gruposeleccionado=g;
+        return "mensajes";
+    }
 
 }

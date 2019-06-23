@@ -119,6 +119,10 @@
 
                     <h:commandButton value="#{msgs.añadirParticipante}s" action="#{postBean.doAddMiembros(grupo)}" rendered="#{gruposBean.puedeEliminar(grupo.usuarioId.id) eq true}"/>
                 </h:column>
+                
+                <h:column>
+                    <h:commandButton value="Ver Mensajes" action="#{gruposBean.doVerMensajes(grupo)}"/>
+                </h:column>
 
             </h:dataTable>
 
