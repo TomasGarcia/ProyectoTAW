@@ -10,8 +10,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -41,46 +39,6 @@ public class LoginBean implements Serializable{
         login = true;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public UsuarioFacade getUserFacade() {
-        return usuarioFacade;
-    }
-
-    public void setUserFacade(UsuarioFacade userFacade) {
-        this.usuarioFacade = userFacade;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public UIComponent getComponent() {
-        return component;
-    }
-
-    public void setComponent(UIComponent component) {
-        this.component = component;
-    }
-        
     @PostConstruct
     public void init(){
         listaUsuarios = this.usuarioFacade.findAll();
@@ -122,4 +80,43 @@ public class LoginBean implements Serializable{
         return "crearPost";
     }
     
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public UsuarioFacade getUserFacade() {
+        return usuarioFacade;
+    }
+
+    public void setUserFacade(UsuarioFacade userFacade) {
+        this.usuarioFacade = userFacade;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public UIComponent getComponent() {
+        return component;
+    }
+
+    public void setComponent(UIComponent component) {
+        this.component = component;
+    }    
 }

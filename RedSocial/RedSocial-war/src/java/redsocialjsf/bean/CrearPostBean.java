@@ -5,12 +5,8 @@
  */
 package redsocialjsf.bean;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
-import javafx.util.converter.LocalDateTimeStringConverter;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
