@@ -66,6 +66,11 @@ public class PostBean implements Serializable{
         return "editarGrupo";
     }
     
+    public String doAddMiembros(Grupo g){
+        this.grupoSeleccionado = g;
+        return "addParticipantes";
+    }
+    
     public LoginBean getLoginBean() {
         return loginBean;
     }
@@ -121,4 +126,5 @@ public class PostBean implements Serializable{
     public void setGrupoSeleccionado(Grupo grupoSeleccionado) {
         this.grupoSeleccionado = grupoSeleccionado;
     }  
+
 }

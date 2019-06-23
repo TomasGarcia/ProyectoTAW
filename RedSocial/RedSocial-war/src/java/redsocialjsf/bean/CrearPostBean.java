@@ -5,6 +5,7 @@
  */
 package redsocialjsf.bean;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -43,7 +44,7 @@ public class CrearPostBean {
         this.usuario = this.postBean.getUsuario();
         this.posts = this.postBean.getListaPosts();
         this.uPublico = this.postBean.getUserPublic();
-        this.amigos = (this.usuario.getUsuarioList());
+        this.amigos = new ArrayList<Usuario>(this.usuario.getUsuarioList());
         this.amigos.add(0, uPublico);
         this.nuevoPost = new Post();
     }
@@ -57,10 +58,12 @@ public class CrearPostBean {
         List<Post> listaPost = this.postBean.getListaPosts();
         listaPost.add(0, nuevoPost);
         this.postBean.setListaPosts(listaPost);
+        this.postBean.init();
         return "muro";
     }
     
     public String doVolver(){
+        this.postBean.init();
         return "muro";
     }
     public PostBean getPostBean() {

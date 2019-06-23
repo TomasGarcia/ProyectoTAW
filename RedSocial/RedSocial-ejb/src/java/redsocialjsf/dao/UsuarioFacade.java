@@ -40,25 +40,11 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         return q.getResultList();
     }
     
-    public List<Usuario> buscarUsuarioPorUsernameCoincidente(String nombre, List<Usuario> amigos, Usuario usuario){
+    public List<Usuario> buscarUsuarioPorUsernameCoincidente(String nombre){
         Query q;
-        List<Integer> listaCodigos;
-//        q = this.em.createQuery("select u from Usuario u where u.username like :username and :username not in ");
-//        q = this.em.createQuery("select u from Usuario u join u.usuarioList l where l.username like :username and ")
-//        q = this.em.createQuery("select u from Usuario u where u not in :amigos and u.username like :username");
-//        q = this.em.createQuery("select u from Usuario u join u.usuarioList l where l.id != :id and l.username like :username");
-//        q = this.em.createQuery("select u from Usuario u where u in :amigos and u.id != :id and u.username like :username");
-//        q = this.em.createQuery("select u from Usuario u join u.usuarioList l where u.username like :username and u.id != :id and l.id != :id and u not in :amigos");
-//        q = this.em.createQuery("select distinct u from Usuario u join u.usuarioList l where l.id != :id and l.username not like :username");
-//        q = this.em.createQuery("select u from Usuario u where u.username like :username and u.id != :id and :usuario not (in u.usuarioList)");
         
-        q = this.em.createQuery("select u from Usuario u where u.username like :username and u.id != :id and "
-                + "u not in (select u from Usuario u where :usuario in :amigos)");
+        q = this.em.createQuery("select u from Usuario u where u.username like :username");
         q.setParameter("username", nombre+"%");
-        q.setParameter("amigos", amigos);
-        q.setParameter("id", usuario.getId());
-        q.setParameter("usuario", usuario);
-        
         
         return q.getResultList();
     }

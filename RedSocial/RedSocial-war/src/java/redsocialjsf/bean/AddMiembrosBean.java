@@ -5,6 +5,7 @@
  */
 package redsocialjsf.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -13,6 +14,7 @@ import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import redsocialjsf.dao.GrupoFacade;
+import redsocialjsf.dao.UsuarioFacade;
 import redsocialjsf.entity.Grupo;
 import redsocialjsf.entity.Usuario;
 
@@ -25,21 +27,36 @@ import redsocialjsf.entity.Usuario;
 public class AddMiembrosBean {
 
     @Inject GruposBean gruposBean;
+    @Inject PostBean postBean;
+    @EJB GrupoFacade grupoFacade;
+    @EJB UsuarioFacade usuarioFacade;
     private Grupo grupo;
     private List<Usuario> listaAmigos;
-    
+    private List<Usuario> miembros;
+    private Integer amigoSeleccionado;
+    private Usuario usuario;
     
     public AddMiembrosBean() {
     }
     
     @PostConstruct
-    private void init(){
-      grupo=gruposBean.getGruposeleccionado();
-      listaAmigos=gruposBean.usuario.getUsuarioList();
-      
-      
+    public void init(){
+        this.grupo = this.postBean.getGrupoSeleccionado();
+        this.usuario = this.postBean.getUsuario();
+        this.listaAmigos = new ArrayList(this.usuario.getUsuarioList());
+        this.miembros = this.grupo.getUsuarioList();
+        this.listaAmigos.removeAll(miembros);
     }
 
+    public String doAdd(){
+        
+        this.miembros.add(this.usuarioFacade.find(amigoSeleccionado));
+        this.grupo.setUsuarioList(miembros);
+        this.grupoFacade.edit(grupo);
+        
+        return "muro";
+    }
+    
     public GruposBean getGruposBean() {
         return gruposBean;
     }
@@ -62,6 +79,30 @@ public class AddMiembrosBean {
 
     public void setListaAmigos(List<Usuario> listaAmigos) {
         this.listaAmigos = listaAmigos;
+    }
+
+    public List<Usuario> getMiembros() {
+        return miembros;
+    }
+
+    public void setMiembros(List<Usuario> miembros) {
+        this.miembros = miembros;
+    }
+
+    public Integer getAmigoSeleccionado() {
+        return amigoSeleccionado;
+    }
+
+    public void setAmigoSeleccionado(Integer amigoSeleccionado) {
+        this.amigoSeleccionado = amigoSeleccionado;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
     
     

@@ -18,28 +18,27 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous"/>
         <!-- JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
-        #{msgs.bienvenido} #{loginBean.usuario.username}
+        <h2> #{msgs.bienvenido} #{loginBean.usuario.username} </h2>
+        <div>
+            <h:form>
+                <h:commandButton value="#{msgs.perfil}" action="#{postBean.doPerfil()}" />
+          
+                <h:commandButton value="#{msgs.desconectar}" action="#{loginBean.doDesconectar()}" />
+            
+                <h:commandButton value="#{msgs.crearPost}" action="#{loginBean.doCrearPost()}" />
+            
+                <h:commandButton value="#{msgs.amigos}" action ="#{loginBean.doAmigos()}"/>
+            
+                <h:commandLink action="#{localeBean.setEnglish}" >
+                    <img src="images/en_flag.png"/>
+                </h:commandLink>&nbsp;
+                <h:commandLink action="#{localeBean.setSpanish}">   
+                    <img src="images/es_flag.png"/>
+                </h:commandLink>
+            </h:form>
+        </div>
         <h:form>
-            <h:commandButton value="#{msgs.perfil}" action="#{postBean.doPerfil()}" /> <br/>
-        </h:form>
-        <h:form>
-            <h:commandButton value="#{msgs.desconectar}" action="#{loginBean.doDesconectar()}" /> <br/>
-        </h:form>
-        <h:form>
-            <h:commandButton value="#{msgs.crearPost}" action="#{loginBean.doCrearPost()}" /> <br/>
-        </h:form>
-        <h:form>
-            <h:commandButton value="#{msgs.amigos}" action ="#{loginBean.doAmigos()}"/><br/>
-        </h:form>
-        <h:form>
-            <h:commandLink action="#{localeBean.setEnglish}" >
-                <img src="images/en_flag.png"/>
-            </h:commandLink>&nbsp;
-            <h:commandLink action="#{localeBean.setSpanish}">   
-                <img src="images/es_flag.png"/>
-            </h:commandLink>
-        </h:form>
-        <h:form>
+            <h3>Posts</h3>
             <h:dataTable border="1" value="#{postBean.listaPosts}" var="post">
                 <h:column>  
                     <f:facet name="header">#{msgs.titulo}</f:facet>              
@@ -66,7 +65,7 @@
 
         </br>
 
-
+        <h3>#{msgs.grupos}</h3>
         <h:form id="filtroGrupos">
             #{msgs.filtrarGrupo} 
             <h:inputText value="#{gruposBean.nombreIntroducido}">
@@ -118,7 +117,7 @@
 
                 <h:column>
 
-                    <h:commandButton value="Añadir Miembros" action="#{gruposBean.doAddMiembros(grupo)}" rendered="#{gruposBean.puedeEliminar(grupo.usuarioId.id) eq true}"/>
+                    <h:commandButton value="#{msgs.añadirParticipante}s" action="#{postBean.doAddMiembros(grupo)}" rendered="#{gruposBean.puedeEliminar(grupo.usuarioId.id) eq true}"/>
                 </h:column>
 
             </h:dataTable>

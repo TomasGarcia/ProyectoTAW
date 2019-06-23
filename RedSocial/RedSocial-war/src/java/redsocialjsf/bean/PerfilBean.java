@@ -43,7 +43,7 @@ public class PerfilBean{
     
     @PostConstruct
     public void init(){
-        this.usuario = this.postBean.getUsuario();
+        this.usuario = this.loginBean.getUsuario();
         this.usernameAnterior = this.usuario.getUsername();
         this.emailAnterior = this.usuario.getEmail();
         this.passwordConfirm = "";
