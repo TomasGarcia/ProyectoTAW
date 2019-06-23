@@ -39,6 +39,39 @@ public class RegistrarBean {
         
     }
 
+    public String doRegister() throws ParseException{
+        if(!this.usuarioFacade.buscarUsuarioPorUsername(this.username).isEmpty()){
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Username ya existente", null);
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(this.user.getClientId(), message);
+            return null;
+        }else if(!this.usuarioFacade.buscarUsuarioPorEmail(this.email).isEmpty()){
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Email ya registrado", null);
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(this.mail.getClientId(), message);
+            return null;
+        }else if(!this.password.equals(this.passwordConfirm)){
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Contraseñas no Coincidentes", null);
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(this.pass.getClientId(), message);
+            return null;
+        }
+        this.usuario = new Usuario();
+        this.usuario.setId(0);
+        this.usuario.setNombre(nombre);
+        this.usuario.setPassword(password);
+        this.usuario.setApellido(apellido);       
+        this.usuario.setPais(pais);
+        this.usuario.setFechaNacimiento(fecha_nac);
+        
+        this.usuario.setUsername(username);
+        this.usuario.setEmail(email);        
+      
+        this.usuarioFacade.create(usuario);
+      
+        return "index";
+    }
+    
     public Usuario getUsuario() {
         return usuario;
     }
@@ -141,44 +174,5 @@ public class RegistrarBean {
 
     public void setMail(UIComponent mail) {
         this.mail = mail;
-    }
-        
-    public String doRegister() throws ParseException{
-        if(!this.usuarioFacade.buscarUsuarioPorUsername(this.username).isEmpty()){
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Username ya existente", null);
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(this.user.getClientId(), message);
-            return null;
-        }else if(!this.usuarioFacade.buscarUsuarioPorEmail(this.email).isEmpty()){
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Email ya registrado", null);
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(this.mail.getClientId(), message);
-            return null;
-        }else if(!this.password.equals(this.passwordConfirm)){
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Contraseñas no Coincidentes", null);
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(this.pass.getClientId(), message);
-            return null;
-        }
-        this.usuario = new Usuario();
-        this.usuario.setId(0);
-        this.usuario.setNombre(nombre);
-        this.usuario.setPassword(password);
-        this.usuario.setApellido(apellido);       
-        this.usuario.setPais(pais);
-        this.usuario.setFechaNacimiento(fecha_nac);
-        
-        //FALTARIA COMPROBAR QUE NO EXISTE YA UN USUARIO CON ESE EMAIL Y USERNAME
-        this.usuario.setUsername(username);
-        this.usuario.setEmail(email);        
-      
-        this.usuarioFacade.create(usuario);
-      
-        return "index";
-    }
-
-    
-
-    
-    
+    }    
 }

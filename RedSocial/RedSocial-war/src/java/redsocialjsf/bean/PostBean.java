@@ -41,6 +41,33 @@ public class PostBean implements Serializable{
     public PostBean() {
     }
     
+    @PostConstruct
+    public void init(){
+        this.usuario = this.loginBean.getUsuario();
+        this.userPublic = this.usuarioFacade.find(1);
+        this.listaPosts = this.postFacade.buscarPorPostsUsuario(this.usuario.getId());
+    }
+    
+    public String doPerfil(){
+        return "perfil";
+    }
+    
+    public String doBorrar(Post post){
+        this.listaPosts.remove(post);
+        this.postFacade.remove(post);
+        return null;
+    }
+    
+    public Boolean puedeBorrar(int id){
+        return this.getUsuario().getId().equals(id);
+    }
+    
+    public String doEditarGrupo(Grupo g){
+        this.grupoSeleccionado = g;
+        this.gruposBean.init();
+        return "editarGrupo";
+    }
+    
     public LoginBean getLoginBean() {
         return loginBean;
     }
@@ -95,34 +122,5 @@ public class PostBean implements Serializable{
 
     public void setGrupoSeleccionado(Grupo grupoSeleccionado) {
         this.grupoSeleccionado = grupoSeleccionado;
-    }
-    
-    public String doPerfil(){
-        return "perfil";
-    }
-    
-    public String doBorrar(Post post){
-        this.listaPosts.remove(post);
-        this.postFacade.remove(post);
-        return null;
-    }
-    
-    public Boolean puedeBorrar(int id){
-        return this.getUsuario().getId().equals(id);
-    }
-    
-    public String doEditarGrupo(Grupo g){
-        this.grupoSeleccionado = g;
-        this.gruposBean.init();
-        return "editarGrupo";
-    }
-    
-    @PostConstruct
-    public void init(){
-        this.usuario = this.loginBean.getUsuario();
-        this.userPublic = this.usuarioFacade.find(1);
-        this.listaPosts = this.postFacade.buscarPorPostsUsuario(this.usuario.getId());
-    }
-    
-    
+    }  
 }

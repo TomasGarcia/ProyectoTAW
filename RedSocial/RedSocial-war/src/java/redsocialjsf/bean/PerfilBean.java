@@ -43,6 +43,49 @@ public class PerfilBean{
     
     public PerfilBean() {
     }
+    
+    @PostConstruct
+    public void init(){
+        this.usuario = this.postBean.getUsuario();
+        this.usernameAnterior = this.usuario.getUsername();
+        this.emailAnterior = this.usuario.getEmail();
+        this.passwordConfirm = "";
+        this.emailActual = this.usuario.getEmail();
+        this.usernameActual = this.usuario.getUsername();
+    }
+    
+    public String doGuardar(){
+            if(!this.usernameAnterior.equals(this.usernameActual) && !this.usuarioFacade.buscarUsuarioPorUsername(this.usernameActual).isEmpty()){
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Username ya existente", null);
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage(this.user.getClientId(), message);
+                this.init();
+                return null;
+            }else if(!this.emailAnterior.equals(this.emailActual) && !this.usuarioFacade.buscarUsuarioPorEmail(this.emailActual).isEmpty()){
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Email ya registrado", null);
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage(this.mail.getClientId(), message);
+                this.init();
+                return null;
+            }else if(!this.passwordActual.equals(this.passwordConfirm)){
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Contraseñas no Coincidentes", null);
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage(this.pass.getClientId(), message);
+                this.init();
+                return null;
+            }
+        this.usuario.setUsername(usernameActual);
+        this.usuario.setEmail(emailActual);
+        this.usuario.setPassword(passwordActual);
+        this.usuarioFacade.edit(this.usuario);
+        this.postBean.setUsuario(usuario);
+        this.loginBean.setUsuario(usuario);
+        return "perfil";
+    }
+    
+    public String doVolver(){
+        return "muro";
+    }
 
     public PostBean getPostBean() {
         return postBean;
@@ -138,48 +181,5 @@ public class PerfilBean{
 
     public void setPasswordAnterior(String passwordAnterior) {
         this.passwordAnterior = passwordAnterior;
-    }
-    
-    @PostConstruct
-    public void init(){
-        this.usuario = this.postBean.getUsuario();
-        this.usernameAnterior = this.usuario.getUsername();
-        this.emailAnterior = this.usuario.getEmail();
-        this.passwordConfirm = "";
-        this.emailActual = this.usuario.getEmail();
-        this.usernameActual = this.usuario.getUsername();
-    }
-    
-    public String doGuardar(){
-            if(!this.usernameAnterior.equals(this.usernameActual) && !this.usuarioFacade.buscarUsuarioPorUsername(this.usernameActual).isEmpty()){
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Username ya existente", null);
-                FacesContext context = FacesContext.getCurrentInstance();
-                context.addMessage(this.user.getClientId(), message);
-                this.init();
-                return null;
-            }else if(!this.emailAnterior.equals(this.emailActual) && !this.usuarioFacade.buscarUsuarioPorEmail(this.emailActual).isEmpty()){
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Email ya registrado", null);
-                FacesContext context = FacesContext.getCurrentInstance();
-                context.addMessage(this.mail.getClientId(), message);
-                this.init();
-                return null;
-            }else if(!this.passwordActual.equals(this.passwordConfirm)){
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Contraseñas no Coincidentes", null);
-                FacesContext context = FacesContext.getCurrentInstance();
-                context.addMessage(this.pass.getClientId(), message);
-                this.init();
-                return null;
-            }
-        this.usuario.setUsername(usernameActual);
-        this.usuario.setEmail(emailActual);
-        this.usuario.setPassword(passwordActual);
-        this.usuarioFacade.edit(this.usuario);
-        this.postBean.setUsuario(usuario);
-        this.loginBean.setUsuario(usuario);
-        return "perfil";
-    }
-    
-    public String doVolver(){
-        return "muro";
     }
 }
