@@ -55,7 +55,9 @@ public class CrearPostBean {
         this.nuevoPost.setFecha(new Date());
         this.nuevoPost.setUsuarioId1(this.usuarioFacade.find(this.nuevoPost.getDestinatario()));
         this.postFacade.create(nuevoPost);
-        this.postBean.init();
+        List<Post> listaPost = this.postBean.getListaPosts();
+        listaPost.add(0, nuevoPost);
+        this.postBean.setListaPosts(listaPost);
         return "muro";
     }
     

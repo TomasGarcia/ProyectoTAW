@@ -162,4 +162,4 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
-INSERT INTO usuario VALUES(1,"prueba","prueba@prueba.es","p","prueba","prueba","1/1/1","España");
+INSERT INTO usuario VALUES(1,"Publico","prueba@prueba.es","p","prueba","prueba","1/1/1","España");
