@@ -5,13 +5,19 @@
  */
 package redsocialjsf.bean;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import redsocialjsf.dao.GrupoFacade;
+import redsocialjsf.dao.PostFacade;
 import redsocialjsf.entity.Grupo;
 import redsocialjsf.entity.Post;
+import redsocialjsf.entity.Usuario;
 
 /**
  *
@@ -22,9 +28,13 @@ import redsocialjsf.entity.Post;
 public class MensajesBean {
     
     @Inject GruposBean gruposBean;
+    @Inject PostBean postBean;
+    @EJB PostFacade postFacade;
+    @EJB GrupoFacade grupoFacade;
     private Grupo grupo;
     private List<Post> listaMensajes;
-
+    private Post nuevoPost;
+    private Usuario usuario;
     /**
      * Creates a new instance of MensajesBean
      */
@@ -33,10 +43,36 @@ public class MensajesBean {
     
     @PostConstruct
     public void init(){
-        grupo=gruposBean.getGruposeleccionado();
-        listaMensajes=grupo.getPostList();
+        this.grupo=this.postBean.getGrupoSeleccionado();
+        this.listaMensajes=this.grupo.getPostList();
+        this.usuario = this.gruposBean.getUsuario();
+        this.nuevoPost = new Post();
+    }
+    
+    public String addMensaje(){
+        return "crearMensaje";
     }
 
+    public String doGuardarMensaje(){
+        this.nuevoPost.setId(0);
+        this.nuevoPost.setDestinatario(0);
+        this.nuevoPost.setUsuarioId(usuario);
+        this.nuevoPost.setUsuarioId1(usuario);
+        this.nuevoPost.setFecha(new Date());
+        
+        List<Post> postsGrupo = this.grupo.getPostList();
+        if(postsGrupo == null){
+            postsGrupo = new ArrayList();
+        }
+        postsGrupo.add(nuevoPost);
+        this.grupo.setPostList(postsGrupo);
+        listaMensajes = postsGrupo;
+        this.postFacade.create(nuevoPost);
+        this.grupoFacade.edit(grupo);
+        
+        return "mensajes";
+    }
+    
     public GruposBean getGruposBean() {
         return gruposBean;
     }
@@ -60,5 +96,23 @@ public class MensajesBean {
     public void setListaMensajes(List<Post> listaMensajes) {
         this.listaMensajes = listaMensajes;
     }
+
+    public Post getNuevoPost() {
+        return nuevoPost;
+    }
+
+    public void setNuevoPost(Post nuevoPost) {
+        this.nuevoPost = nuevoPost;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    
+    
     
 }

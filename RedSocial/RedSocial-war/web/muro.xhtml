@@ -121,7 +121,7 @@
                 </h:column>
                 
                 <h:column>
-                    <h:commandButton value="Ver Mensajes" action="#{gruposBean.doVerMensajes(grupo)}"/>
+                    <h:commandButton value="#{msgs.verMensajes}" action="#{postBean.doVerMensajes(grupo)}"/>
                 </h:column>
 
             </h:dataTable>

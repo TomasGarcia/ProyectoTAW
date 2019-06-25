@@ -33,7 +33,8 @@ public class PostFacade extends AbstractFacade<Post> {
     
     public List<Post> buscarPorPostsUsuario(int id){
         Query q;
-        q = this.em.createQuery("select p from Post p where p.usuarioId.id = :id or p.usuarioId1.id = :id or p.usuarioId1.id = 1 "
+        q = this.em.createQuery("select p from Post p where (p.usuarioId.id != p.usuarioId1.id) and "
+                + "(p.usuarioId.id = :id or p.usuarioId1.id = :id or p.usuarioId1.id = 1) "
                 + "order by p.fecha desc, p.id desc");
         q.setParameter("id", id);
         return q.getResultList();
