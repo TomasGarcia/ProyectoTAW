@@ -9,7 +9,8 @@
     <h:body>
         <h2>#{msgs.mensajesGrupo}</h2>
         <h:form>
-            <h:commandButton value="#{msgs.publicar}" action="#{mensajesBean.addMensaje()}"/>
+            <h:commandButton value="#{msgs.publicar}" action="#{mensajesBean.addMensaje()}"/><br/>
+            
             <h:dataTable id="tMensajes" value="#{mensajesBean.listaMensajes}" var="mensaje" border="1">
                 <h:column>
                     <f:facet name="header">
@@ -33,7 +34,13 @@
                     <f:facet name="header">
                         #{msgs.fecha}
                     </f:facet>
-                    #{mensaje.fecha}
+                    <h:outputText value="#{mensaje.fecha}">
+                        <f:convertDateTime pattern = "dd-MM-yyyy" />
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <h:commandButton value="#{msgs.eliminar}" action="#{mensajesBean.doEliminar(mensaje)}" 
+                                     rendered="#{mensajesBean.puedeEliminar(mensaje) eq true}" />
                 </h:column>
             </h:dataTable>
         </h:form>

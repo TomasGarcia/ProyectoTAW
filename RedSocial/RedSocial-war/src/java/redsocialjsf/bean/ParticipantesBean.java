@@ -7,9 +7,12 @@ package redsocialjsf.bean;
 
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import redsocialjsf.dao.GrupoFacade;
+import redsocialjsf.entity.Grupo;
 import redsocialjsf.entity.Usuario;
 
 /**
@@ -19,8 +22,12 @@ import redsocialjsf.entity.Usuario;
 @Named(value = "participantesBean")
 @RequestScoped
 public class ParticipantesBean {
-@Inject GruposBean gruposBean;
-private List<Usuario> participantes;
+    @EJB GrupoFacade grupoFacade;
+    @Inject GruposBean gruposBean;
+    @Inject PostBean postBean;
+    private List<Usuario> participantes;
+    private Usuario usuario;
+    private Grupo grupo;
 
     public GruposBean getGruposBean() {
         return gruposBean;
@@ -37,6 +44,16 @@ private List<Usuario> participantes;
     public void setParticipantes(List<Usuario> participantes) {
         this.participantes = participantes;
     }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    
+    
     /**
      * Creates a new instance of participantesBean
      */
@@ -45,11 +62,24 @@ private List<Usuario> participantes;
     
     @PostConstruct
     public void init(){
-        participantes=gruposBean.getGruposeleccionado().getUsuarioList();
+        this.usuario = postBean.getUsuario();
+        this.grupo = this.postBean.getGrupoSeleccionado();
+        this.participantes = this.grupo.getUsuarioList();
     }
     
     public String volver(){
         return "muro";
     }
     
+    public String doEliminar(Usuario u){
+        this.participantes.remove(u);
+        this.grupo.setUsuarioList(participantes);
+        this.grupoFacade.edit(grupo);
+        return null;
+    }
+    
+    public Boolean puedeEliminar(Usuario u){
+        return (this.grupo.getUsuarioId().getId().equals(this.usuario.getId()) && !this.usuario.getId().equals(u.getId()))
+                || (this.usuario.getId().equals(u.getId()) && !this.grupo.getUsuarioId().getId().equals(u.getId()));
+    }
 }

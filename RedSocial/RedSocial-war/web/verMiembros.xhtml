@@ -7,24 +7,27 @@
         <title>#{msgs.listaMiembros}</title>
     </h:head>
     <h:body>
-        <h:dataTable id="tMiembros" value="#{participantesBean.participantes}" var="participante" border="1">
-            
-            <h:column>
-                <f:facet name="header">
-                    #{msgs.usuario}
-                </f:facet>
-                #{participante.username}
-            </h:column>
-            
-            <h:column>
-                <f:facet name="header">
-                    #{msgs.nombre}
-                </f:facet>
-                #{participante.nombre}
-            </h:column>
-            
-        </h:dataTable>
-        
+        <h:form>
+            <h:dataTable id="tMiembros" value="#{participantesBean.participantes}" var="participante" border="1">
+
+                <h:column>
+                    <f:facet name="header">
+                        #{msgs.usuario}
+                    </f:facet>
+                    #{participante.username}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        #{msgs.nombre}
+                    </f:facet>
+                    #{participante.nombre}
+                </h:column>
+                <h:column>
+                    <h:commandButton value="#{msgs.eliminar}" action="#{participantesBean.doEliminar(participante)}" rendered="#{participantesBean.puedeEliminar(participante) eq true}"/>
+                </h:column>
+            </h:dataTable>
+        </h:form>
     </h:body>
 </html>
 

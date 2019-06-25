@@ -73,6 +73,21 @@ public class MensajesBean {
         return "mensajes";
     }
     
+    public String doEliminar(Post p){
+        this.listaMensajes.remove(p);
+        this.grupo.setPostList(listaMensajes);
+        this.grupoFacade.edit(grupo);
+        this.postFacade.remove(p);
+        return null;
+    }
+    
+    public Boolean puedeEliminar(Post p){
+       Boolean postSuyo = p.getUsuarioId().getId().equals(this.usuario.getId());
+       Boolean creadorGrupo = this.grupo.getUsuarioId().getId().equals(this.usuario.getId()) ;
+       return postSuyo || creadorGrupo;
+              
+    }
+    
     public GruposBean getGruposBean() {
         return gruposBean;
     }

@@ -137,9 +137,4 @@ public class GruposBean {
     public String doVolver(){
         return "muro";
     }
-    
-    public String verMiembros(Grupo g){
-        this.gruposeleccionado=g;
-        return "verMiembros";
-    }
 }

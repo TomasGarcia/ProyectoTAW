@@ -76,6 +76,11 @@ public class PostBean implements Serializable{
         return "mensajes";
     }
     
+     public String verMiembros(Grupo g){
+        this.grupoSeleccionado=g;
+        return "verMiembros";
+    }
+    
     public LoginBean getLoginBean() {
         return loginBean;
     }
