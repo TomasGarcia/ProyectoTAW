@@ -7,6 +7,7 @@
         <title>#{msgs.mensajesGrupo}</title>
     </h:head>
     <h:body>
+        <h2>#{msgs.mensajesGrupo}</h2>
         <h:form>
             <h:commandButton value="#{msgs.publicar}" action="#{mensajesBean.addMensaje()}"/>
             <h:dataTable id="tMensajes" value="#{mensajesBean.listaMensajes}" var="mensaje" border="1">
