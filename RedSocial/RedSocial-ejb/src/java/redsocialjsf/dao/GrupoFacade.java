@@ -59,10 +59,11 @@ public class GrupoFacade extends AbstractFacade<Grupo> {
         
     }
     
-    public List<Grupo> buscarPorNombre(String n){
+    public List<Grupo> buscarPorNombre(String n,int id){
         Query q;
-        q=this.em.createQuery("select g from Grupo g where g.nombre like :n");
+        q = this.em.createQuery("select g from Grupo g join g.usuarioList l where g.nombre like :n and :id = l.id");
         q.setParameter("n",n + "%");
+        q.setParameter("id", id);
         return q.getResultList();
         
     }

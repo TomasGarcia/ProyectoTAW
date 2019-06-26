@@ -77,7 +77,7 @@ public class PerfilBean{
         this.usuarioFacade.edit(this.usuario);
         this.postBean.setUsuario(usuario);
         this.loginBean.setUsuario(usuario);
-        return "perfil";
+        return null;
     }
     
     public String doVolver(){
