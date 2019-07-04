@@ -42,7 +42,13 @@
                     <h:commandButton value="#{msgs.eliminar}" action="#{mensajesBean.doEliminar(mensaje)}" 
                                      rendered="#{mensajesBean.puedeEliminar(mensaje) eq true}" />
                 </h:column>
+                
             </h:dataTable>
+            
+        </h:form>
+        
+        <h:form>
+            <h:commandButton value="#{msgs.volver}" action="#{gruposBean.doVolver()}"/> <br></br>
         </h:form>
     </h:body>
 </html>
