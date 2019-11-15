@@ -67,7 +67,7 @@ public class GruposBean {
 
     public String doFiltrarPorNombre() {
         if (!nombreIntroducido.equals("")) {
-            listaGrupos = grupoFacade.buscarPorNombre(nombreIntroducido);
+            listaGrupos = grupoFacade.buscarPorNombre(nombreIntroducido,this.usuario.getId());
         } else {
             listaGrupos = this.grupoFacade.buscarPorCreadorYMiembro(this.usuario.getId());
         }

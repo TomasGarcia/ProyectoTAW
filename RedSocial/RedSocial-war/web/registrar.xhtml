@@ -16,23 +16,50 @@
         <h1>#{msgs.relleneDatos}</h1>
         <h:form>
             <div align="center">
-                #{msgs.usuario}: <h:inputText value="#{registrarBean.username}" id="user" binding="#{registrarBean.user}"/>
+                #{msgs.usuario}: <h:inputText value="#{registrarBean.username}" id="user" binding="#{registrarBean.user}">
+                    <f:validateRequired/>
+                    <f:validateLength maximum="25"/>
+                </h:inputText>
                 <h:message for="user" style = "color:red"/><br/>
-                Email:<h:inputText value="#{registrarBean.email}" id="mail" binding="#{registrarBean.mail}"/>
+               
+                Email:<h:inputText value="#{registrarBean.email}" id="mail" binding="#{registrarBean.mail}">
+                    <f:validateRequired/>
+                    <f:validateLength maximum="30"/>
+                </h:inputText>
                 <h:message for="mail" style = "color:red"/><br/>
-                #{msgs.password}:<h:inputSecret value="#{registrarBean.password}"/><br/>
-                #{msgs.passwordAgain}:<h:inputSecret value="#{registrarBean.passwordConfirm}" id="passConfirm" binding="#{registrarBean.pass}"/>
+                
+                #{msgs.password}:<h:inputSecret value="#{registrarBean.password}">
+                    <f:validateLength maximum="30"/>
+                    <f:validateRequired/>
+                </h:inputSecret>
+                <br/>
+                    
+                
+                #{msgs.passwordAgain}:<h:inputSecret value="#{registrarBean.passwordConfirm}" id="passConfirm" binding="#{registrarBean.pass}">
+                    <f:validateRequired/>
+                </h:inputSecret>
                 <h:message for="passConfirm" style = "color:red"/><br/>
-                #{msgs.nombre}:<h:inputText value="#{registrarBean.nombre}"/><br/>
+                
+                #{msgs.nombre}:<h:inputText value="#{registrarBean.nombre}">
+                    <f:validateLength maximum="40"/>
+                    <f:validateRequired/>
+                </h:inputText>
+                <br/>
+                
                 #{msgs.apellido}:<h:inputText value="#{registrarBean.apellido}"/><br/>
                 <div class="littleText">
                     * dd-mm-yyyy *
                 </div>
+                
                 #{msgs.fechaNac}:
                 <h:inputText value="#{registrarBean.fecha_nac}">
                     <f:convertDateTime pattern = "dd-MM-yyyy" />
+                    <f:validateRequired/>
                 </h:inputText><br/>
-                #{msgs.pais}: <h:inputText value="#{registrarBean.pais}"/><br/>
+                
+                #{msgs.pais}: <h:inputText value="#{registrarBean.pais}">
+                <f:validateLength maximum="25"/>
+                </h:inputText><br/>
 
                 <h:commandButton value="#{msgs.registrate}" action="#{registrarBean.doRegister()}"/>
             </div>
